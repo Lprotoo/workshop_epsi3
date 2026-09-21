@@ -209,7 +209,7 @@ async def get_history():
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    """Handle chat with OpenRouter AI - NO FALLBACK"""
+    """Handle chat with OpenRouter AI - requires API key"""
     if not OPENROUTER_API_KEY:
         raise HTTPException(
             status_code=400, 

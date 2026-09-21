@@ -129,7 +129,7 @@ Le questionnaire comprend **5 catégories** avec des questions spécifiques à l
 - **Réponses adaptées** en fonction des dernières réponses au questionnaire
 - **Mémoire de conversation** pour maintenir le contexte
 - **Réponses par mots-clés** pour les questions courantes
-- **Fallback intelligent** si pas de données de questionnaire
+
 
 ### 📊 Tableau de bord
 - **Bilan rapide** (énergie, stress, sommeil, dernière réponse)
@@ -159,7 +159,7 @@ Pour utiliser l'API OpenRouter, créez un fichier `.env` dans le dossier `agent/
 OPENROUTER_API_KEY=votre_clé_api_ici
 ```
 
-> **Note** : L'application fonctionne aussi sans clé API grâce à un système de fallback intégré.
+> **Note** : L'application **nécessite** une clé API OpenRouter pour fonctionner. Aucune solution de secours (fallback) n'est disponible.
 
 ### 3. Lancement du backend
 
@@ -272,7 +272,7 @@ Puis accédez à `http://localhost:8001`
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Backend**: FastAPI, Python 3.7+
-- **IA**: OpenRouter API (optionnel) + Fallback intégré
+- **IA**: OpenRouter API (obligatoire)
 - **Stockage**: JSON
 - **Design**: CSS moderne avec variables, animations, responsive
 
@@ -282,7 +282,7 @@ Projet réalisé dans le cadre d'un cours EPSI. L'architecture illustre :
 - La séparation frontend/backend
 - L'utilisation d'une API REST
 - Le stockage de données simple
-- L'intégration d'une IA avec fallback
+- L'intégration d'une IA avec OpenRouter API
 - Le développement d'une interface utilisateur complète
 
 ## 📜 Licence

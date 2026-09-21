@@ -23,22 +23,22 @@ class AIAgent:
         # System prompt for psychological analysis
         self.system_prompt = """
         Tu es un assistant psychologique bienveillant. 
-        Analyse les réponses du questionnaire quotidien et fournis une évaluation 
-        de l'état psychologique, les signes détectés, et une suggestion d'exercice 
-        pour améliorer le bien-être mental.
+        Analyse les reponses du questionnaire quotidien et fournis une evaluation 
+        de l'etat psychologique, les signes detectes, et une suggestion d'exercice 
+        pour ameliorer le bien-etre mental.
         
-        Format de réponse attendu (JSON) :
+        Format de reponse attendu (JSON) :
         {
-            "psychological_state": "état psychologique (ex: bon, stressé, déprimé, équilibré)",
-            "detected_signs": ["liste des signes détectés"],
-            "exercise_suggestion": "suggestion d'exercice concret et réalisable"
+            "psychological_state": "etat psychologique (ex: bon, stresse, deprime, equilibre)",
+            "detected_signs": ["liste des signes detectes"],
+            "exercise_suggestion": "suggestion d'exercice concret et realisable"
         }
         
-        Règles :
+        Regles :
         - Sois empathique et constructif
-        - Base tes réponses sur les données fournies
+        - Base tes reponses sur les donnees fournies
         - Propose des exercices simples et accessibles
-        - Réponds UNIQUEMENT en JSON valide
+        - Reponds UNIQUEMENT en JSON valide
         """
     
     def analyze_response(self, sleep_hours: float, mood: str, stress_level: int, 
@@ -56,17 +56,17 @@ class AIAgent:
             Dictionary with psychological analysis
         """
         if not self.api_key:
-            raise ValueError("OpenRouter API key is required")
+            raise ValueError("OpenRouter API key is required. No fallback available.")
         
         # Prepare user message
         user_message = f"""
-        Analyse cette réponse de questionnaire quotidien :
+        Analyse cette reponse de questionnaire quotidien :
         - Heures de sommeil : {sleep_hours}
         - Humeur : {mood}
         - Niveau de stress : {stress_level}/10
         - Texte libre : {free_text or 'Aucun'}
         
-        Fournis ton analyse au format JSON comme spécifié dans les instructions.
+        Fournis ton analyse au format JSON comme specifie dans les instructions.
         """
         
         # Prepare request payload
@@ -121,75 +121,14 @@ class AIAgent:
             else:
                 return {
                     "psychological_state": "inconnu",
-                    "detected_signs": ["pas de réponse de l'AI"],
+                    "detected_signs": ["pas de reponse de l'AI"],
                     "exercise_suggestion": "Essaie de prendre un moment pour toi",
                     "timestamp": datetime.now().isoformat()
                 }
                 
         except requests.exceptions.RequestException as e:
-            # Fallback analysis if API fails
-            print(f"AI API error: {e}")
-            return self._fallback_analysis(sleep_hours, mood, stress_level, free_text)
-    
-    def _fallback_analysis(self, sleep_hours: float, mood: str, stress_level: int, 
-                          free_text: Optional[str] = None) -> Dict[str, Any]:
-        """
-        Fallback analysis when AI API is unavailable
-        
-        Args:
-            sleep_hours: Number of hours slept
-            mood: Mood description
-            stress_level: Stress level (0-10)
-            free_text: Optional free text
-            
-        Returns:
-            Basic analysis based on simple rules
-        """
-        detected_signs = []
-        
-        # Analyze sleep
-        if sleep_hours < 6:
-            detected_signs.append("manque de sommeil")
-        elif sleep_hours > 9:
-            detected_signs.append("excès de sommeil")
-        
-        # Analyze stress
-        if stress_level >= 8:
-            detected_signs.append("stress élevé")
-        elif stress_level >= 5:
-            detected_signs.append("stress modéré")
-        
-        # Analyze mood
-        mood_lower = mood.lower()
-        if any(word in mood_lower for word in ['triste', 'déprimé', 'mauvais']):
-            detected_signs.append("humeur négative")
-        elif any(word in mood_lower for word in ['joyeux', 'bon', 'excellent']):
-            detected_signs.append("humeur positive")
-        
-        # Determine psychological state
-        if stress_level >= 7 or sleep_hours < 5:
-            psychological_state = "fatigué/stressé"
-        elif stress_level <= 3 and sleep_hours >= 7:
-            psychological_state = "équilibré"
-        else:
-            psychological_state = "normal"
-        
-        # Generate exercise suggestion
-        if stress_level >= 7:
-            exercise_suggestion = "Pratique 10 minutes de respiration profonde ou de méditation"
-        elif sleep_hours < 6:
-            exercise_suggestion = "Essaie de te coucher plus tôt ce soir et de te détendre"
-        elif any(word in mood_lower for word in ['triste', 'déprimé']):
-            exercise_suggestion = "Fais une activité qui te plaît : marche, musique, ou appel à un ami"
-        else:
-            exercise_suggestion = "Continue à prendre soin de toi avec une routine équilibrée"
-        
-        return {
-            "psychological_state": psychological_state,
-            "detected_signs": detected_signs or ["aucune anomalie détectée"],
-            "exercise_suggestion": exercise_suggestion,
-            "timestamp": datetime.now().isoformat()
-        }
+            # No fallback - AI is required
+            raise ValueError(f"AI API error: {e}. OpenRouter API is required for this application.")
 
 # Example usage
 if __name__ == "__main__":
@@ -199,7 +138,7 @@ if __name__ == "__main__":
     # Example analysis
     analysis = agent.analyze_response(
         sleep_hours=6.5,
-        mood="un peu stressé",
+        mood="un peu stresse",
         stress_level=7,
         free_text="J'ai beaucoup de travail en ce moment"
     )

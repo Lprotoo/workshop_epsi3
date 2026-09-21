@@ -69,21 +69,8 @@ form.addEventListener('submit', async function(e) {
             throw new Error('Erreur lors de la soumission du questionnaire');
         }
         
-        // Perform AI analysis
-        const analysis = await performSpaceAnalysis(formData);
-        
-        // Store analysis
-        const storeResponse = await fetch(`${API_BASE_URL}/store-analysis`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(analysis)
-        });
-        
-        if (!storeResponse.ok) {
-            throw new Error('Erreur lors du stockage de l\'analyse');
-        }
+        // Redirect to main page - AI analysis will be performed by backend when needed
+        // The analysis is now done via the AI agent which requires OpenRouter API
         
         // Show success message
         showMessage('Questionnaire soumis avec succès ! Redirection vers le chat...', 'success');

@@ -1,4 +1,4 @@
-// PSYCHOSPACE - Chat IA avec OpenRouter (PAS DE FALLBACK)
+// PSYCHOSPACE - Chat IA avec OpenRouter
 const API_BASE_URL = 'http://localhost:8000';
 
 // DOM Elements
