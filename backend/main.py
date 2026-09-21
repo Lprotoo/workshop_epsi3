@@ -5,6 +5,7 @@ import json
 import os
 from datetime import datetime
 from typing import Optional, List, Dict, Any
+import requests
 
 app = FastAPI()
 
@@ -18,6 +19,11 @@ app.add_middleware(
 )
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "data.json")
+
+# OpenRouter configuration
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
+OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+MODEL = "mistralai/mistral-7b-instruct:free"
 
 # Initialize data file if it doesn't exist
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
@@ -203,188 +209,111 @@ async def get_history():
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    """Handle chat with AI agent"""
+    """Handle chat with OpenRouter AI - NO FALLBACK"""
+    if not OPENROUTER_API_KEY:
+        raise HTTPException(
+            status_code=400, 
+            detail="OpenRouter API key is required. Please set OPENROUTER_API_KEY environment variable"
+        )
+    
     try:
-        # For demo purposes, we'll use a fallback response
-        # In production, this would call the AI agent
-        
         # Get the latest questionnaire data for context
         latest_questionnaire = await get_latest_questionnaire()
         
-        # Build context
-        context = """
-        Contexte de l'astronaute :
-        """
+        # Build context from questionnaire
+        context_prompt = build_context_prompt(latest_questionnaire)
         
-        if latest_questionnaire:
-            context += f"""
-        - Niveau d'énergie : {latest_questionnaire.get('energy_level', 'non spécifié')}/10
-        - Heures de sommeil : {latest_questionnaire.get('sleep_hours', 'non spécifié')}h
-        - Niveau de stress : {latest_questionnaire.get('stress_level', 'non spécifié')}/10
-        - Symptômes physiques : {latest_questionnaire.get('head_symptoms', 'Aucun')}, {latest_questionnaire.get('microgravity_symptoms', 'Aucun')}
-        - Hydratation : {latest_questionnaire.get('hydration_goal', 'non spécifié')}
-        - Nutrition : {latest_questionnaire.get('caloric_intake', 'non spécifié')}
-        - Ambiance équipage : {latest_questionnaire.get('crew_mood', 'non spécifié')}
-        - Anomalies environnementales : {latest_questionnaire.get('environment_anomalies', 'Aucune')}
-        """
+        # Prepare messages for AI
+        messages = request.messages
         
-        # Get user message
-        user_message = request.messages[-1].get('content', '') if request.messages else ''
+        # Add system message with context if not already present
+        if not any(msg.get("role") == "system" for msg in messages):
+            system_message = {
+                "role": "system",
+                "content": f"""Tu es un assistant IA spécialisé pour les astronautes en mission spatiale. 
+Tu donnes des conseils médicaux, psychologiques et techniques adaptés à l'environnement spatial. 
+Sois précis, empathique et professionnel. Réponds UNIQUEMENT en français.
+
+{context_prompt}
+"""
+            }
+            messages = [system_message] + messages
         
-        # Generate fallback response based on context
-        response = generate_contextual_response(user_message, context)
+        # Call OpenRouter API
+        payload = {
+            "model": MODEL,
+            "messages": messages,
+            "temperature": 0.7,
+            "max_tokens": 1500
+        }
         
-        return {"response": response}
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Content-Type": "application/json"
+        }
         
+        response = requests.post(
+            OPENROUTER_API_URL,
+            headers=headers,
+            json=payload,
+            timeout=60
+        )
+        
+        response.raise_for_status()
+        
+        result = response.json()
+        
+        if 'choices' not in result or len(result['choices']) == 0:
+            raise HTTPException(status_code=500, detail="No response from AI")
+        
+        ai_response = result['choices'][0]['message']['content']
+        
+        return {"response": ai_response}
+        
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=500, detail=f"AI API error: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-def generate_contextual_response(user_message: str, context: str) -> str:
-    """Generate a response based on the user message and context"""
-    message_lower = user_message.lower()
+def build_context_prompt(questionnaire_data: dict) -> str:
+    """Build context prompt from questionnaire data"""
+    if not questionnaire_data:
+        return "Contexte : Aucun questionnaire rempli pour le moment."
     
-    # Check for keywords and provide contextual responses
-    if any(word in message_lower for word in ['sommeil', 'dormir', 'nuit', 'repos']):
-        return f"""Pour améliorer votre sommeil en microgravité :
-
-1. **Maintenez un horaire régulier** de coucher et de réveil
-2. Utilisez des oreillers et sangles pour vous ancrer
-3. Évitez les écrans avant le sommeil
-4. Pratiquez des exercices de respiration profonde
-5. Réduisez la caféine après 14h
-
-{context}
-
-N'oubliez pas de remplir le questionnaire quotidien pour des conseils plus personnalisés !"""
+    context_parts = []
     
-    if any(word in message_lower for word in ['stress', 'anxiété', 'anxiete', 'pression', 'nerveux']):
-        return f"""Pour gérer le stress en mission spatiale :
-
-1. Parlez-en à votre équipage ou au contrôle au sol
-2. Pratiquez la méditation ou des exercices de relaxation
-3. Maintenez une routine quotidienne
-4. Faites de l'exercice physique régulièrement
-5. Utilisez les ressources psychologiques disponibles
-
-{context}
-
-Votre niveau de stress actuel est important à surveiller."""
+    # Bilan physique
+    context_parts.append(f"Niveau d'énergie : {questionnaire_data.get('energy_level', '?')}/10")
+    if questionnaire_data.get('head_symptoms', 'aucun') != 'aucun':
+        context_parts.append(f"Symptômes crâniens : {questionnaire_data.get('head_symptoms')}")
+    if questionnaire_data.get('microgravity_symptoms', 'aucun') != 'aucun':
+        context_parts.append(f"Symptômes microgravité : {questionnaire_data.get('microgravity_symptoms')}")
     
-    if any(word in message_lower for word in ['nausée', 'nausees', 'vertige', 'désorientation', 'étourdi']):
-        return f"""Les symptômes de nausée et désorientation sont courants en microgravité :
-
-1. Fixez un point stable à l'horizon
-2. Évitez les mouvements brusques de la tête
-3. Prenez des petits repas fréquents plutôt que de gros repas
-4. Restez hydraté
-5. Consultez le médecin de bord si les symptômes persistent
-
-{context}
-
-Ces symptômes sont souvent temporaires et s'améliorent avec l'adaptation."""
+    # Sommeil
+    context_parts.append(f"Heures de sommeil : {questionnaire_data.get('sleep_hours', '?')}h")
+    if questionnaire_data.get('sleep_difficulties', 'aucun') != 'aucun':
+        context_parts.append(f"Difficultés sommeil : {questionnaire_data.get('sleep_difficulties')}")
+    context_parts.append(f"Vigilance : {questionnaire_data.get('vigilance_level', '?')}")
     
-    if any(word in message_lower for word in ['hydratation', 'eau', 'boire', 'soif']):
-        return f"""L'hydratation est cruciale en microgravité :
-
-1. Buvez régulièrement, même sans soif
-2. Surveillez la couleur de votre urine (doit être claire)
-3. Consommez des aliments riches en eau (fruits, légumes)
-4. Évitez l'excès de caféine et d'alcool
-5. Utilisez une paille pour boire plus facilement
-
-{context}
-
-Votre apport hydrique a-t-il été suffisant aujourd'hui ?"""
+    # Nutrition
+    context_parts.append(f"Hydratation : {questionnaire_data.get('hydration_goal', '?')}")
+    context_parts.append(f"Apport calorique : {questionnaire_data.get('caloric_intake', '?')}")
+    if questionnaire_data.get('digestive_issues', 'aucun') != 'aucun':
+        context_parts.append(f"Troubles digestifs : {questionnaire_data.get('digestive_issues')}")
     
-    if any(word in message_lower for word in ['nutrition', 'manger', 'ration', 'alimentation', 'faim']):
-        return f"""Pour une nutrition optimale dans l'espace :
-
-1. Consommez toutes vos rations pour éviter les carences
-2. Variez les aliments disponibles
-3. Mangez régulièrement pour maintenir votre énergie
-4. Surveillez votre apport en protéines et vitamines
-5. Signalez tout problème d'appétit ou digestif
-
-{context}
-
-La nutrition est essentielle pour maintenir vos performances."""
+    # Santé mentale
+    context_parts.append(f"Niveau de stress : {questionnaire_data.get('stress_level', '?')}/10")
+    context_parts.append(f"Ambiance équipage : {questionnaire_data.get('crew_mood', '?')}")
+    context_parts.append(f"Besoins sociaux : {questionnaire_data.get('social_needs', '?')}")
     
-    if any(word in message_lower for word in ['exercice', 'sport', 'entraînement', 'musculation']):
-        return f"""L'exercice en microgravité est crucial pour :
-
-1. Maintenir la masse musculaire
-2. Prévenir la perte osseuse
-3. Améliorer la circulation sanguine
-4. Réduire le stress
-5. Maintenir un bon moral
-
-{context}
-
-Si vous ressentez des inconforts pendant l'exercice, adaptez l'intensité et consultez le médecin."""
+    # Environnement
+    if questionnaire_data.get('environment_anomalies', 'aucun') != 'aucun':
+        context_parts.append(f"Anomalies environnementales : {questionnaire_data.get('environment_anomalies')}")
+    if questionnaire_data.get('incident_report'):
+        context_parts.append(f"Incident signalé : {questionnaire_data.get('incident_report')}")
     
-    if any(word in message_lower for word in ['équipage', 'crew', 'collègue', 'coéquipier', 'communication']):
-        return f"""La dynamique d'équipage est essentielle pour une mission réussie :
-
-1. Communiquez ouvertement avec vos collègues
-2. Participez aux activités de groupe
-3. Respectez l'espace personnel de chacun
-4. Soyez patient et compréhensif
-5. Signalez tout conflit au commandant
-
-{context}
-
-Une bonne cohésion d'équipage améliore la sécurité et l'efficacité."""
-    
-    if any(word in message_lower for word in ['environnement', 'module', 'bruit', 'température', 'odeur', 'sécurité']):
-        return f"""Pour un environnement de travail optimal :
-
-1. Signalez immédiatement toute anomalie (bruit, température, odeur)
-2. Utilisez les équipements de protection individuelle
-3. Maintenez votre espace de travail propre et organisé
-4. Vérifiez régulièrement les systèmes de support vie
-5. Collaborez avec vos collègues pour maintenir un bon environnement
-
-{context}
-
-La sécurité à bord est la priorité absolue."""
-    
-    if any(word in message_lower for word in ['bonjour', 'salut', 'hi', 'hello', 'hey']):
-        return f"""Bonjour astronaute ! 👨‍🚀 Comment puis-je vous aider aujourd'hui ?
-
-Je suis votre assistant IA dédié au suivi spatial. Je peux vous aider avec :
-- La gestion du sommeil en microgravité
-- La nutrition et l'hydratation
-- Le stress et la santé mentale
-- L'exercice physique
-- La dynamique d'équipage
-- L'environnement à bord
-
-{context}
-
-N'oubliez pas de remplir votre questionnaire quotidien pour que je puisse vous fournir des conseils personnalisés !"""
-    
-    if any(word in message_lower for word in ['merci', 'thank', 'remercie', 'thanks']):
-        return """Avec plaisir ! 😊 N'hésitez pas si vous avez d'autres questions.
-
-Bon vol et prenez soin de vous à bord !"""
-    
-    # Generic response
-    return f"""Je comprends votre question : "{user_message}"
-
-Pour vous fournir la meilleure réponse possible, pourriez-vous préciser un peu plus ?
-
-Je peux vous donner des conseils sur :
-- La gestion du sommeil en microgravité
-- La nutrition et l'hydratation
-- Le stress et la santé mentale
-- L'exercice physique
-- La dynamique d'équipage
-- L'environnement à bord
-
-{context}
-
-N'oubliez pas que plus vous remplissez régulièrement le questionnaire, plus mes réponses seront adaptées à votre situation actuelle."""
+    return "Contexte actuel de l'astronaute :\n" + "\n".join(context_parts)
 
 @app.get("/")
 async def root():
-    return {"message": "PSYCHOSPACE Backend API"}
+    return {"message": "PSYCHOSPACE Backend API - OpenRouter AI enabled"}
