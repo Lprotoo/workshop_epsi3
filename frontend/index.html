@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSYCHOSPACE - Bien-être mental</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PSYCHOSPACE</h1>
+            <p class="subtitle">Votre espace de bien-être mental quotidien</p>
+        </header>
+
+        <main>
+            <!-- Questionnaire Section -->
+            <section id="questionnaire-section" class="section">
+                <h2>📝 Questionnaire Quotidien</h2>
+                
+                <form id="questionnaire-form" class="form">
+                    <div class="form-group">
+                        <label for="sleep-hours">Heures de sommeil :</label>
+                        <input type="number" id="sleep-hours" name="sleep-hours" min="0" max="24" step="0.5" required>
+                        <span class="unit">heures</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mood">Humeur :</label>
+                        <select id="mood" name="mood" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="excellent">Excellent(e)</option>
+                            <option value="bon">Bon(ne)</option>
+                            <option value="neutre">Neutre</option>
+                            <option value="un peu stressé">Un peu stressé(e)</option>
+                            <option value="stressé">Stressé(e)</option>
+                            <option value="triste">Triste</option>
+                            <option value="déprimé">Déprimé(e)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stress-level">Niveau de stress (0-10) :</label>
+                        <input type="range" id="stress-level" name="stress-level" min="0" max="10" value="5">
+                        <span id="stress-value">5</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="free-text">Texte libre (optionnel) :</label>
+                        <textarea id="free-text" name="free-text" rows="3" placeholder="Partagez vos pensées..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="btn-text">Soumettre</span>
+                        <span class="btn-loading">Analyse en cours...</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Recommendation Section -->
+            <section id="recommendation-section" class="section hidden">
+                <h2>💡 Recommandation du jour</h2>
+                
+                <div id="recommendation-content" class="recommendation-card">
+                    <div class="recommendation-item">
+                        <span class="label">État psychologique :</span>
+                        <span id="psychological-state" class="value">-</span>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <span class="label">Signes détectés :</span>
+                        <span id="detected-signs" class="value">-</span>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <span class="label">Suggestion :</span>
+                        <span id="exercise-suggestion" class="value">-</span>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <span class="label">Date :</span>
+                        <span id="recommendation-timestamp" class="value">-</span>
+                    </div>
+                </div>
+                
+                <button id="refresh-recommendation" class="btn-secondary">
+                    Actualiser la recommandation
+                </button>
+            </section>
+
+            <!-- History Section -->
+            <section id="history-section" class="section">
+                <h2>📊 Historique</h2>
+                
+                <div id="history-content" class="history-container">
+                    <p class="empty-message">Aucun historique disponible pour le moment.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>PSYCHOSPACE - Projet de cours EPSI</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
