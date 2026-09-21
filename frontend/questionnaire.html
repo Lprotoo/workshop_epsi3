@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSYCHOSPACE - Questionnaire Spatial</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PSYCHOSPACE</h1>
+            <p class="subtitle">Questionnaire de Suivi Spatial</p>
+        </header>
+
+        <main>
+            <section class="section">
+                <h2>📋 Questionnaire Quotidien</h2>
+                <p class="description">
+                    Remplissez ce questionnaire pour permettre à l'IA d'adapter ses réponses 
+                    à votre état actuel. Vos données restent confidentielles.
+                </p>
+                
+                <form id="space-questionnaire-form" class="form">
+                    <!-- Bilan physique & paramètres vitaux -->
+                    <fieldset class="form-section">
+                        <legend>🩺 Bilan physique & paramètres vitaux</legend>
+                        
+                        <div class="form-group">
+                            <label for="energy-level">Sur une échelle de 1 à 10, quel est ton niveau d'énergie global ce matin ?</label>
+                            <input type="range" id="energy-level" name="energy_level" min="1" max="10" value="5">
+                            <span id="energy-value">5</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="head-symptoms">As-tu ressenti des céphalées, des troubles de la vision ou des sensations de pression intracrânienne ces dernières 24 heures ?</label>
+                            <select id="head-symptoms" name="head_symptoms" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucun symptôme</option>
+                                <option value="cephalees">Céphalées légères</option>
+                                <option value="troubles_vision">Troubles de la vision</option>
+                                <option value="pression">Sensations de pression</option>
+                                <option value="plusieurs">Plusieurs symptômes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="microgravity-symptoms">As-tu éprouvé des nausées, de la désorientation ou des vertiges liés à la microgravité aujourd'hui ?</label>
+                            <select id="microgravity-symptoms" name="microgravity_symptoms" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucun symptôme</option>
+                                <option value="nausees">Nausées</option>
+                                <option value="desorientation">Désorientation</option>
+                                <option value="vertiges">Vertiges</option>
+                                <option value="plusieurs">Plusieurs symptômes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exercise-discomfort">As-tu rencontré des inconforts physiques particuliers lors de tes séances d'exercice obligatoire ?</label>
+                            <select id="exercise-discomfort" name="exercise_discomfort" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucun inconfort</option>
+                                <option value="douleurs_articulaires">Douleurs articulaires</option>
+                                <option value="essoufflement">Essoufflement anormal</option>
+                                <option value="fatigue_extreme">Fatigue extrême</option>
+                                <option value="autre">Autre inconfort</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mild-symptoms">Signales-tu des symptômes légers : éruptions cutanées, irritations oculaires, sécheresse ou saignements de nez ?</label>
+                            <select id="mild-symptoms" name="mild_symptoms" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucun symptôme léger</option>
+                                <option value="eruptions">Éruptions cutanées</option>
+                                <option value="irritations_oculaires">Irritations oculaires</option>
+                                <option value="secheresse">Sécheresse nasale</option>
+                                <option value="saignements">Saignements de nez</option>
+                                <option value="plusieurs">Plusieurs symptômes</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Sommeil & rythme circadien -->
+                    <fieldset class="form-section">
+                        <legend>🌙 Sommeil & rythme circadien</legend>
+                        
+                        <div class="form-group">
+                            <label for="sleep-hours">Combien d'heures de sommeil effectif as-tu enregistrées cette nuit ?</label>
+                            <input type="number" id="sleep-hours" name="sleep_hours" min="0" max="12" step="0.5" required>
+                            <span class="unit">heures</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sleep-difficulties">As-tu eu des difficultés à t'endormir ou subis des réveils fréquents ?</label>
+                            <select id="sleep-difficulties" name="sleep_difficulties" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Dormi sans problème</option>
+                                <option value="difficulte_endormissement">Difficulté à m'endormir</option>
+                                <option value="reveils_frequents">Réveils fréquents</option>
+                                <option value="les_deux">Les deux</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vigilance-level">Quel est ton niveau de vigilance actuel : te sens-tu somnolent ou en baisse de concentration ?</label>
+                            <select id="vigilance-level" name="vigilance_level" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="vigilant">Très vigilant et concentré</option>
+                                <option value="normal">Normal, pas de problème</option>
+                                <option value="somnolent">Un peu somnolent</option>
+                                <option value="baisse_concentration">Baisse de concentration</option>
+                                <option value="fatigue_mentale">Fatigue mentale importante</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Nutrition, hydratation & digestion -->
+                    <fieldset class="form-section">
+                        <legend>🍽️ Nutrition, hydratation & digestion</legend>
+                        
+                        <div class="form-group">
+                            <label for="hydration-goal">As-tu atteint ton objectif quotidien d'apport hydrique ?</label>
+                            <select id="hydration-goal" name="hydration_goal" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="oui">Oui, objectif atteint</option>
+                                <option value="presque">Presque, à 75-90%</option>
+                                <option value="partiellement">Partiellement, à 50-75%</option>
+                                <option value="non">Non, moins de 50%</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="caloric-intake">As-tu consommé l'intégralité de tes rations caloriques programmées ?</label>
+                            <select id="caloric-intake" name="caloric_intake" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="oui">Oui, tout consommé</option>
+                                <option value="presque">Presque, à 75-90%</option>
+                                <option value="partiellement">Partiellement, à 50-75%</option>
+                                <option value="non">Non, moins de 50%</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="digestive-issues">Notes-tu des troubles digestifs ou une perte d'appétit particulière ?</label>
+                            <select id="digestive-issues" name="digestive_issues" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucun trouble</option>
+                                <option value="nausees">Nausées</option>
+                                <option value="perte_appetit">Perte d'appétit</option>
+                                <option value="ballonnements">Ballonnements</option>
+                                <option value="autre">Autre trouble digestif</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Santé mentale & dynamique d'équipage -->
+                    <fieldset class="form-section">
+                        <legend>🧠 Santé mentale & dynamique d'équipage</legend>
+                        
+                        <div class="form-group">
+                            <label for="stress-level">Sur une échelle de 1 à 10, quel est ton niveau de stress ou d'anxiété aujourd'hui ?</label>
+                            <input type="range" id="stress-level" name="stress_level" min="1" max="10" value="5">
+                            <span id="stress-value">5</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="crew-mood">Comment évalues-tu l'ambiance générale et la communication au sein de l'équipage aujourd'hui ?</label>
+                            <select id="crew-mood" name="crew_mood" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="excellente">Excellente, très bonne cohésion</option>
+                                <option value="bonne">Bonne, communication fluide</option>
+                                <option value="neutre">Neutre, sans problème particulier</option>
+                                <option value="tendue">Un peu tendue</option>
+                                <option value="conflits">Conflits ou tensions</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="social-needs">Ressens-tu un besoin d'isolement ou, au contraire, un manque de soutien social ?</label>
+                            <select id="social-needs" name="social_needs" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="equilibre">Équilibre parfait</option>
+                                <option value="besoin_isolement">Besoins d'isolement</option>
+                                <option value="manque_soutien">Manque de soutien social</option>
+                                <option value="les_deux">Les deux alternent</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- Environnement & sécurité à bord -->
+                    <fieldset class="form-section">
+                        <legend>🚀 Environnement & sécurité à bord</legend>
+                        
+                        <div class="form-group">
+                            <label for="environment-anomalies">As-tu remarqué des anomalies d'ambiance dans ton module (bruit anormal, variations de température, odeurs) ?</label>
+                            <select id="environment-anomalies" name="environment_anomalies" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="aucun">Aucune anomalie</option>
+                                <option value="bruit">Bruit anormal</option>
+                                <option value="temperature">Variations de température</option>
+                                <option value="odeurs">Odeurs inhabituelles</option>
+                                <option value="plusieurs">Plusieurs anomalies</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="incident-report">Souhaites-tu signaler une exposition particulière ou un incident technique durant tes tâches quotidiennes ?</label>
+                            <textarea id="incident-report" name="incident_report" rows="3" placeholder="Décris brièvement l'incident ou l'exposition si nécessaire..."></textarea>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <span class="btn-text">Soumettre le questionnaire</span>
+                            <span class="btn-loading">Enregistrement en cours...</span>
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">
+                            Retour à l'accueil
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <p>PSYCHOSPACE - Suivi Spatial | Projet de cours EPSI</p>
+        </footer>
+    </div>
+
+    <script src="questionnaire.js"></script>
+</body>
+</html>

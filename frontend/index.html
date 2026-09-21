@@ -3,106 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSYCHOSPACE - Bien-être mental</title>
+    <title>PSYCHOSPACE - Chat IA Spatial</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>PSYCHOSPACE</h1>
-            <p class="subtitle">Votre espace de bien-être mental quotidien</p>
+            <p class="subtitle">Votre assistant IA pour le suivi spatial</p>
         </header>
 
         <main>
-            <!-- Questionnaire Section -->
-            <section id="questionnaire-section" class="section">
-                <h2>📝 Questionnaire Quotidien</h2>
-                
-                <form id="questionnaire-form" class="form">
-                    <div class="form-group">
-                        <label for="sleep-hours">Heures de sommeil :</label>
-                        <input type="number" id="sleep-hours" name="sleep-hours" min="0" max="24" step="0.5" required>
-                        <span class="unit">heures</span>
+            <div class="main-layout">
+                <!-- Sidebar avec bouton questionnaire -->
+                <aside class="sidebar">
+                    <div class="sidebar-content">
+                        <button id="questionnaire-btn" class="btn-primary btn-full">
+                            📋 Remplir le Questionnaire
+                        </button>
+                        
+                        <div class="sidebar-info">
+                            <h3>📊 Votre Bilan</h3>
+                            <div id="quick-stats" class="quick-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Énergie:</span>
+                                    <span id="energy-stat" class="stat-value">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Stress:</span>
+                                    <span id="stress-stat" class="stat-value">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Sommeil:</span>
+                                    <span id="sleep-stat" class="stat-value">-</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Dernière réponse:</span>
+                                    <span id="last-response-stat" class="stat-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sidebar-history">
+                            <h3>📅 Historique</h3>
+                            <div id="recent-history" class="recent-history">
+                                <p class="empty-message">Aucune donnée disponible</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Chat principal -->
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>💬 Chat avec votre Assistant Spatial</h2>
+                        <p class="chat-description">
+                            Posez vos questions. L'IA adaptera ses réponses en fonction 
+                            de vos réponses au questionnaire quotidien.
+                        </p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="mood">Humeur :</label>
-                        <select id="mood" name="mood" required>
-                            <option value="">Sélectionnez...</option>
-                            <option value="excellent">Excellent(e)</option>
-                            <option value="bon">Bon(ne)</option>
-                            <option value="neutre">Neutre</option>
-                            <option value="un peu stressé">Un peu stressé(e)</option>
-                            <option value="stressé">Stressé(e)</option>
-                            <option value="triste">Triste</option>
-                            <option value="déprimé">Déprimé(e)</option>
-                        </select>
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="chat-welcome">
+                            <div class="welcome-icon">🚀</div>
+                            <div class="welcome-text">
+                                <h3>Bienvenue dans PSYCHOSPACE</h3>
+                                <p>Je suis votre assistant IA dédié au suivi spatial.</p>
+                                <p>Pour des réponses personnalisées, commencez par remplir 
+                                <a href="questionnaire.html" class="link">le questionnaire quotidien</a>.</p>
+                                <p>Ensuite, posez-moi n'importe quelle question sur votre bien-être, 
+                                votre santé ou votre environnement à bord.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="stress-level">Niveau de stress (0-10) :</label>
-                        <input type="range" id="stress-level" name="stress-level" min="0" max="10" value="5">
-                        <span id="stress-value">5</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="free-text">Texte libre (optionnel) :</label>
-                        <textarea id="free-text" name="free-text" rows="3" placeholder="Partagez vos pensées..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-primary">
-                        <span class="btn-text">Soumettre</span>
-                        <span class="btn-loading">Analyse en cours...</span>
-                    </button>
-                </form>
-            </section>
-
-            <!-- Recommendation Section -->
-            <section id="recommendation-section" class="section hidden">
-                <h2>💡 Recommandation du jour</h2>
-                
-                <div id="recommendation-content" class="recommendation-card">
-                    <div class="recommendation-item">
-                        <span class="label">État psychologique :</span>
-                        <span id="psychological-state" class="value">-</span>
-                    </div>
-                    
-                    <div class="recommendation-item">
-                        <span class="label">Signes détectés :</span>
-                        <span id="detected-signs" class="value">-</span>
-                    </div>
-                    
-                    <div class="recommendation-item">
-                        <span class="label">Suggestion :</span>
-                        <span id="exercise-suggestion" class="value">-</span>
-                    </div>
-                    
-                    <div class="recommendation-item">
-                        <span class="label">Date :</span>
-                        <span id="recommendation-timestamp" class="value">-</span>
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                id="chat-input" 
+                                class="chat-input" 
+                                placeholder="Posez votre question ici... (ex: Comment puis-je améliorer mon sommeil en microgravité?)" 
+                                rows="1"
+                                autofocus
+                            ></textarea>
+                            <button id="send-btn" class="send-btn">
+                                →
+                            </button>
+                        </div>
+                        <p class="chat-tip">
+                            <em>Conseil : Plus vous remplissez régulièrement le questionnaire, 
+                            plus mes réponses seront adaptées à votre situation actuelle.</em>
+                        </p>
                     </div>
                 </div>
-                
-                <button id="refresh-recommendation" class="btn-secondary">
-                    Actualiser la recommandation
-                </button>
-            </section>
-
-            <!-- History Section -->
-            <section id="history-section" class="section">
-                <h2>📊 Historique</h2>
-                
-                <div id="history-content" class="history-container">
-                    <p class="empty-message">Aucun historique disponible pour le moment.</p>
-                </div>
-            </section>
+            </div>
         </main>
 
         <footer>
-            <p>PSYCHOSPACE - Projet de cours EPSI</p>
+            <p>PSYCHOSPACE - Projet de cours EPSI | Assistance IA pour l'espace</p>
         </footer>
     </div>
 
-    <script src="app.js"></script>
+    <script src="chat.js"></script>
 </body>
 </html>
