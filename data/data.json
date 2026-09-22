@@ -1,4 +1,43 @@
 {
-  "responses": [],
+  "responses": [
+    {
+      "timestamp": "2026-09-22T10:11:54.834480",
+      "energy_level": 7,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 8.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "vigilant",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 7,
+      "crew_mood": "excellente",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null
+    },
+    {
+      "timestamp": "2026-09-22T10:11:55.347092",
+      "energy_level": 7,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 8.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "vigilant",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 7,
+      "crew_mood": "excellente",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null
+    }
+  ],
   "analysis_history": []
 }
