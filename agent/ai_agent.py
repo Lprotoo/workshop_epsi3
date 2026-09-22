@@ -3,6 +3,9 @@ import json
 import requests
 from datetime import datetime
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 class AIAgent:
     """AI Agent for psychological analysis using OpenRouter API"""
@@ -18,7 +21,7 @@ class AIAgent:
         self.base_url = "https://openrouter.ai/api/v1/chat/completions"
         
         # Default model (free tier)
-        self.model = "mistralai/mistral-7b-instruct:free"
+        self.model = "nex-agi/nex-n2.5-mini:free"
         
         # System prompt for psychological analysis
         self.system_prompt = """
