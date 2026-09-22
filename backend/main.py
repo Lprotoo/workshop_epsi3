@@ -6,6 +6,9 @@ import os
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 import requests
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 app = FastAPI()
 
@@ -23,7 +26,7 @@ DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "data.json")
 # OpenRouter configuration
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "mistralai/mistral-7b-instruct:free"
+MODEL = "nex-agi/nex-n2.5-mini:free"
 
 # Initialize data file if it doesn't exist
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
@@ -270,6 +273,9 @@ Sois précis, empathique et professionnel. Réponds UNIQUEMENT en français.
         
         return {"response": ai_response}
         
+    except requests.exceptions.HTTPError as e:
+        error_detail = e.response.text if e.response is not None else str(e)
+        raise HTTPException(status_code=500, detail=f"AI API error: {error_detail}")
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"AI API error: {str(e)}")
     except Exception as e:
