@@ -153,10 +153,10 @@ pip install -r requirements.txt
 
 ### 2. Configuration (optionnelle)
 
-Pour utiliser l'API OpenRouter, créez un fichier `.env` dans le dossier `agent/` :
+Pour utiliser l'API OpenRouter, créez un fichier `.env` dans le dossier `agent/` et dans le dossier `backend/` :
 
 ```env
-OPENROUTER_API_KEY=votre_clé_api_ici
+OPENROUTER_API_KEY="votre_clé_api_ici"
 ```
 
 > **Note** : L'application **nécessite** une clé API OpenRouter pour fonctionner. Aucune solution de secours (fallback) n'est disponible.
