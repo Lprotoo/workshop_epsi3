@@ -1,5 +1,6 @@
 import os
 import json
+import random
 import requests
 from datetime import datetime
 from typing import Dict, Any, Optional
@@ -218,7 +219,7 @@ class AIAgent:
             if pool:
                 plan.append({
                     "category": category,
-                    "exercise": pool[0],
+                    "exercise": random.choice(pool),
                     "completed": False
                 })
 
