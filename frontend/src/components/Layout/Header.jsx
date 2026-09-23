@@ -1,5 +1,6 @@
-import { Menu, SatelliteDish, UserRound } from 'lucide-react'
-import { crew } from '../../data/mockData'
+import { Menu, SatelliteDish } from 'lucide-react'
+// import { UserRound } from 'lucide-react'
+// import { crew } from '../../data/mockData'
 import { useLanguage } from '../../i18n/LanguageContext'
 
 export default function Header({ onMenuClick }) {
@@ -47,23 +48,23 @@ export default function Header({ onMenuClick }) {
             EN
           </button>
         </div>
-        <div className="hidden text-right sm:block">
+        {/* <div className="hidden text-right sm:block">
           <p className="font-mono text-[11px] tracking-[0.16em] text-hud-muted">
             {t('header.crew')}: <span className="text-white">{crew.id}</span>
           </p>
           <p className="font-mono text-[11px] tracking-[0.16em] text-hud-muted">
             {t('header.spacecraft')}: <span className="text-white">{crew.spacecraft}</span>
           </p>
-        </div>
+        </div> */}
         <div className="flex items-center gap-2 rounded-lg border border-hud-border bg-hud-raised px-3 py-2">
           <SatelliteDish size={14} className="text-status-stable" />
           <span className="hidden font-mono text-[10px] tracking-[0.16em] text-status-stable sm:inline">
             {t('header.nominal')}
           </span>
         </div>
-        <div className="flex h-9 w-9 items-center justify-center rounded-full border border-hud-accent/40 bg-hud-accent/10">
+        {/* <div className="flex h-9 w-9 items-center justify-center rounded-full border border-hud-accent/40 bg-hud-accent/10">
           <UserRound size={16} className="text-hud-accent" />
-        </div>
+        </div> */}
       </div>
     </header>
   )
