@@ -54,7 +54,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
               <span className="h-2.5 w-2.5 rounded-full bg-status-stable" />
             </div>
             <div>
-              <p className="font-mono text-sm tracking-[0.22em] text-white">PSYCHOSPACE</p>
+              <p className="font-mono text-sm tracking-[0.22em] text-white">spAIce</p>
               <p className="mt-1 text-[10px] tracking-[0.18em] text-hud-muted">{t('sidebar.mission')}</p>
             </div>
           </div>

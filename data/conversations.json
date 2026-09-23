@@ -100,6 +100,66 @@
       "timestamp": "2026-09-23T09:58:56.619620",
       "role": "assistant",
       "content": "Compte tenu de tes **5 h de sommeil** et de tes difficult\u00e9s d\u2019endormissement, le choix le plus coh\u00e9rent est le **M\u00e9dicament 3**, un somnif\u00e8re doux \u2014 uniquement si autoris\u00e9 par ton protocole de mission et valid\u00e9 par le m\u00e9decin de bord.\n\n[PRESCRIPTION]  \nCode: 304217  \nM\u00e9dicament: Somnif\u00e8re doux  \nRaison: Sommeil insuffisant et difficult\u00e9 d\u2019endormissement d\u00e9tect\u00e9es  \n[/PRESCRIPTION]\n\n\u00c9vite de le combiner avec d\u2019autres s\u00e9datifs ou l\u2019alcool, et ne le prends pas sans validation m\u00e9dicale."
+    },
+    {
+      "timestamp": "2026-09-23T11:21:54.607535",
+      "role": "user",
+      "content": "bonjour"
+    },
+    {
+      "timestamp": "2026-09-23T11:21:54.607546",
+      "role": "assistant",
+      "content": "Bonjour Liam ! Ravi de te retrouver. Comment te sens-tu aujourd\u2019hui, et y a-t-il un sujet pr\u00e9cis sur lequel tu veux qu\u2019on travaille ?"
+    },
+    {
+      "timestamp": "2026-09-23T11:22:19.344375",
+      "role": "user",
+      "content": "je me sens fatigu\u00e9 je fais des insomnies"
+    },
+    {
+      "timestamp": "2026-09-23T11:22:19.344384",
+      "role": "assistant",
+      "content": "Bonjour Liam. Ta fatigue et tes insomnies semblent li\u00e9es \u00e0 un manque de sommeil et \u00e0 une perturbation du rythme circadien.\n\n**\u00c0 tenter ce soir :**\n- Lumi\u00e8re tamis\u00e9e et \u00e9crans coup\u00e9s 1 h avant le sommeil.\n- Respiration lente : 4 secondes d\u2019inspiration, 6 secondes d\u2019expiration pendant 5 min.\n- Cabine fra\u00eeche, calme et sombre.\n- \u00c9vite caf\u00e9ine, repas lourds et activit\u00e9 intense avant de dormir.\n- Si tu ne dors pas apr\u00e8s environ 20 min, l\u00e8ve-toi pour une activit\u00e9 calme dans le noir, puis retourne au lit cuando tu as sommeil.\n\n[PRESCRIPTION]\nCode: 314072\nM\u00e9dicament: Somnif\u00e8re doux (M\u00e9dicament 3)\nRaison: Insomnie, endormissement difficile et seulement 5 h de sommeil.\n[/PRESCRIPTION]\n\n\u00c0 faire valider par le m\u00e9decin de mission avant prise, notamment si tu dois piloter ou effectuer une sortie extrav\u00e9hiculaire. Ne conduis pas d\u2019engin si tu te sens somnolent."
+    },
+    {
+      "timestamp": "2026-09-23T11:48:00.931409",
+      "role": "user",
+      "content": "qui est le medecijn de bord ?"
+    },
+    {
+      "timestamp": "2026-09-23T11:48:00.931450",
+      "role": "assistant",
+      "content": "Aucun **m\u00e9decin de bord** n\u2019est explicitement r\u00e9pertori\u00e9 dans l\u2019\u00e9quipage. L\u2019**infirmier de bord** est **Lucia Garc\u00eda**, 38 ans, bas\u00e9e \u00e0 la **MedBox**. Pour un souci m\u00e9dical, contacte-la en priorit\u00e9 ; en cas d\u2019urgence, pr\u00e9viens aussi la commandante **\u00c9lise Moreau**."
+    },
+    {
+      "timestamp": "2026-09-23T11:48:21.580521",
+      "role": "user",
+      "content": "JE veux faire du sport"
+    },
+    {
+      "timestamp": "2026-09-23T11:48:21.580537",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T11:48:42.324322",
+      "role": "user",
+      "content": "je veux faire du sport"
+    },
+    {
+      "timestamp": "2026-09-23T11:48:42.324370",
+      "role": "assistant",
+      "content": "Tr\u00e8s bien, Liam. Avec **5 h de sommeil** et une vigilance encore somnolente, commence doucement :\n\n- 5 min de marche ou de v\u00e9lo\n- 10\u201315 min de cardio l\u00e9ger\n- 5 min d\u2019\u00e9tirements et de gainage\n- \u00c9vite aujourd\u2019hui les efforts intenses si tu te sens fatigu\u00e9 ou vertigineux\n\nBois de l\u2019eau, mange l\u00e9g\u00e8rement, puis dis-moi si tu pr\u00e9f\u00e8res **musculation, v\u00e9lo, course ou mobilit\u00e9**.\n\n[PRESCRIPTION]  \nCode: 300001  \nM\u00e9dicament: Somnif\u00e8re doux \u2014 uniquement sur avis de Lucia Garc\u00eda  \nRaison: Sommeil insuffisant et somnolence ; ne pas en prendre avant l\u2019effort sans validation m\u00e9dicale.  \n[/PRESCRIPTION]"
+    },
+    {
+      "timestamp": "2026-09-23T11:49:08.218213",
+      "role": "user",
+      "content": "Combien de personnes peuvent \u00eatre dans la salle de sport"
+    },
+    {
+      "timestamp": "2026-09-23T11:49:08.218236",
+      "role": "assistant",
+      "content": "La salle de sport peut accueillir **4 personnes au maximum**, y compris toi."
     }
   ]
 }

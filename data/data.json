@@ -88,7 +88,7 @@
     {
       "timestamp": "2026-09-23T09:48:18.115938",
       "role": "assistant",
-      "content": "Test re\u00e7u. Je suis op\u00e9rationnel et pr\u00eat \u00e0 vous assister."
+      "content": "Test reçu. Je suis opérationnel et prêt à vous assister."
     },
     {
       "timestamp": "2026-09-23T09:48:33.277867",
@@ -98,7 +98,7 @@
     {
       "timestamp": "2026-09-23T09:48:33.277887",
       "role": "assistant",
-      "content": "Enchant\u00e9, Liam ! Comment puis-je t\u2019aider aujourd\u2019hui ?"
+      "content": "Enchanté, Liam ! Comment puis-je t’aider aujourd’hui ?"
     },
     {
       "timestamp": "2026-09-23T09:48:39.272685",
@@ -108,7 +108,7 @@
     {
       "timestamp": "2026-09-23T09:48:39.272693",
       "role": "assistant",
-      "content": "Je ne connais pas votre pr\u00e9nom dans le contexte disponible. Vous pouvez me le confirmer, et je m\u2019en souviendrai pour nos futurs \u00e9changes."
+      "content": "Je ne connais pas votre prénom dans le contexte disponible. Vous pouvez me le confirmer, et je m’en souviendrai pour nos futurs échanges."
     },
     {
       "timestamp": "2026-09-23T09:49:06.174340",
@@ -118,7 +118,7 @@
     {
       "timestamp": "2026-09-23T09:49:06.174352",
       "role": "assistant",
-      "content": "Je ne sais pas encore comment tu t\u2019appelles. Comment veux-tu que je t\u2019appelle ?"
+      "content": "Je ne sais pas encore comment tu t’appelles. Comment veux-tu que je t’appelle ?"
     },
     {
       "timestamp": "2026-09-23T09:49:12.765987",
@@ -128,7 +128,7 @@
     {
       "timestamp": "2026-09-23T09:49:12.766004",
       "role": "assistant",
-      "content": "Bonjour Liam. Pr\u00eat pour la suite de ta mission ?"
+      "content": "Bonjour Liam. Prêt pour la suite de ta mission ?"
     },
     {
       "timestamp": "2026-09-23T09:50:28.201806",
@@ -138,7 +138,7 @@
     {
       "timestamp": "2026-09-23T09:50:28.201813",
       "role": "assistant",
-      "content": "Bien s\u00fbr, Liam. Comment puis-je t\u2019aider aujourd\u2019hui ?"
+      "content": "Bien sûr, Liam. Comment puis-je t’aider aujourd’hui ?"
     },
     {
       "timestamp": "2026-09-23T09:50:41.487167",
@@ -148,7 +148,799 @@
     {
       "timestamp": "2026-09-23T09:50:41.487180",
       "role": "assistant",
-      "content": "Je ne peux pas le savoir : ton nom n\u2019appara\u00eet ni dans l\u2019historique ni dans le contexte. Dis-moi comment tu veux que je t\u2019appelle.\n\n[PRESCRIPTION]  \nCode: 300000  \nM\u00e9dicament: Somnif\u00e8re doux  \nRaison: Sommeil de 5 h avec difficult\u00e9 d\u2019endormissement d\u00e9tect\u00e9s dans ton profil de mission ; \u00e0 valider par le m\u00e9decin de bord.  \n[/PRESCRIPTION]"
+      "content": "Je ne peux pas le savoir : ton nom n’apparaît ni dans l’historique ni dans le contexte. Dis-moi comment tu veux que je t’appelle.\n\n[PRESCRIPTION]  \nCode: 300000  \nMédicament: Somnifère doux  \nRaison: Sommeil de 5 h avec difficulté d’endormissement détectés dans ton profil de mission ; à valider par le médecin de bord.  \n[/PRESCRIPTION]"
+    }
+  ],
+  "crew": [
+    {
+      "id": 1,
+      "grade": "Commandant",
+      "titre": "Commandant de bord",
+      "sexe": "F",
+      "nom": "Moreau",
+      "prenom": "Élise",
+      "age": 42
+    },
+    {
+      "id": 2,
+      "grade": "Chef de secteur",
+      "titre": "Chef pilote",
+      "sexe": "F",
+      "nom": "Larsen",
+      "prenom": "Sofia",
+      "age": 37
+    },
+    {
+      "id": 3,
+      "grade": "Chef de secteur",
+      "titre": "Chef ingénieur",
+      "sexe": "M",
+      "nom": "Boucher",
+      "prenom": "Pavel",
+      "age": 39
+    },
+    {
+      "id": 4,
+      "grade": "Chef de secteur",
+      "titre": "Chef technicien",
+      "sexe": "F",
+      "nom": "Novak",
+      "prenom": "Mei",
+      "age": 52
+    },
+    {
+      "id": 5,
+      "grade": "Chef de secteur",
+      "titre": "Médecin-chef",
+      "sexe": "M",
+      "nom": "Traoré",
+      "prenom": "Wei",
+      "age": 49
+    },
+    {
+      "id": 6,
+      "grade": "Chef de secteur",
+      "titre": "Chef cuisinier",
+      "sexe": "F",
+      "nom": "Sato",
+      "prenom": "Lucia",
+      "age": 38
+    },
+    {
+      "id": 7,
+      "grade": "Chef de secteur",
+      "titre": "Chef agriculteur",
+      "sexe": "F",
+      "nom": "Mercier",
+      "prenom": "Ana",
+      "age": 39
+    },
+    {
+      "id": 8,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Renaud",
+      "prenom": "Erik",
+      "age": 38
+    },
+    {
+      "id": 9,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "M",
+      "nom": "Okafor",
+      "prenom": "Boris",
+      "age": 56
+    },
+    {
+      "id": 10,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "F",
+      "nom": "Martins",
+      "prenom": "Selma",
+      "age": 51
+    },
+    {
+      "id": 11,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "F",
+      "nom": "García",
+      "prenom": "Valentina",
+      "age": 30
+    },
+    {
+      "id": 12,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "F",
+      "nom": "Duval",
+      "prenom": "Marie",
+      "age": 44
+    },
+    {
+      "id": 13,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "M",
+      "nom": "Bakr",
+      "prenom": "Rafael",
+      "age": 25
+    },
+    {
+      "id": 14,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "M",
+      "nom": "Osei",
+      "prenom": "Nathan",
+      "age": 43
+    },
+    {
+      "id": 15,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Kaur",
+      "prenom": "Hana",
+      "age": 54
+    },
+    {
+      "id": 16,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Traoré",
+      "prenom": "Lucia",
+      "age": 40
+    },
+    {
+      "id": 17,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "F",
+      "nom": "Lefevre",
+      "prenom": "Hana",
+      "age": 27
+    },
+    {
+      "id": 18,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Aziz",
+      "prenom": "Julien",
+      "age": 42
+    },
+    {
+      "id": 19,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "F",
+      "nom": "Berg",
+      "prenom": "Fatou",
+      "age": 47
+    },
+    {
+      "id": 20,
+      "grade": "Membre d'équipage",
+      "titre": "Cuisinier",
+      "sexe": "F",
+      "nom": "Adeyemi",
+      "prenom": "Élise",
+      "age": 45
+    },
+    {
+      "id": 21,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "M",
+      "nom": "Rossi",
+      "prenom": "Anders",
+      "age": 54
+    },
+    {
+      "id": 22,
+      "grade": "Membre d'équipage",
+      "titre": "Agriculteur",
+      "sexe": "M",
+      "nom": "Renaud",
+      "prenom": "Kenji",
+      "age": 41
+    },
+    {
+      "id": 23,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "M",
+      "nom": "Sato",
+      "prenom": "Julien",
+      "age": 48
+    },
+    {
+      "id": 24,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Kim",
+      "prenom": "Iris",
+      "age": 28
+    },
+    {
+      "id": 25,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Larsen",
+      "prenom": "Nikolai",
+      "age": 58
+    },
+    {
+      "id": 26,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "F",
+      "nom": "Nguyen",
+      "prenom": "Selma",
+      "age": 50
+    },
+    {
+      "id": 27,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Bakr",
+      "prenom": "Hana",
+      "age": 45
+    },
+    {
+      "id": 28,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Silva",
+      "prenom": "Yuki",
+      "age": 28
+    },
+    {
+      "id": 29,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "M",
+      "nom": "Petrov",
+      "prenom": "Diego",
+      "age": 37
+    },
+    {
+      "id": 30,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "M",
+      "nom": "Tanaka",
+      "prenom": "Rafael",
+      "age": 34
+    },
+    {
+      "id": 31,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Moreau",
+      "prenom": "Fatou",
+      "age": 32
+    },
+    {
+      "id": 32,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "F",
+      "nom": "Fernandez",
+      "prenom": "Aisha",
+      "age": 43
+    },
+    {
+      "id": 33,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Alvarez",
+      "prenom": "Erik",
+      "age": 26
+    },
+    {
+      "id": 34,
+      "grade": "Membre d'équipage",
+      "titre": "Infirmier",
+      "sexe": "F",
+      "nom": "Renaud",
+      "prenom": "Selma",
+      "age": 58
+    },
+    {
+      "id": 35,
+      "grade": "Membre d'équipage",
+      "titre": "Cuisinier",
+      "sexe": "F",
+      "nom": "Larsen",
+      "prenom": "Noor",
+      "age": 48
+    },
+    {
+      "id": 36,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Girard",
+      "prenom": "Rafael",
+      "age": 48
+    },
+    {
+      "id": 37,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "M",
+      "nom": "García",
+      "prenom": "Kenji",
+      "age": 36
+    },
+    {
+      "id": 38,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "F",
+      "nom": "Rossi",
+      "prenom": "Marie",
+      "age": 44
+    },
+    {
+      "id": 39,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "M",
+      "nom": "Moreau",
+      "prenom": "Marco",
+      "age": 32
+    },
+    {
+      "id": 40,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Volkov",
+      "prenom": "Youssef",
+      "age": 24
+    },
+    {
+      "id": 41,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "M",
+      "nom": "Fontaine",
+      "prenom": "Liam",
+      "age": 47
+    },
+    {
+      "id": 42,
+      "grade": "Membre d'équipage",
+      "titre": "Agriculteur",
+      "sexe": "M",
+      "nom": "Haddad",
+      "prenom": "Mateo",
+      "age": 45
+    },
+    {
+      "id": 43,
+      "grade": "Membre d'équipage",
+      "titre": "Cuisinier",
+      "sexe": "F",
+      "nom": "Rossi",
+      "prenom": "Zoé",
+      "age": 30
+    },
+    {
+      "id": 44,
+      "grade": "Membre d'équipage",
+      "titre": "Technicien",
+      "sexe": "F",
+      "nom": "Bertrand",
+      "prenom": "Camille",
+      "age": 53
+    },
+    {
+      "id": 45,
+      "grade": "Membre d'équipage",
+      "titre": "Cuisinier",
+      "sexe": "F",
+      "nom": "Silva",
+      "prenom": "Lucia",
+      "age": 29
+    },
+    {
+      "id": 46,
+      "grade": "Membre d'équipage",
+      "titre": "Pilote",
+      "sexe": "F",
+      "nom": "Haddad",
+      "prenom": "Ines",
+      "age": 53
+    },
+    {
+      "id": 47,
+      "grade": "Membre d'équipage",
+      "titre": "Cuisinier",
+      "sexe": "M",
+      "nom": "Dubois",
+      "prenom": "Sami",
+      "age": 36
+    },
+    {
+      "id": 48,
+      "grade": "Membre d'équipage",
+      "titre": "Agriculteur",
+      "sexe": "F",
+      "nom": "Aziz",
+      "prenom": "Sofia",
+      "age": 57
+    },
+    {
+      "id": 49,
+      "grade": "Membre d'équipage",
+      "titre": "Agriculteur",
+      "sexe": "M",
+      "nom": "Nilsson",
+      "prenom": "Nathan",
+      "age": 42
+    },
+    {
+      "id": 50,
+      "grade": "Membre d'équipage",
+      "titre": "Ingénieur",
+      "sexe": "M",
+      "nom": "Haddad",
+      "prenom": "Erik",
+      "age": 56
+    }
+  ],
+  "food_stock": [
+    {
+      "id": 1,
+      "type": "viande",
+      "nom": "Poulet lyophilisé",
+      "quantite": 400,
+      "unite": "portions",
+      "production": false
+    },
+    {
+      "id": 2,
+      "type": "féculent",
+      "nom": "Riz déshydraté",
+      "quantite": 750,
+      "unite": "portions",
+      "production": false
+    },
+    {
+      "id": 3,
+      "type": "féculent",
+      "nom": "Pâtes déshydratées",
+      "quantite": 500,
+      "unite": "portions",
+      "production": false
+    },
+    {
+      "id": 4,
+      "type": "légume",
+      "nom": "Laitue hydroponique",
+      "quantite": 200,
+      "unite": "portions",
+      "production": true
+    },
+    {
+      "id": 5,
+      "type": "légume",
+      "nom": "Tomates hydroponiques",
+      "quantite": 125,
+      "unite": "portions",
+      "production": true
+    },
+    {
+      "id": 6,
+      "type": "fruit",
+      "nom": "Fraises hydroponiques",
+      "quantite": 75,
+      "unite": "portions",
+      "production": true
+    },
+    {
+      "id": 7,
+      "type": "produit_laitier",
+      "nom": "Lait en poudre",
+      "quantite": 300,
+      "unite": "portions",
+      "production": false
+    },
+    {
+      "id": 8,
+      "type": "protéine",
+      "nom": "Algues spiruline",
+      "quantite": 150,
+      "unite": "portions",
+      "production": true
+    },
+    {
+      "id": 9,
+      "type": "boisson",
+      "nom": "Eau recyclée",
+      "quantite": 25000,
+      "unite": "litres",
+      "production": true
+    }
+  ],
+  "station_rooms": [
+    {
+      "id": 1,
+      "nom_salle": "Salle de sport",
+      "superficie_m2": 90,
+      "capacite": 20,
+      "activites": [
+        "sport",
+        "musculation",
+        "cardio"
+      ]
+    },
+    {
+      "id": 2,
+      "nom_salle": "Dortoir",
+      "superficie_m2": 250,
+      "capacite": 50,
+      "activites": [
+        "repos",
+        "sommeil"
+      ]
+    },
+    {
+      "id": 3,
+      "nom_salle": "Salle de bain",
+      "superficie_m2": 40,
+      "capacite": 12,
+      "activites": [
+        "hygiène"
+      ]
+    },
+    {
+      "id": 4,
+      "nom_salle": "Douche",
+      "superficie_m2": 25,
+      "capacite": 8,
+      "activites": [
+        "hygiène"
+      ]
+    },
+    {
+      "id": 5,
+      "nom_salle": "Salle commune",
+      "superficie_m2": 180,
+      "capacite": 50,
+      "activites": [
+        "repas",
+        "peinture",
+        "jeux de société",
+        "détente"
+      ]
+    },
+    {
+      "id": 6,
+      "nom_salle": "Serre agricole (SpaceFarm)",
+      "superficie_m2": 120,
+      "capacite": 8,
+      "activites": [
+        "agriculture",
+        "jardinage"
+      ]
+    },
+    {
+      "id": 7,
+      "nom_salle": "Infirmerie (MedBox)",
+      "superficie_m2": 50,
+      "capacite": 10,
+      "activites": [
+        "soins médicaux"
+      ]
+    },
+    {
+      "id": 8,
+      "nom_salle": "Poste de pilotage",
+      "superficie_m2": 30,
+      "capacite": 6,
+      "activites": [
+        "navigation",
+        "pilotage"
+      ]
+    },
+    {
+      "id": 9,
+      "nom_salle": "Salle de réunion des chefs de secteur",
+      "superficie_m2": 35,
+      "capacite": 8,
+      "activites": [
+        "coordination",
+        "briefing"
+      ]
+    }
+  ],
+  "travel_data": {
+    "point_depart": "Terre - Base orbitale ESA",
+    "point_arrivee": "Proxima Centauri b",
+    "distance_annees_lumiere": 4.3,
+    "vitesse_pourcentage_c": 10,
+    "date_depart": "2058-03-14",
+    "temps_voyage_total_annees": 43,
+    "temps_ecoule_annees": 15,
+    "temps_restant_annees": 28
+  },
+  "station_systems": {
+    "propulsion": {
+      "description": "Système de propulsion ionique longue durée assurant la vitesse de croisière du vaisseau.",
+      "statut": "nominal"
+    },
+    "support_vie": {
+      "description": "Recyclage de l'air et de l'eau, régulation thermique et gestion de l'oxygène pour l'ensemble de l'équipage.",
+      "statut": "nominal"
+    },
+    "energie": {
+      "description": "Panneaux solaires, batteries et réacteur auxiliaire assurant l'alimentation électrique du vaisseau.",
+      "statut": "nominal"
+    },
+    "communication": {
+      "description": "Liaison avec la Terre soumise à une latence extrême ; bascule automatique en mode autonome en cas de coupure.",
+      "statut": "nominal"
+    },
+    "agriculture": {
+      "description": "Ferme hydroponique automatisée (SpaceFarm) assurant une partie de l'approvisionnement alimentaire.",
+      "statut": "nominal"
+    },
+    "securite": {
+      "description": "Détection d'intrusion, surveillance environnementale et protocoles de confinement en cas d'anomalie.",
+      "statut": "nominal"
+    }
+  },
+  "space_diseases": [
+    {
+      "id": 1,
+      "nom": "Mal de l'espace (syndrome d'adaptation spatiale)",
+      "symptomes": [
+        "nausées",
+        "vertiges",
+        "désorientation"
+      ],
+      "cause": "Adaptation du système vestibulaire à l'absence de gravité durant les premiers jours de vol.",
+      "traitement": [
+        "antiémétique",
+        "repos",
+        "hydratation"
+      ],
+      "gravite": "léger"
+    },
+    {
+      "id": 2,
+      "nom": "Décalcification osseuse",
+      "symptomes": [
+        "douleurs osseuses",
+        "fragilité osseuse accrue"
+      ],
+      "cause": "Absence de charge gravitationnelle sur le squelette pendant une exposition prolongée.",
+      "traitement": [
+        "complément calcium/vitamine D",
+        "exercice physique quotidien en salle de sport (charge/résistance)"
+      ],
+      "gravite": "modéré, s'aggrave sans exercice régulier"
+    },
+    {
+      "id": 3,
+      "nom": "Atrophie musculaire",
+      "symptomes": [
+        "perte de force",
+        "fonte musculaire"
+      ],
+      "cause": "Absence de sollicitation musculaire habituelle en microgravité.",
+      "traitement": [
+        "exercice physique quotidien obligatoire en salle de sport",
+        "aucun traitement médicamenteux spécifique"
+      ],
+      "gravite": "modéré, s'aggrave sans exercice régulier"
+    },
+    {
+      "id": 4,
+      "nom": "Syndrome neuro-oculaire associé au vol spatial (SANS)",
+      "symptomes": [
+        "vision floue",
+        "maux de tête",
+        "gonflement du nerf optique"
+      ],
+      "cause": "Redistribution des fluides corporels vers la tête en microgravité.",
+      "traitement": [
+        "collyre lubrifiant",
+        "surveillance ophtalmologique",
+        "limiter les postures prolongées tête en bas"
+      ],
+      "gravite": "modéré"
+    },
+    {
+      "id": 5,
+      "nom": "Désynchronisation circadienne / troubles du sommeil",
+      "symptomes": [
+        "insomnie",
+        "fatigue diurne",
+        "baisse de vigilance"
+      ],
+      "cause": "Absence de cycle jour/nuit naturel à bord.",
+      "traitement": [
+        "mélatonine",
+        "hygiène de sommeil",
+        "éclairage artificiel programmé"
+      ],
+      "gravite": "léger à modéré"
+    },
+    {
+      "id": 6,
+      "nom": "Exposition aux rayonnements cosmiques",
+      "symptomes": [
+        "nausées",
+        "fatigue",
+        "brûlures cutanées en cas d'exposition aiguë"
+      ],
+      "cause": "Rayonnement cosmique galactique et éruptions solaires en dehors de la magnétosphère terrestre.",
+      "traitement": [
+        "iodure de potassium",
+        "confinement dans une zone blindée",
+        "surveillance dosimétrique"
+      ],
+      "gravite": "sévère en cas d'exposition aiguë"
+    },
+    {
+      "id": 7,
+      "nom": "Immunodépression spatiale",
+      "symptomes": [
+        "infections plus fréquentes",
+        "cicatrisation lente"
+      ],
+      "cause": "Affaiblissement du système immunitaire lié à la microgravité et au stress prolongé.",
+      "traitement": [
+        "antibiotique en cas d'infection bactérienne confirmée",
+        "hygiène renforcée"
+      ],
+      "gravite": "modéré"
+    },
+    {
+      "id": 8,
+      "nom": "Déshydratation",
+      "symptomes": [
+        "fatigue",
+        "vertiges",
+        "bouche sèche"
+      ],
+      "cause": "Apport hydrique insuffisant ou pertes accrues.",
+      "traitement": [
+        "solution de réhydratation orale"
+      ],
+      "gravite": "léger à modéré"
+    },
+    {
+      "id": 9,
+      "nom": "Stress aigu / anxiété liée à l'isolement",
+      "symptomes": [
+        "irritabilité",
+        "anxiété",
+        "troubles du sommeil"
+      ],
+      "cause": "Isolement prolongé, confinement et éloignement de la Terre.",
+      "traitement": [
+        "anxiolytique",
+        "soutien psychologique (spAIce)",
+        "activité physique et sociale"
+      ],
+      "gravite": "variable"
     }
   ]
 }

@@ -54,7 +54,7 @@ if not os.path.exists(DATA_FILE):
 conversations_file = os.path.join(os.path.dirname(__file__), "..", "data", "conversations.json")
 if not os.path.exists(conversations_file):
     with open(conversations_file, 'w') as f:
-        json.dump({"user_name": null, "conversation_history": []}, f)
+        json.dump({"user_name": None, "conversation_history": []}, f)
 
 class SpaceQuestionnaireResponse(BaseModel):
     # Bilan physique & paramètres vitaux
@@ -297,6 +297,72 @@ async def get_conversation():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# --- Reference data endpoints (read-only) ---
+# Personnel, nourriture, salles, voyage, systèmes du vaisseau et maladies spatiales.
+# Ces données se modifient directement dans data/data.json ; pas de CRUD ici.
+
+@app.get("/get-crew")
+async def get_crew():
+    """Personnel de bord (grade, titre, sexe, nom, prénom, âge)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return {"crew": data.get("crew", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-food-stock")
+async def get_food_stock():
+    """Nourriture à bord (type, nom, quantité, production locale ou importée)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return {"food_stock": data.get("food_stock", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-station-rooms")
+async def get_station_rooms():
+    """Salles et espaces de vie à bord (superficie, capacité, activités)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return {"station_rooms": data.get("station_rooms", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-travel-data")
+async def get_travel_data():
+    """Données du voyage (départ, arrivée, distance, temps écoulé/restant)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return data.get("travel_data", {})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-station-systems")
+async def get_station_systems():
+    """Fonctionnement des systèmes du vaisseau (propulsion, support de vie, énergie...)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return {"station_systems": data.get("station_systems", {})}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-space-diseases")
+async def get_space_diseases():
+    """Maladies spatiales connues (symptômes, cause, traitement)"""
+    try:
+        with open(DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return {"space_diseases": data.get("space_diseases", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
     """Handle chat with OpenRouter AI - requires API key"""
@@ -312,6 +378,16 @@ async def chat(request: ChatRequest):
         
         # Build context from questionnaire
         context_prompt = build_context_prompt(latest_questionnaire)
+
+        # Load extended ship/crew reference data (crew, food, rooms, travel, systems, diseases)
+        with open(DATA_FILE, 'r') as f:
+            _extra_data = json.load(f)
+        crew_context = build_crew_context(_extra_data.get("crew", []))
+        food_context = build_food_context(_extra_data.get("food_stock", []))
+        rooms_context = build_rooms_context(_extra_data.get("station_rooms", []))
+        travel_context = build_travel_context(_extra_data.get("travel_data", {}))
+        systems_context = build_systems_context(_extra_data.get("station_systems", {}))
+        diseases_context = build_diseases_context(_extra_data.get("space_diseases", []))
         
         # Load conversation history from file
         with open(conversations_file, 'r') as f:
@@ -410,7 +486,27 @@ Raison: Stress élevé détecté
 - TOUJOURS inclure une prescription quand il y a des données disponibles
 - Utilise l'historique de conversation pour maintenir la cohérence
 
+**CONSIGNE IMPORTANTE — PRIORITÉ AU SPORT :**
+Chaque fois que c'est pertinent (fatigue, stress, douleurs osseuses ou musculaires, sommeil, moral,
+ou en complément d'une prescription), recommande en priorité une activité physique concrète réalisable
+dans la salle de sport du vaisseau (voir les salles ci-dessous), car l'exercice est le principal moyen
+de lutter contre l'atrophie musculaire et la décalcification osseuse en microgravité. Ne l'impose pas
+si c'est hors sujet (urgence médicale grave, question purement technique), mais privilégie
+systématiquement cette recommandation dès que le contexte le permet.
+
 {context_prompt}
+
+{crew_context}
+
+{food_context}
+
+{rooms_context}
+
+{travel_context}
+
+{systems_context}
+
+{diseases_context}
 """
             }
             messages = [system_message] + messages
@@ -571,6 +667,95 @@ def build_context_prompt(questionnaire_data: dict) -> str:
         context_parts.append(f"Incident signalé : {questionnaire_data.get('incident_report')}")
     
     return "Contexte actuel de l'astronaute :\n" + "\n".join(context_parts)
+
+
+def build_crew_context(crew: list) -> str:
+    """Build a context block listing the crew, to help orient the user."""
+    if not crew:
+        return "Personnel de bord : aucune donnée enregistrée."
+    lines = ["Personnel de bord :"]
+    for member in crew:
+        lines.append(
+            f"- {member.get('grade', '?')} {member.get('titre', '?')} : "
+            f"{member.get('prenom', '?')} {member.get('nom', '?')} "
+            f"({member.get('sexe', '?')}, {member.get('age', '?')} ans)"
+        )
+    return "\n".join(lines)
+
+
+def build_food_context(food_stock: list) -> str:
+    """Build a context block summarizing onboard food supplies."""
+    if not food_stock:
+        return "Stock de nourriture : aucune donnée enregistrée."
+    lines = ["Stock de nourriture à bord :"]
+    for item in food_stock:
+        origine = "produit à bord" if item.get("production") else "importé depuis la Terre"
+        lines.append(
+            f"- [{item.get('type', '?')}] {item.get('nom', '?')} : "
+            f"{item.get('quantite', '?')} {item.get('unite', '?')} ({origine})"
+        )
+    return "\n".join(lines)
+
+
+def build_rooms_context(rooms: list) -> str:
+    """Build a context block describing the ship's rooms and activities."""
+    if not rooms:
+        return "Salles et espaces de vie : aucune donnée enregistrée."
+    lines = ["Salles et espaces de vie à bord :"]
+    for room in rooms:
+        activites = ", ".join(room.get("activites", [])) or "aucune activité recensée"
+        lines.append(
+            f"- {room.get('nom_salle', '?')} : {room.get('superficie_m2', '?')} m², "
+            f"capacité {room.get('capacite', '?')} personnes — activités : {activites}"
+        )
+    return "\n".join(lines)
+
+
+def build_travel_context(travel: dict) -> str:
+    """Build a context block describing the interstellar journey progress."""
+    if not travel:
+        return "Données de voyage : aucune donnée enregistrée."
+    return (
+        "Données du voyage :\n"
+        f"- Départ : {travel.get('point_depart', '?')} (le {travel.get('date_depart', '?')})\n"
+        f"- Arrivée prévue : {travel.get('point_arrivee', '?')}\n"
+        f"- Distance : {travel.get('distance_annees_lumiere', '?')} années-lumière, "
+        f"vitesse de croisière : {travel.get('vitesse_pourcentage_c', '?')}% de la vitesse de la lumière\n"
+        f"- Durée totale du voyage : {travel.get('temps_voyage_total_annees', '?')} ans\n"
+        f"- Temps écoulé : {travel.get('temps_ecoule_annees', '?')} ans\n"
+        f"- Temps restant estimé : {travel.get('temps_restant_annees', '?')} ans"
+    )
+
+
+def build_systems_context(systems: dict) -> str:
+    """Build a context block describing how the ship's systems currently operate."""
+    if not systems:
+        return "Fonctionnement de la station : aucune donnée enregistrée."
+    lines = ["Fonctionnement des systèmes du vaisseau :"]
+    for name, info in systems.items():
+        lines.append(
+            f"- {name.capitalize()} : {info.get('description', '?')} "
+            f"(statut : {info.get('statut', '?')})"
+        )
+    return "\n".join(lines)
+
+
+def build_diseases_context(diseases: list) -> str:
+    """Build a context block listing known space-related illnesses and their treatment."""
+    if not diseases:
+        return "Maladies spatiales connues : aucune donnée enregistrée."
+    lines = ["Maladies spatiales connues (base de connaissance médicale du vaisseau) :"]
+    for disease in diseases:
+        symptomes = ", ".join(disease.get("symptomes", []))
+        traitement = ", ".join(disease.get("traitement", []))
+        lines.append(
+            f"- {disease.get('nom', '?')} (gravité : {disease.get('gravite', '?')})\n"
+            f"  Symptômes : {symptomes}\n"
+            f"  Cause : {disease.get('cause', '?')}\n"
+            f"  Traitement recommandé : {traitement}"
+        )
+    return "\n".join(lines)
+
 
 @app.post("/prescribe-medication")
 async def prescribe_medication(prescription: MedicationPrescription):
@@ -825,4 +1010,4 @@ async def update_exercise_status(update: ExerciseStatusUpdate):
 
 @app.get("/")
 async def root():
-    return {"message": "PSYCHOSPACE Backend API - OpenRouter AI enabled"}
+    return {"message": "spAIce Backend API - OpenRouter AI enabled"}

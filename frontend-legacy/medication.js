@@ -1,5 +1,5 @@
 /**
- * PSYCHOSPACE - Medication Claim System
+ * SpAIce - Medication Claim System
  * Handles medication code validation and claiming
  */
 
