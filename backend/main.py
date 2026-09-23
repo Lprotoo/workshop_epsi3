@@ -82,6 +82,10 @@ class SpaceQuestionnaireResponse(BaseModel):
     # Environnement & sécurité à bord
     environment_anomalies: str
     incident_report: Optional[str] = None
+    sleep_quality: Optional[int] = None
+    mood: Optional[int] = None
+    stress: Optional[int] = None
+    fatigue: Optional[int] = None
 
 class SpaceRecommendation(BaseModel):
     psychological_state: str
@@ -145,7 +149,11 @@ async def submit_questionnaire(response: SpaceQuestionnaireResponse):
             "social_needs": response.social_needs,
             # Environnement & sécurité à bord
             "environment_anomalies": response.environment_anomalies,
-            "incident_report": response.incident_report
+            "incident_report": response.incident_report,
+            "sleep_quality": response.sleep_quality,
+            "mood": response.mood,
+            "stress": response.stress,
+            "fatigue": response.fatigue,
         }
         
         data["responses"].append(response_data)
@@ -231,6 +239,7 @@ async def get_history():
                 analysis = data["analysis_history"][i]
             
             history.append({
+                **response,
                 "date": response.get("timestamp", ""),
                 "energy_level": response.get("energy_level", 0),
                 "stress_level": response.get("stress_level", 0),
@@ -239,10 +248,19 @@ async def get_history():
                 "risk_level": analysis.get("risk_level", ""),
                 "detected_issues": analysis.get("detected_issues", []),
                 "recommendations": analysis.get("recommendations", []),
-                "exercise_suggestions": analysis.get("exercise_suggestions", [])
+                "exercise_suggestions": analysis.get("exercise_suggestions", []),
+                "analysis": analysis,
             })
-        
-        return {"history": history}
+
+        claims = []
+        try:
+            with open(MEDICATION_FILE, "r", encoding="utf-8") as meds_file:
+                meds = json.load(meds_file)
+            claims = [item for item in meds.get("prescriptions", []) if item.get("claimed")]
+        except Exception:
+            claims = []
+
+        return {"history": history, "claims": claims}
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

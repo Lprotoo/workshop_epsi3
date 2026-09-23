@@ -1,2 +1,5 @@
 /agent/.env
 /backend/.env
+__pycache__/
+*.pyc
+node_modules/
