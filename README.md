@@ -1,14 +1,14 @@
-# PSYCHOSPACE - Projet de cours EPSI
+# spAICE - Projet de Workshop B3
 
 ## 🚀 Suivi Spatial avec Assistant IA
 
-PSYCHOSPACE est une application web complète pour le suivi du bien-être des astronautes en mission spatiale, avec un système de questionnaire quotidien et un assistant IA contextuel.
+spAIce est une application web complète pour le suivi du bien-être des astronautes en mission spatiale, avec un système de questionnaire quotidien et un assistant IA contextuel.
 
 ## 🏗️ Architecture du Projet
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│           PSYCHOSPACE — ARCHITECTURE SPATIALE (v2)               │
+│           spAIce — ARCHITECTURE SPATIALE (v2)               │
 └─────────────────────────────────────────────────────────────────┘
 
                     ┌─────────────────────────────┐
@@ -176,7 +176,7 @@ Le backend sera accessible sur `http://localhost:8000`
 
 ### 4. Accès au frontend (React)
 
-Le frontend PsychoSpace (dashboard, questionnaire, historique, analyse, médicaments, assistant) est dans `frontend/`. L’ancien HTML est conservé dans `frontend-legacy/`.
+Le frontend spAIce (dashboard, questionnaire, historique, analyse, médicaments, assistant) est dans `frontend/`. L’ancien HTML est conservé dans `frontend-legacy/`.
 
 ```bash
 cd frontend

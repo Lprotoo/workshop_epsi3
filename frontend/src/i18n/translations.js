@@ -88,7 +88,7 @@ export const dictionaries = {
       kicker: 'REVUE AUTONOME',
       title: 'Analyse des indicateurs',
       intro:
-        'PsychoSpace compare les relevés récents pour faire ressortir des indicateurs, des tendances et d’éventuels signes d’alerte. Il ne pose pas de diagnostic.',
+        'SpAIce compare les relevés récents pour faire ressortir des indicateurs, des tendances et d’éventuels signes d’alerte. Il ne pose pas de diagnostic.',
       loading: 'CHARGEMENT ANALYSE…',
       error: 'Impossible de charger l’analyse.',
       noData: 'Aucun questionnaire soumis pour le moment.',
@@ -111,14 +111,14 @@ export const dictionaries = {
         'Conserver la fenêtre de repos actuelle et prévoir un court exercice de récupération.',
       defaultExerciseTitle: 'Exercice de respiration de 5 minutes',
       defaultExerciseBody:
-        'Un cycle de respiration guidé pour réduire le stress résiduel. PsychoSpace indique des tendances de bien-être ; il ne diagnostique pas.',
+        'Un cycle de respiration guidé pour réduire le stress résiduel. SpAIce indique des tendances de bien-être ; il ne diagnostique pas.',
     },
     questionnaire: {
       title: 'COMMENT VAS-TU AUJOURD’HUI ?',
       intro:
         'Les questions ci-dessous alimentent l’historique, les graphiques et l’analyse. Les symptômes et le contexte d’équipage ajustent aussi le statut. Pas un diagnostic clinique.',
       analyzing: 'ANALYSE…',
-      analyzingHint: 'PsychoSpace enregistre le relevé du jour et calcule les indicateurs de bord.',
+      analyzingHint: 'SpAIce enregistre le relevé du jour et calcule les indicateurs de bord.',
       recorded: 'RELEVÉ ENREGISTRÉ',
       complete: 'Revue des indicateurs terminée',
       stored: 'Enregistré sur l’API de bord. Synthèse d’indicateurs, pas un diagnostic.',
@@ -238,7 +238,7 @@ export const dictionaries = {
       recAlert: 'Réduire la charge, protéger le prochain cycle de repos et suivre les indicateurs de près.',
       exBreathTitle: 'Exercice de respiration de 5 minutes',
       exBreathBody:
-        'Un cycle de respiration guidé pour réduire le stress résiduel. PsychoSpace indique des tendances de bien-être ; il ne diagnostique pas.',
+        'Un cycle de respiration guidé pour réduire le stress résiduel. SpAIce indique des tendances de bien-être ; il ne diagnostique pas.',
       exRestTitle: 'Repos visuel de 10 minutes',
       exRestBody: 'Baisse les lumières, fixe un point lointain et limite les tâches de précision pendant 10 minutes.',
       exGroundingTitle: 'Ancrage 5-4-3',
@@ -377,7 +377,7 @@ export const dictionaries = {
       kicker: 'AUTONOMOUS REVIEW',
       title: 'Indicator analysis',
       intro:
-        'PsychoSpace compares recent check-ins to surface well-being indicators, trends and potential warning signs. It does not diagnose a mental-health condition.',
+        'SpAIce compares recent check-ins to surface well-being indicators, trends and potential warning signs. It does not diagnose a mental-health condition.',
       loading: 'LOADING ANALYSIS…',
       error: 'Unable to load the current analysis.',
       noData: 'No questionnaire submitted yet.',
@@ -400,14 +400,14 @@ export const dictionaries = {
         'Maintain the current rest window and keep a short recovery exercise in the daily plan.',
       defaultExerciseTitle: '5-minute breathing exercise',
       defaultExerciseBody:
-        'A short guided breathing cycle to reduce residual stress. PsychoSpace reports well-being indicators and trends only; it does not diagnose a mental-health condition.',
+        'A short guided breathing cycle to reduce residual stress. SpAIce reports well-being indicators and trends only; it does not diagnose a mental-health condition.',
     },
     questionnaire: {
       title: 'HOW ARE YOU TODAY?',
       intro:
         'These questions feed history, charts and analysis. Symptoms and crew context also shift status. Not a clinical diagnosis.',
       analyzing: 'ANALYZING…',
-      analyzingHint: 'PsychoSpace is storing today’s check-in and scoring onboard indicators.',
+      analyzingHint: 'SpAIce is storing today’s check-in and scoring onboard indicators.',
       recorded: 'CHECK-IN RECORDED',
       complete: 'Indicator review complete',
       stored: 'Stored on the onboard API. This is a well-being indicator summary, not a diagnosis.',
@@ -527,7 +527,7 @@ export const dictionaries = {
       recAlert: 'Reduce workload, protect the next rest cycle and keep close watch on the indicators.',
       exBreathTitle: '5-minute breathing exercise',
       exBreathBody:
-        'A short guided breathing cycle to reduce residual stress. PsychoSpace reports well-being indicators and trends only; it does not diagnose a mental-health condition.',
+        'A short guided breathing cycle to reduce residual stress. SpAIce reports well-being indicators and trends only; it does not diagnose a mental-health condition.',
       exRestTitle: '10-minute visual rest',
       exRestBody: 'Dim cabin lights, look at a distant point and pause precision tasks for ten minutes.',
       exGroundingTitle: '5-4-3 grounding cycle',

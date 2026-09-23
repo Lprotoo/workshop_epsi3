@@ -1,4 +1,4 @@
-// PSYCHOSPACE - Questionnaire Spatial
+// SpAIce - Questionnaire Spatial
 const API_BASE_URL = 'http://localhost:8000';
 
 // DOM Elements

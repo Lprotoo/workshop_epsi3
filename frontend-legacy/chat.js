@@ -1,4 +1,4 @@
-// PSYCHOSPACE - Chat IA avec OpenRouter
+// SpAIce - Chat IA avec OpenRouter
 const API_BASE_URL = 'http://localhost:8000';
 
 // Medication list for reference
