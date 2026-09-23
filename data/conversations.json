@@ -1,0 +1,105 @@
+{
+  "user_name": "liam",
+  "conversation_history": [
+    {
+      "timestamp": "2026-09-23T09:54:53.096917",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-23T09:54:53.096928",
+      "role": "assistant",
+      "content": "Test de communication confirm\u00e9.\n\nD\u2019apr\u00e8s vos donn\u00e9es actuelles, votre sommeil de 5 h avec difficult\u00e9 d\u2019endormissement reste la priorit\u00e9. \u00c9vitez les \u00e9crans une heure avant le repos et pratiquez une respiration lente.\n\n[PRESCRIPTION]\nCode: 300000\nM\u00e9dicament: Somnif\u00e8re doux\nRaison: Sommeil insuffisant et difficult\u00e9 d\u2019endormissement\n[/PRESCRIPTION]"
+    },
+    {
+      "timestamp": "2026-09-23T09:55:09.742355",
+      "role": "user",
+      "content": "tu peux me faire un bila"
+    },
+    {
+      "timestamp": "2026-09-23T09:55:09.742362",
+      "role": "assistant",
+      "content": "[BILAN]  \n\u00c9tat psychologique: Globalement stable, avec fatigue et somnolence associ\u00e9es \u00e0 un sommeil insuffisant.  \nSignes d\u00e9tect\u00e9s: Sommeil de 5 h, difficult\u00e9 d\u2019endorm"
+    },
+    {
+      "timestamp": "2026-09-23T09:55:29.834590",
+      "role": "user",
+      "content": "tu peux me refaire un bilan"
+    },
+    {
+      "timestamp": "2026-09-23T09:55:29.834597",
+      "role": "assistant",
+      "content": "[BILAN]  \n\u00c9tat psychologique: Globalement stable, avec fatigue li\u00e9e \u00e0 un sommeil insuffisant.  \nSignes d\u00e9tect\u00e9s: \u00e9nergie 6/10, sommeil de 5 h, difficult\u00e9 d\u2019endormissement, somnolence, apport calorique partiel, ballonnements et hydratation \u00e0 surveiller. Stress faible (3/10), ambiance sociale et \u00e9quipage positives.  \nSuggestion: Instaurer une routine de sommeil de 20\u201330 minutes, \u00e9viter \u00e9crans et caf\u00e9ine avant le repos, s\u2019hydrater progressivement et privil\u00e9gier des repas fractionn\u00e9s. Signaler toute somnolence persistante ou tout trouble digestif au m\u00e9decin de mission.\n\n[PRESCRIPTION]  \nCode: 350624  \nM\u00e9dicament: Somnif\u00e8re doux  \nRaison: Sommeil de 5 h avec difficult\u00e9 d\u2019endormissement et somnolence diurne. \u00c0 prendre uniquement sur autorisation du m\u00e9decin de mission.  \n[/PRESCRIPTION]\n\n[FIN_BILAN]"
+    },
+    {
+      "timestamp": "2026-09-23T09:56:34.304128",
+      "role": "user",
+      "content": "je suis liam"
+    },
+    {
+      "timestamp": "2026-09-23T09:56:34.304138",
+      "role": "assistant",
+      "content": "Enchant\u00e9, Liam ! Comment se d\u00e9roule ta mission aujourd\u2019hui ? Ton niveau d\u2019\u00e9nergie et ton sommeil sont-ils dans les normes ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:37.563516",
+      "role": "user",
+      "content": "je suis liam"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:37.563526",
+      "role": "assistant",
+      "content": "Enchant\u00e9, Liam ! Comment te sens-tu aujourd\u2019hui en mission ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:45.343832",
+      "role": "user",
+      "content": "comment je m'appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:45.343845",
+      "role": "assistant",
+      "content": "Je ne connais pas encore ton nom. Comment veux-tu que je t\u2019appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:52.053614",
+      "role": "user",
+      "content": ""
+    },
+    {
+      "timestamp": "2026-09-23T09:57:52.053623",
+      "role": "assistant",
+      "content": "Enchant\u00e9, Liam ! Ravi de faire ta connaissance. Comment vas-tu aujourd\u2019hui, et de quoi as-tu besoin pour ta mission ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:59.042079",
+      "role": "user",
+      "content": "comment je m'appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:57:59.042095",
+      "role": "assistant",
+      "content": "Tu t\u2019appelles liam! Comment puis-je t\u2019aider aujourd\u2019hui ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:58:24.872567",
+      "role": "user",
+      "content": "tu peux me donner le contexte de cette conversation"
+    },
+    {
+      "timestamp": "2026-09-23T09:58:24.872587",
+      "role": "assistant",
+      "content": "Bien s\u00fbr, Liam.\n\n**Contexte de la conversation :**\n- Tu es **astronaute en mission spatiale**.\n- Je suis ton assistant sp\u00e9cialis\u00e9 dans les conseils **m\u00e9dicaux, psychologiques et techniques** adapt\u00e9s \u00e0 l\u2019environnement spatial.\n- Ton \u00e9tat actuel montre :\n  - **\u00c9nergie : 6/10**\n  - **Sommeil : 5h**, avec une **difficult\u00e9 d\u2019endormissement**\n  - **Vigilance : somnolent**\n  - **Hydratation : presque suffisante**\n  - **Apport calorique : partiel**\n  - **Troubles digestifs : ballonnements**\n  - **Stress : 3/10**, donc relativement bas\n  - **Ambiance d\u2019\u00e9quipage : excellente**\n  - **Besoins sociaux : \u00e9quilibr\u00e9s**\n\n**Points d\u2019attention principaux :** r\u00e9cup\u00e9ration insuffisante, sommeil trop court, somnolence, hydratation \u00e0 surveiller, alimentation \u00e0 compl\u00e9ter et ballonnements digestifs.\n\nTu peux me demander \u00e0 tout moment un **bilan**, un **plan de r\u00e9cup\u00e9ration**, une **analyse de sommeil**, ou des conseils adapt\u00e9s \u00e0 la mission."
+    },
+    {
+      "timestamp": "2026-09-23T09:58:56.619613",
+      "role": "user",
+      "content": "tu me conseillerai quel m\u00e9dicament ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:58:56.619620",
+      "role": "assistant",
+      "content": "Compte tenu de tes **5 h de sommeil** et de tes difficult\u00e9s d\u2019endormissement, le choix le plus coh\u00e9rent est le **M\u00e9dicament 3**, un somnif\u00e8re doux \u2014 uniquement si autoris\u00e9 par ton protocole de mission et valid\u00e9 par le m\u00e9decin de bord.\n\n[PRESCRIPTION]  \nCode: 304217  \nM\u00e9dicament: Somnif\u00e8re doux  \nRaison: Sommeil insuffisant et difficult\u00e9 d\u2019endormissement d\u00e9tect\u00e9es  \n[/PRESCRIPTION]\n\n\u00c9vite de le combiner avec d\u2019autres s\u00e9datifs ou l\u2019alcool, et ne le prends pas sans validation m\u00e9dicale."
+    }
+  ]
+}

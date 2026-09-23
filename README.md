@@ -77,12 +77,15 @@ PSYCHOSPACE est une application web complète pour le suivi du bien-être des as
 
 ```
 workshop_epsi3/
-├── frontend/
-│   ├── index.html              # Page principale avec chat IA
-│   ├── questionnaire.html       # Page du questionnaire spatial
-│   ├── styles.css              # Styles CSS pour toutes les pages
-│   ├── chat.js                 # Logique du chat IA
-│   └── questionnaire.js         # Logique du questionnaire
+├── frontend/                    # App React (Vite)
+│   ├── src/
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── frontend-legacy/             # Ancien frontend HTML
+│   ├── index.html
+│   ├── questionnaire.html
+│   └── medication.html
 ├── backend/
 │   ├── main.py                 # API FastAPI avec 6 endpoints
 │   └── requirements.txt        # Dépendances Python
@@ -141,6 +144,7 @@ Le questionnaire comprend **5 catégories** avec des questions spécifiques à l
 ### Prérequis
 - Python 3.7+
 - pip
+- Node.js (npm)
 - Un navigateur web moderne
 
 ### 1. Installation des dépendances
@@ -170,18 +174,17 @@ python -m uvicorn main:app --reload
 
 Le backend sera accessible sur `http://localhost:8000`
 
-### 4. Accès au frontend
+### 4. Accès au frontend (React)
 
-Ouvrez simplement les fichiers dans votre navigateur :
-- **Page principale** : `frontend/index.html` (chat IA)
-- **Questionnaire** : `frontend/questionnaire.html`
+Le frontend PsychoSpace (dashboard, questionnaire, historique, analyse, médicaments, assistant) est dans `frontend/`. L’ancien HTML est conservé dans `frontend-legacy/`.
 
-Ou utilisez un serveur web local :
 ```bash
 cd frontend
-python -m http.server 8001
+npm install
+npm run dev
 ```
-Puis accédez à `http://localhost:8001`
+
+Puis ouvrez `http://localhost:5173` (le proxy Vite envoie `/api` vers FastAPI sur le port 8000).
 
 ## 🔌 Endpoints API
 
@@ -270,7 +273,7 @@ Puis accédez à `http://localhost:8001`
 
 ## 🛠️ Technologies Utilisées
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Frontend**: React, Vite, Tailwind CSS, React Router, Recharts
 - **Backend**: FastAPI, Python 3.7+
 - **IA**: OpenRouter API (obligatoire)
 - **Stockage**: JSON

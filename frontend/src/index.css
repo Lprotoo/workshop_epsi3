@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-hud-bg: #05070d;
+  --color-hud-panel: #0a101c;
+  --color-hud-raised: #101826;
+  --color-hud-border: #1c3a5a;
+  --color-hud-accent: #3ba7ff;
+  --color-hud-muted: #8aa0b8;
+  --color-status-stable: #3dd68c;
+  --color-status-attention: #f0b429;
+  --color-status-alert: #f25c5c;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #05070d;
+  color: #e8eef6;
+  font-family: var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1c3a5a, #3ba7ff);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #e8eef6;
+  border: 2px solid #3ba7ff;
+  box-shadow: 0 0 10px rgba(59, 167, 255, 0.45);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c3a5a;
+  border-radius: 999px;
+}
+
+.questionnaire-section {
+  margin: 4rem 0;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}

@@ -43,11 +43,18 @@ OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "nex-agi/nex-n2.5-mini:free"
 
-# Initialize data file if it doesn't exist
+# Initialize data files if they don't exist
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+os.makedirs(os.path.dirname(os.path.join(os.path.dirname(__file__), "..", "data", "conversations.json")), exist_ok=True)
+
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'w') as f:
         json.dump({"responses": [], "analysis_history": []}, f)
+
+conversations_file = os.path.join(os.path.dirname(__file__), "..", "data", "conversations.json")
+if not os.path.exists(conversations_file):
+    with open(conversations_file, 'w') as f:
+        json.dump({"user_name": null, "conversation_history": []}, f)
 
 class SpaceQuestionnaireResponse(BaseModel):
     # Bilan physique & paramètres vitaux
@@ -75,6 +82,10 @@ class SpaceQuestionnaireResponse(BaseModel):
     # Environnement & sécurité à bord
     environment_anomalies: str
     incident_report: Optional[str] = None
+    sleep_quality: Optional[int] = None
+    mood: Optional[int] = None
+    stress: Optional[int] = None
+    fatigue: Optional[int] = None
 
 class SpaceRecommendation(BaseModel):
     psychological_state: str
@@ -142,7 +153,11 @@ async def submit_questionnaire(response: SpaceQuestionnaireResponse):
             "social_needs": response.social_needs,
             # Environnement & sécurité à bord
             "environment_anomalies": response.environment_anomalies,
-            "incident_report": response.incident_report
+            "incident_report": response.incident_report,
+            "sleep_quality": response.sleep_quality,
+            "mood": response.mood,
+            "stress": response.stress,
+            "fatigue": response.fatigue,
         }
         
         data["responses"].append(response_data)
@@ -228,6 +243,7 @@ async def get_history():
                 analysis = data["analysis_history"][i]
             
             history.append({
+                **response,
                 "date": response.get("timestamp", ""),
                 "energy_level": response.get("energy_level", 0),
                 "stress_level": response.get("stress_level", 0),
@@ -236,10 +252,47 @@ async def get_history():
                 "risk_level": analysis.get("risk_level", ""),
                 "detected_issues": analysis.get("detected_issues", []),
                 "recommendations": analysis.get("recommendations", []),
-                "exercise_suggestions": analysis.get("exercise_suggestions", [])
+                "exercise_suggestions": analysis.get("exercise_suggestions", []),
+                "analysis": analysis,
             })
+
+        claims = []
+        try:
+            with open(MEDICATION_FILE, "r", encoding="utf-8") as meds_file:
+                meds = json.load(meds_file)
+            claims = [item for item in meds.get("prescriptions", []) if item.get("claimed")]
+        except Exception:
+            claims = []
+
+        return {"history": history, "claims": claims}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-user-info")
+async def get_user_info():
+    """Returns only the user name"""
+    try:
+        with open(conversations_file, 'r') as f:
+            data = json.load(f)
         
-        return {"history": history}
+        return {
+            "user_name": data.get("user_name")
+        }
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-conversation")
+async def get_conversation():
+    """Returns only the conversation history"""
+    try:
+        with open(conversations_file, 'r') as f:
+            data = json.load(f)
+        
+        return {
+            "conversation": data.get("conversation_history", [])
+        }
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -260,16 +313,36 @@ async def chat(request: ChatRequest):
         # Build context from questionnaire
         context_prompt = build_context_prompt(latest_questionnaire)
         
-        # Prepare messages for AI
+        # Load conversation history from file
+        with open(conversations_file, 'r') as f:
+            conversations_data = json.load(f)
+        
+        # Get existing conversation history
+        conversation_history = conversations_data.get("conversation_history", [])
+        
+        # Prepare messages for AI - add conversation history
         messages = request.messages
         
-        # Add system message with context if not already present
+        # Get user name from conversations data
+        user_name = conversations_data.get("user_name")
+        
+        # If this is a new conversation, add system message
         if not any(msg.get("role") == "system" for msg in messages):
+            greeting = f"Bonjour {user_name}!" if user_name else "Bonjour!"
+            
             system_message = {
                 "role": "system",
-                "content": f"""Tu es un assistant IA spécialisé pour les astronautes en mission spatiale. 
+                "content": f"""{greeting} Tu es un assistant IA spécialisé pour les astronautes en mission spatiale. 
 Tu donnes des conseils médicaux, psychologiques et techniques adaptés à l'environnement spatial. 
 Sois précis, empathique et professionnel. Réponds UNIQUEMENT en français.
+
+**CONTEXTE IMPORTANT :**
+Tu as accès à l'historique complet de la conversation avec l'utilisateur {user_name or 'anonyme'}. 
+
+**INFORMATIONS SUR L'UTILISATEUR :**
+{'- Nom: ' + user_name if user_name else '- Utilisateur anonyme'}
+
+Utilise ces informations pour fournir des réponses cohérentes et personnalisées.
 
 **INSTRUCTIONS SPECIFIQUES POUR LES DEMANDES DE BILAN :**
 Si l'utilisateur demande : "fais un bilan", "analyse mon état", "quel est mon diagnostic", 
@@ -335,13 +408,14 @@ Raison: Stress élevé détecté
 - Ne réponds JAMAIS avec une réponse vide
 - Si tu ne comprends pas, demande des clarifications OU prescris le médicament 9 par défaut
 - TOUJOURS inclure une prescription quand il y a des données disponibles
+- Utilise l'historique de conversation pour maintenir la cohérence
 
 {context_prompt}
 """
             }
             messages = [system_message] + messages
         
-        # Call OpenRouter API
+        # Call OpenRouter API with conversation history
         payload = {
             "model": MODEL,
             "messages": messages,
@@ -369,6 +443,79 @@ Raison: Stress élevé détecté
             raise HTTPException(status_code=500, detail="No response from AI")
         
         ai_response = result['choices'][0]['message']['content']
+        
+        # Extract user name from message if provided
+        user_name = None
+        message_content = ""
+        if request.messages and request.messages[-1].get("content"):
+            message_content = request.messages[-1].get("content", "")
+            
+            # Check if message contains a name
+            import re
+            name_match = re.search(r'(?:je m\'appelle|appelle moi|mon nom est|mon prénom est) ([A-Za-zéèêëàâäùûüïöô]+)', message_content, re.IGNORECASE)
+            if name_match:
+                user_name = name_match.group(1)
+                # Store the name in conversations_data
+                conversations_data["user_name"] = user_name
+                # Update the message to remove the name mention
+                message_content = re.sub(r'(?:je m\'appelle|appelle moi|mon nom est|mon prénom est) [A-Za-zéèêëàâäùûüïöô]+', '', message_content, flags=re.IGNORECASE).strip()
+            
+            # Check if user is asking for their name
+            if "comment je m'appelle" in message_content.lower() or "quel est mon nom" in message_content.lower():
+                if conversations_data.get("user_name"):
+                    ai_response = f"Tu t’appelles {conversations_data['user_name']}! Comment puis-je t’aider aujourd’hui ?"
+                else:
+                    ai_response = "Je ne connais pas encore ton nom. Comment veux-tu que je t’appelle ?"
+                
+                # Store the conversation in history
+                new_message = {
+                    "timestamp": datetime.now().isoformat(),
+                    "role": "user",
+                    "content": message_content
+                }
+                
+                # Add AI response to history
+                ai_message = {
+                    "timestamp": datetime.now().isoformat(),
+                    "role": "assistant",
+                    "content": ai_response
+                }
+                
+                # Update conversation history
+                conversation_history.append(new_message)
+                conversation_history.append(ai_message)
+                
+                # Save updated conversations data with conversation history and user name
+                conversations_data["conversation_history"] = conversation_history
+                with open(conversations_file, 'w') as f:
+                    json.dump(conversations_data, f, indent=2)
+                
+                return {"response": ai_response}
+        
+        # Store the conversation in history
+        new_message = {
+            "timestamp": datetime.now().isoformat(),
+            "role": "user",
+            "content": message_content
+        }
+        
+        # Add AI response to history
+        ai_message = {
+            "timestamp": datetime.now().isoformat(),
+            "role": "assistant",
+            "content": ai_response
+        }
+        
+        # Update conversation history
+        conversation_history.append(new_message)
+        conversation_history.append(ai_message)
+        
+        # Save updated conversations data with conversation history and user name
+        conversations_data["conversation_history"] = conversation_history
+        if user_name:
+            conversations_data["user_name"] = user_name
+        with open(conversations_file, 'w') as f:
+            json.dump(conversations_data, f, indent=2)
         
         return {"response": ai_response}
         
