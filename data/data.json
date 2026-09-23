@@ -1,4 +1,5 @@
 {
+  "user_name": null,
   "responses": [
     {
       "timestamp": "2026-09-22T10:11:54.834480",
@@ -77,5 +78,77 @@
       "incident_report": null
     }
   ],
-  "analysis_history": []
+  "analysis_history": [],
+  "conversation_history": [
+    {
+      "timestamp": "2026-09-23T09:48:18.115915",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-23T09:48:18.115938",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Je suis op\u00e9rationnel et pr\u00eat \u00e0 vous assister."
+    },
+    {
+      "timestamp": "2026-09-23T09:48:33.277867",
+      "role": "user",
+      "content": "je m'appelle liam"
+    },
+    {
+      "timestamp": "2026-09-23T09:48:33.277887",
+      "role": "assistant",
+      "content": "Enchant\u00e9, Liam ! Comment puis-je t\u2019aider aujourd\u2019hui ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:48:39.272685",
+      "role": "user",
+      "content": "comment je m'appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:48:39.272693",
+      "role": "assistant",
+      "content": "Je ne connais pas votre pr\u00e9nom dans le contexte disponible. Vous pouvez me le confirmer, et je m\u2019en souviendrai pour nos futurs \u00e9changes."
+    },
+    {
+      "timestamp": "2026-09-23T09:49:06.174340",
+      "role": "user",
+      "content": "comment je m'appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:49:06.174352",
+      "role": "assistant",
+      "content": "Je ne sais pas encore comment tu t\u2019appelles. Comment veux-tu que je t\u2019appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:49:12.765987",
+      "role": "user",
+      "content": "Liam"
+    },
+    {
+      "timestamp": "2026-09-23T09:49:12.766004",
+      "role": "assistant",
+      "content": "Bonjour Liam. Pr\u00eat pour la suite de ta mission ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:50:28.201806",
+      "role": "user",
+      "content": "appelle moi liam"
+    },
+    {
+      "timestamp": "2026-09-23T09:50:28.201813",
+      "role": "assistant",
+      "content": "Bien s\u00fbr, Liam. Comment puis-je t\u2019aider aujourd\u2019hui ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:50:41.487167",
+      "role": "user",
+      "content": "comment je m'appelle ?"
+    },
+    {
+      "timestamp": "2026-09-23T09:50:41.487180",
+      "role": "assistant",
+      "content": "Je ne peux pas le savoir : ton nom n\u2019appara\u00eet ni dans l\u2019historique ni dans le contexte. Dis-moi comment tu veux que je t\u2019appelle.\n\n[PRESCRIPTION]  \nCode: 300000  \nM\u00e9dicament: Somnif\u00e8re doux  \nRaison: Sommeil de 5 h avec difficult\u00e9 d\u2019endormissement d\u00e9tect\u00e9s dans ton profil de mission ; \u00e0 valider par le m\u00e9decin de bord.  \n[/PRESCRIPTION]"
+    }
+  ]
 }
