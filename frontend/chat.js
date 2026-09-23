@@ -1,11 +1,25 @@
 // PSYCHOSPACE - Chat IA avec OpenRouter
 const API_BASE_URL = 'http://localhost:8000';
 
+// Medication list for reference
+const MEDICATIONS = {
+    1: { name: "Antidépresseur léger", description: "Pour les symptômes de déprime et tristesse passagère" },
+    2: { name: "Anxiolytique naturel", description: "Pour réduire l'anxiété et le stress modéré" },
+    3: { name: "Somnifère doux", description: "Pour améliorer la qualité du sommeil" },
+    4: { name: "Stimulant mental", description: "Pour la concentration et la vigilance réduite" },
+    5: { name: "Analgésique spatial", description: "Pour les maux de tête et migraines en microgravité" },
+    6: { name: "Régulateur digestif", description: "Pour les troubles digestifs et nausées" },
+    7: { name: "Renforçateur immunitaire", description: "Pour soutenir le système immunitaire" },
+    8: { name: "Tonifiant musculaire", description: "Pour soulager les tensions et courbatures" },
+    9: { name: "Équilibreur émotionnel", description: "Pour stabiliser l'humeur et les émotions" }
+};
+
 // DOM Elements
 const chatMessages = document.getElementById('chat-messages');
 const chatInput = document.getElementById('chat-input');
 const sendBtn = document.getElementById('send-btn');
 const questionnaireBtn = document.getElementById('questionnaire-btn');
+const medicationBtn = document.getElementById('medication-btn');
 
 // Stats elements
 const energyStat = document.getElementById('energy-stat');
@@ -40,6 +54,16 @@ document.addEventListener('DOMContentLoaded', function() {
     questionnaireBtn.addEventListener('click', function() {
         window.location.href = 'questionnaire.html';
     });
+    
+    // Medication button
+    if (medicationBtn) {
+        medicationBtn.addEventListener('click', function() {
+            window.location.href = 'medication.html';
+        });
+    }
+    
+    // Add prescription styles
+    addPrescriptionStyles();
     
     // Load initial messages
     addWelcomeMessage();
@@ -109,7 +133,7 @@ async function sendMessage() {
         // Remove typing indicator
         typingIndicator.remove();
         
-        // Add AI response to chat
+        // Add AI response to chat with prescription detection
         addMessageToChat('ai', data.response);
         
         // Add to conversation history
@@ -135,18 +159,22 @@ function addMessageToChat(sender, message) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${sender}`;
     
+    // Ensure message is a string
+    const messageText = message || '';
+    
     if (sender === 'user') {
         messageDiv.innerHTML = `
             <div class="message-content">
-                <div class="message-text">${escapeHtml(message)}</div>
+                <div class="message-text">${escapeHtml(messageText)}</div>
             </div>
             <div class="message-avatar">👨‍🚀</div>
         `;
     } else {
+        // For AI messages, use the enhanced formatter that detects prescriptions
         messageDiv.innerHTML = `
             <div class="message-avatar">🤖</div>
             <div class="message-content">
-                <div class="message-text">${formatAIMessage(message)}</div>
+                <div class="message-text">${formatAIMessageWithPrescription(messageText)}</div>
             </div>
         `;
     }
@@ -233,6 +261,10 @@ async function loadRecentHistory() {
 
 // Format AI message (add line breaks, bold, etc.)
 function formatAIMessage(message) {
+    if (!message || typeof message !== 'string') {
+        return '';
+    }
+    
     // Replace **text** with <strong>text</strong>
     let formatted = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     
@@ -253,6 +285,166 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+// Extract prescription from AI response
+function extractPrescription(message) {
+    // Check if message is valid
+    if (!message || typeof message !== 'string') {
+        return null;
+    }
+    
+    // Try to parse as JSON first (for questionnaire analysis)
+    try {
+        const parsed = JSON.parse(message);
+        if (parsed && parsed.medication && 
+            parsed.medication.code && 
+            parsed.medication.medication_name &&
+            parsed.medication.medication_id) {
+            return {
+                code: parsed.medication.code,
+                name: parsed.medication.medication_name,
+                id: parsed.medication.medication_id,
+                reason: parsed.medication.reason || 'Prescription basée sur l\'analyse',
+                isBilan: false
+            };
+        }
+    } catch (e) {
+        // Not JSON, try text format
+    }
+    
+    // Try to extract from [PRESCRIPTION]...[/PRESCRIPTION] format
+    const prescriptionMatch = message.match(/\[PRESCRIPTION\]\s*Code: (\d{6})\s*Médicament: ([^\n]+)\s*Raison: ([^\n]+)\s*\[\/PRESCRIPTION\]/i);
+    if (prescriptionMatch) {
+        const code = prescriptionMatch[1];
+        const name = prescriptionMatch[2].trim();
+        const reason = prescriptionMatch[3].trim();
+        const id = parseInt(code[0]);
+        return { code, name, id, reason, isBilan: false };
+    }
+    
+    // Try to extract from [BILAN]...[FIN_BILAN] format
+    const bilanMatch = message.match(/\[BILAN\](.*?)\[PRESCRIPTION\]\s*Code: (\d{6})\s*Médicament: ([^\n]+)\s*Raison: ([^\n]+)\s*\[\/PRESCRIPTION\](.*?)\[FIN_BILAN\]/is);
+    if (bilanMatch) {
+        const code = bilanMatch[2];
+        const name = bilanMatch[3].trim();
+        const reason = bilanMatch[4].trim();
+        const id = parseInt(code[0]);
+        return { code, name, id, reason, isBilan: true };
+    }
+    
+    // Try to extract just a 6-digit code from the message
+    const codeMatch = message.match(/(\d{6})/);
+    if (codeMatch) {
+        const code = codeMatch[1];
+        const id = parseInt(code[0]);
+        if (id >= 1 && id <= 9 && MEDICATIONS[id]) {
+            return {
+                code: code,
+                name: MEDICATIONS[id].name,
+                id: id,
+                reason: "Prescription détectée dans le message",
+                isBilan: false
+            };
+        }
+    }
+    
+    return null;
+}
+
+// Format AI message with prescription detection
+function formatAIMessageWithPrescription(message) {
+    if (!message || typeof message !== 'string') {
+        return '';
+    }
+    
+    const prescription = extractPrescription(message);
+    
+    // Check if it's a bilan format
+    const isBilan = message.includes('[BILAN]');
+    
+    if (isBilan && prescription) {
+        // Extract bilan content
+        const bilanContentMatch = message.match(/\[BILAN\](.*?)\[PRESCRIPTION\]/is);
+        const bilanContent = bilanContentMatch ? bilanContentMatch[1].trim() : '';
+        
+        // Format the bilan
+        let formatted = `<div class="bilan-box">`;
+        formatted += `<strong>📊 BILAN PSYCHOLOGIQUE</strong><br><br>`;
+        formatted += formatAIMessage(bilanContent) + `<br><br>`;
+        formatted += `</div>`;
+        
+        // Add prescription separately
+        formatted += `<div class="prescription-box" data-code="${prescription.code}">`;
+        formatted += `<strong>💊 PRESCRIPTION : ${prescription.name}</strong><br>`;
+        formatted += `Code : <span class="prescription-code">${prescription.code}</span><br>`;
+        formatted += `Raison : ${prescription.reason || 'Non spécifiée'}<br>`;
+        formatted += `<button class="claim-med-btn" onclick="window.location.href='medication.html?code=${prescription.code}'">Récupérer le médicament</button>`;
+        formatted += `</div>`;
+        
+        return formatted;
+    }
+    
+    // First format the basic message
+    let formatted = formatAIMessage(message);
+    
+    // If prescription found (but not bilan), add it as a clickable button
+    if (prescription && !prescription.isBilan) {
+        // Don't add duplicate prescription if already in message
+        if (!message.includes('[PRESCRIPTION]')) {
+            formatted += `<br><br><div class="prescription-box" data-code="${prescription.code}">`;
+            formatted += `<strong>💊 PRESCRIPTION : ${prescription.name}</strong><br>`;
+            formatted += `Code : <span class="prescription-code">${prescription.code}</span><br>`;
+            formatted += `Raison : ${prescription.reason || 'Non spécifiée'}<br>`;
+            formatted += `<button class="claim-med-btn" onclick="window.location.href='medication.html?code=${prescription.code}'">Récupérer le médicament</button>`;
+            formatted += `</div>`;
+        }
+    }
+    
+    return formatted;
+}
+
+// Add CSS for prescription box dynamically
+function addPrescriptionStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .prescription-box {
+            background: rgba(79, 195, 247, 0.15);
+            border: 2px solid #4fc3f7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .bilan-box {
+            background: rgba(103, 58, 183, 0.15);
+            border: 2px solid #9c27b0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .prescription-code {
+            font-family: monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        .claim-med-btn {
+            background: #4fc3f7;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .claim-med-btn:hover {
+            background: #81d4fa;
+            transform: translateY(-2px);
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Refresh stats periodically

@@ -3,10 +3,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 import os
+import sys
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 import requests
 from dotenv import load_dotenv
+
+# Add agent directory to path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'agent'))
+from ai_agent import AIAgent
 
 load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
@@ -22,6 +27,16 @@ app.add_middleware(
 )
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "data.json")
+MEDICATION_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "medications.json")
+
+# Initialize AI Agent for medication management
+ai_agent = AIAgent()
+
+# Initialize medication data file
+os.makedirs(os.path.dirname(MEDICATION_FILE), exist_ok=True)
+if not os.path.exists(MEDICATION_FILE):
+    with open(MEDICATION_FILE, 'w') as f:
+        json.dump({"prescriptions": []}, f)
 
 # OpenRouter configuration
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
@@ -76,6 +91,21 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
+
+class MedicationPrescription(BaseModel):
+    code: str
+    medication_id: int
+    medication_name: str
+    reason: str
+    timestamp: Optional[str] = None
+
+class MedicationClaimRequest(BaseModel):
+    code: str
+
+class MedicationClaimResponse(BaseModel):
+    success: bool
+    medication_info: Optional[Dict[str, Any]] = None
+    message: str
 
 @app.post("/submit-questionnaire")
 async def submit_questionnaire(response: SpaceQuestionnaireResponse):
@@ -237,6 +267,71 @@ async def chat(request: ChatRequest):
 Tu donnes des conseils médicaux, psychologiques et techniques adaptés à l'environnement spatial. 
 Sois précis, empathique et professionnel. Réponds UNIQUEMENT en français.
 
+**INSTRUCTIONS SPECIFIQUES POUR LES DEMANDES DE BILAN :**
+Si l'utilisateur demande : "fais un bilan", "analyse mon état", "quel est mon diagnostic", 
+"Donne-moi un bilan psychologique", ou toute autre demande similaire pour une analyse complète :
+
+1. TU DOIS analyser TOUTES les données disponibles dans le contexte (questionnaire)
+2. TU DOIS TOUJOURS prescrire un medicament basé sur les symptômes détectés
+3. TU DOIS utiliser le format suivant :
+
+[BILAN]
+État psychologique: [etat]
+Signes détectés: [liste des signes]
+Suggestion: [exercice ou conseil]
+
+[PRESCRIPTION]
+Code: CODE_A_6_CHIFFRES
+Médicament: NOM_DU_MEDICAMENT
+Raison: [raison claire]
+[/PRESCRIPTION]
+
+[FIN_BILAN]
+
+**REGLE GENERALE : TU DOIS prescrire un medicament chaque fois que l'utilisateur mentionne un symptome ou un problème.**
+Sois très proactif : meme les petits problèmes meritent une prescription.
+
+**CORRESPONDANCE SYMPTOMES -> MEDICAMENTS :**
+- Stress/Anxiété/Angoisse/Panique → MEDICAMENT 2 (Anxiolytique naturel)
+- Déprime/Tristesse/Abattu/Démotivé → MEDICAMENT 1 (Antidépresseur léger)
+- Insomnie/Troubles sommeil/Fatigue au réveil/Sommeil < 7h → MEDICAMENT 3 (Somnifère doux)
+- Sommeil > 9h/Brouillard mental/Manque de vigilance → MEDICAMENT 4 (Stimulant mental)
+- Maux de tête/Migraine/Douleur cranienne → MEDICAMENT 5 (Analgésique spatial)
+- Ballonnements/Nausées/Troubles digestifs/Maux de ventre → MEDICAMENT 6 (Régulateur digestif)
+- Courbatures/Douleurs musculaires/Tensions → MEDICAMENT 8 (Tonifiant musculaire)
+- Fatigue persistante/Infections fréquentes → MEDICAMENT 7 (Renforçateur immunitaire)
+- Humeur changeante/Irritable/Émotions instables → MEDICAMENT 9 (Équilibreur émotionnel)
+- Tout autre symptome ou demande de bilan → MEDICAMENT 9 (Équilibreur émotionnel) par défaut
+
+**FORMAT DE PRESCRIPTION (a inclure dans CHAQUE reponse avec symptome) :**
+Si l'utilisateur a un symptome ou demande un bilan, TU DOIS inclure :
+
+[PRESCRIPTION]
+Code: CODE_A_6_CHIFFRES (le premier chiffre = ID du medicament)
+Médicament: NOM_DU_MEDICAMENT
+Raison: EXPLICATION
+[/PRESCRIPTION]
+
+Exemple pour un bilan :
+"Je veux un bilan" → 
+[BILAN]
+État psychologique: stressé
+Signes détectés: stress level 7/10, sommeil 5h
+Suggestion: Prendre du repos
+
+[PRESCRIPTION]
+Code: 234567
+Médicament: Anxiolytique naturel
+Raison: Stress élevé détecté
+[/PRESCRIPTION]
+
+[FIN_BILAN]
+
+**IMPORTANT :**
+- Ne réponds JAMAIS avec une réponse vide
+- Si tu ne comprends pas, demande des clarifications OU prescris le médicament 9 par défaut
+- TOUJOURS inclure une prescription quand il y a des données disponibles
+
 {context_prompt}
 """
             }
@@ -319,6 +414,197 @@ def build_context_prompt(questionnaire_data: dict) -> str:
         context_parts.append(f"Incident signalé : {questionnaire_data.get('incident_report')}")
     
     return "Contexte actuel de l'astronaute :\n" + "\n".join(context_parts)
+
+@app.post("/prescribe-medication")
+async def prescribe_medication(prescription: MedicationPrescription):
+    """Store a medication prescription"""
+    try:
+        with open(MEDICATION_FILE, 'r') as f:
+            data = json.load(f)
+        
+        prescription_data = {
+            "code": prescription.code,
+            "medication_id": prescription.medication_id,
+            "medication_name": prescription.medication_name,
+            "reason": prescription.reason,
+            "timestamp": datetime.now().isoformat(),
+            "claimed": False,
+            "claim_timestamp": None
+        }
+        
+        data["prescriptions"].append(prescription_data)
+        
+        with open(MEDICATION_FILE, 'w') as f:
+            json.dump(data, f, indent=2)
+        
+        return {"status": "success", "message": "Prescription stored successfully", "code": prescription.code}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/claim-medication")
+async def claim_medication(request: MedicationClaimRequest):
+    """Claim/redeem a medication using its code"""
+    try:
+        with open(MEDICATION_FILE, 'r') as f:
+            data = json.load(f)
+        
+        # Find the prescription by code
+        prescription = None
+        for p in data["prescriptions"]:
+            if p["code"] == request.code and not p.get("claimed", False):
+                prescription = p
+                break
+        
+        if not prescription:
+            return MedicationClaimResponse(
+                success=False,
+                medication_info=None,
+                message="Code invalide ou déjà utilisé"
+            )
+        
+        # Mark as claimed
+        prescription["claimed"] = True
+        prescription["claim_timestamp"] = datetime.now().isoformat()
+        
+        with open(MEDICATION_FILE, 'w') as f:
+            json.dump(data, f, indent=2)
+        
+        # Get medication info
+        med_info = ai_agent.get_medication_info(request.code)
+        
+        return MedicationClaimResponse(
+            success=True,
+            medication_info=med_info,
+            message=f"Livraison de votre médicament : {prescription['medication_name']}"
+        )
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-medication-info/{code}")
+async def get_medication_info(code: str):
+    """Get medication information from a code without claiming it"""
+    try:
+        med_info = ai_agent.get_medication_info(code)
+        
+        if med_info:
+            return {
+                "valid": True,
+                "medication": med_info
+            }
+        else:
+            return {
+                "valid": False,
+                "message": "Code invalide"
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-all-medications")
+async def get_all_medications():
+    """Get list of all available medications"""
+    try:
+        medications = []
+        for med_id, med_data in ai_agent.MEDICATIONS.items():
+            medications.append({
+                "id": med_id,
+                "name": med_data["name"],
+                "description": med_data["description"]
+            })
+        return {"medications": medications}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-prescription/{code}")
+async def get_prescription(code: str):
+    """Check if a prescription code exists and get its details"""
+    try:
+        with open(MEDICATION_FILE, 'r') as f:
+            data = json.load(f)
+        
+        for p in data["prescriptions"]:
+            if p["code"] == code:
+                return {
+                    "found": True,
+                    "prescription": p
+                }
+        
+        return {
+            "found": False,
+            "message": "Prescription non trouvée"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/analyze-questionnaire")
+async def analyze_questionnaire():
+    """Analyze the latest questionnaire and return psychological analysis with medication prescription"""
+    try:
+        # Get the latest questionnaire data
+        latest_questionnaire = await get_latest_questionnaire()
+        
+        if not latest_questionnaire:
+            return {
+                "error": "No questionnaire data available",
+                "psychological_state": "inconnu",
+                "detected_signs": ["pas de données"],
+                "exercise_suggestion": "Veuillez remplir le questionnaire d'abord",
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        # Use AI Agent to analyze
+        agent = AIAgent()
+        
+        analysis = agent.analyze_response(
+            sleep_hours=latest_questionnaire.get('sleep_hours', 8.0),
+            mood=latest_questionnaire.get('crew_mood', 'neutre'),
+            stress_level=latest_questionnaire.get('stress_level', 5),
+            free_text=latest_questionnaire.get('incident_report', None) or 
+                      latest_questionnaire.get('social_needs', None)
+        )
+        
+        # Store the prescription if medication is present
+        if analysis.get('medication'):
+            prescription_data = {
+                "code": analysis['medication']['code'],
+                "medication_id": analysis['medication']['medication_id'],
+                "medication_name": analysis['medication']['medication_name'],
+                "reason": analysis['medication']['reason'],
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            with open(MEDICATION_FILE, 'r') as f:
+                med_data = json.load(f)
+            
+            med_data["prescriptions"].append(prescription_data)
+            
+            with open(MEDICATION_FILE, 'w') as f:
+                json.dump(med_data, f, indent=2)
+        
+        return analysis
+        
+    except ValueError as e:
+        # If AI API is not available, return a fallback analysis with medication
+        # Generate a random medication code
+        import random
+        medication_id = random.randint(1, 9)
+        code = f"{medication_id}{random.randint(10000, 99999)}"
+        
+        return {
+            "psychological_state": "analyse automatique",
+            "detected_signs": ["API IA non disponible"],
+            "exercise_suggestion": "Veuillez configurer votre clé API OpenRouter",
+            "medication": {
+                "code": code,
+                "medication_id": medication_id,
+                "medication_name": ai_agent.MEDICATIONS[medication_id]["name"],
+                "reason": "Prescription par défaut"
+            },
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
 async def root():
