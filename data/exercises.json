@@ -1,0 +1,16 @@
+{
+  "stress": [
+    {"name": "Respiration guidée 4-7-8", "description": "Inspirer 4s, retenir 7s, expirer 8s, répéter 5 fois", "duration_min": 5},
+    {"name": "Étirements relaxants", "description": "Étirements doux du cou, épaules et dos", "duration_min": 10}
+  ],
+  "sommeil": [
+    {"name": "Routine de relaxation avant coucher", "description": "Étirements légers + respiration lente", "duration_min": 10}
+  ],
+  "energie": [
+    {"name": "Vélo statique léger (ARED)", "description": "Intensité modérée pour relancer l'énergie", "duration_min": 15}
+  ],
+  "musculaire": [
+    {"name": "Bandes élastiques - membres inférieurs", "description": "Renforcement doux jambes et hanches", "duration_min": 15}
+  ]
+}
+
