@@ -1,0 +1,255 @@
+{
+  "user_name": null,
+  "conversation_history": [
+    {
+      "timestamp": "2026-09-23T15:06:24.269014",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-23T15:06:24.269043",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Le syst\u00e8me est op\u00e9rationnel."
+    },
+    {
+      "timestamp": "2026-09-23T15:06:38.747000",
+      "role": "user",
+      "content": "fait moi un bilan de mon dernier questionaire"
+    },
+    {
+      "timestamp": "2026-09-23T15:06:38.747013",
+      "role": "assistant",
+      "content": "[BILAN]\n\u00c9tat psychologique: Stable, avec bonne adaptation au confinement et au fonctionnement d\u2019\u00e9quipage.\nSignes d\u00e9tect\u00e9s: Stress faible (1/10), sommeil suffisant (7 h), vigilance normale, ambiance favorable et besoins sociaux \u00e9quilibr\u00e9s. \u00c9nergie mod\u00e9r\u00e9e (5/10), sans signe clair de d\u00e9pression, d\u2019anxi\u00e9t\u00e9 ou d\u2019insomnie.\nSuggestion: Effectuer 30 \u00e0 40 minutes d\u2019exercice en salle de sport, combinant exercices de r\u00e9sistance et cardio, puis v\u00e9rifier ton hydratation.\n\n[PRESCRIPTION]\nCode: 900001\nM\u00e9dicament: \u00c9quilibreur \u00e9motionnel\nRaison: Prescription par d\u00e9faut \u00e0 la suite d\u2019un bilan ; ton \u00e9tat est stable, donc toute prise doit \u00eatre valid\u00e9e par le m\u00e9decin-chef Wei Traor\u00e9.\n[/PRESCRIPTION]\n\n[FIN_BILAN]"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:09.089989",
+      "role": "user",
+      "content": "qui suis je ?"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:09.090018",
+      "role": "assistant",
+      "content": "Je ne connais pas ton nom ni ton identit\u00e9 exacte. D\u2019apr\u00e8s le contexte, tu es un membre de l\u2019\u00e9quipage d\u2019un vaisseau spatial en mission longue dur\u00e9e vers Proxima Centauri b."
+    },
+    {
+      "timestamp": "2026-09-23T15:07:31.329464",
+      "role": "user",
+      "content": "fait moi un programme de sport adapt\u00e9 \u00e0 mes besoins"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:31.329485",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:07:50.911327",
+      "role": "user",
+      "content": "fait moi un programme de sport adapt\u00e9 \u00e0 mes besoins"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:50.911346",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:08:13.504193",
+      "role": "user",
+      "content": "fait moi un programme sportif adapt\u00e9 \u00e0 mes besoins"
+    },
+    {
+      "timestamp": "2026-09-23T15:08:13.504208",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:08:29.254140",
+      "role": "user",
+      "content": "fait moi une programme de remise en forme"
+    },
+    {
+      "timestamp": "2026-09-23T15:08:29.254153",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:08:56.061114",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-23T15:08:56.061128",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Je suis pr\u00eat \u00e0 vous aider."
+    },
+    {
+      "timestamp": "2026-09-23T15:13:59.910590",
+      "role": "user",
+      "content": "tu peux me faire un programme sportif"
+    },
+    {
+      "timestamp": "2026-09-23T15:13:59.910597",
+      "role": "assistant",
+      "content": "Oui. Voici un **programme sportif g\u00e9n\u00e9ral** adapt\u00e9 \u00e0 un environnement spatial, avec un objectif : **maintenir musculature, densit\u00e9 osseuse, cardio et r\u00e9cup\u00e9ration**.\n\n## Programme hebdomadaire \u2014 4 s\u00e9ances/semaine\n\n### R\u00e9partition\n- **Lundi : Haut du corps + gainage**\n- **Mardi : Cardio l\u00e9ger + mobilit\u00e9**\n- **Jeudi : Bas du corps + gainage**\n- **Samedi : S\u00e9ance compl\u00e8te mod\u00e9r\u00e9e**\n\nChaque s\u00e9ance : **40 \u00e0 50 minutes**  \nIntensit\u00e9 : **mod\u00e9r\u00e9e \u00e0 difficile**, sans aller \u00e0 l\u2019\u00e9chec musculaire \u00e0 chaque s\u00e9rie.\n\n---\n\n## S\u00e9ance 1 \u2014 Haut du corps + gainage\n\n### \u00c9chauffement \u2014 8 min\n- 3 min de v\u00e9lo ou rameur doux\n- Rotations \u00e9paules, bras, poignets\n- 2 s\u00e9ries de 10 flexions de bras contre mur ou genoux\n\n### Renforcement \u2014 30 min\n| Exercice | S\u00e9ries x reps |\n|---|---:|\n| Tractions assist\u00e9es ou tirage vertical | 4 x 8-10 |\n| Poul\u00e9e horizontale ou traction \u00e9lastique | 3 x 10-12 |\n| D\u00e9velopp\u00e9 \u00e9paules avec halt\u00e8res/\u00e9lastiques | 3 x 8-12 |\n| Rowing assis ou \u00e9lastique | 3 x 10-12 |\n| \u00c9l\u00e9vations lat\u00e9rales | 2 x 12-15 |\n| Curl biceps + extension triceps | 2 x 12 chacun |\n| Gainage planche | 3 x 30-60 sec |\n\n### Retour au calme \u2014 5 min\n- Respiration lente\n- \u00c9tirements pectoraux, dorsaux, \u00e9paules\n\n---\n\n## S\u00e9ance 2 \u2014 Cardio l\u00e9ger + mobilit\u00e9\n\n### Cardio \u2014 20 \u00e0 25 min\nAu choix :\n- V\u00e9lo mod\u00e9r\u00e9\n- Course sur tapis avec harnais si disponible\n- Rameur en intensit\u00e9 faible \u00e0 moyenne\n\nIntensit\u00e9 : tu dois pouvoir parler pendant l\u2019effort.\n\n### Mobilit\u00e9 \u2014 15 min\n- Hanches\n- Ischios\n- Lombaires\n- \u00c9paules\n- Chevilles\n\n### Exercices compl\u00e9mentaires\n| Exercice | S\u00e9ries x reps |\n|---|---:|\n| Squat au poids du corps contr\u00f4l\u00e9 | 3 x 12 |\n| Pont fessier | 3 x 15 |\n| Dead bug | 3 x 10 chaque c\u00f4t\u00e9 |\n\n---\n\n## S\u00e9ance 3 \u2014 Bas du corps + gainage\n\n### \u00c9chauffement \u2014 8 min\n- 3 min de cardio doux\n- Mobilit\u00e9 hanches/chevilles\n- 2 s\u00e9ries de 10 fentes l\u00e9g\u00e8res ou pas chinois\n\n### Renforcement \u2014 30 min\n| Exercice | S\u00e9ries x reps |\n|---|---:|\n| Squat avec charge ou \u00e9lastique | 4 x 8-10 |\n| Fentes march\u00e9es ou statiques | 3 x 10 chaque jambe |\n| Soulev\u00e9 de terre jambe tendue ou hip hinge | 3 x 10 |\n| Leg press si mat\u00e9riel disponible | 3 x 10-12 |\n| Mollets | 3 x 15-20 |\n| Relev\u00e9s de jambes ou dead bug | 3 x 10-12 |\n| Planche lat\u00e9rale | 3 x 30 sec chaque c\u00f4t\u00e9 |\n\n### Retour au calme \u2014 5 min\n- \u00c9tirements quadriceps, ischios, fessiers, mollets\n\n---\n\n## S\u00e9ance 4 \u2014 S\u00e9ance compl\u00e8te mod\u00e9r\u00e9e\n\n### \u00c9chauffement \u2014 8 min\n- Cardio progressif\n- Mobilit\u00e9 g\u00e9n\u00e9rale\n\n### Circuit \u2014 25 \u00e0 30 min\nFais 3 \u00e0 4 tours, avec 1 \u00e0 2 min de repos entre les tours :\n\n1. Squat charge ou \u00e9lastique \u2014 10 reps  \n2. Poul\u00e9e ou traction assist\u00e9e \u2014 10 reps  \n3. Fentes \u2014 10 reps par jambe  \n4. D\u00e9velopp\u00e9 \u00e9paules \u2014 10 reps  \n5. Gainage planche \u2014 45 sec  \n6. Rameur ou corde \u00e0 sauter douce si possible \u2014 1 min  \n\n### Mobilit\u00e9 finale \u2014 10 min\nRespiration, \u00e9tirements doux, d\u00e9compression posturale.\n\n---\n\n## Progression simple\n\n### Semaines 1-2\n- Tu montes en technique et r\u00e9gularit\u00e9.\n- Charge mod\u00e9r\u00e9e.\n- Tu dois terminer les s\u00e9ances avec 2-3 r\u00e9p\u00e9titions \u201cen r\u00e9serve\u201d.\n\n### Semaines 3-4\n- Aug"
+    },
+    {
+      "timestamp": "2026-09-23T15:15:39.983610",
+      "role": "user",
+      "content": "donne moi un exercice de sport \u00e0 faire par rapport \u00e0 mon bilan et explique pourquoi"
+    },
+    {
+      "timestamp": "2026-09-23T15:15:39.983616",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:16:38.721158",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-23T15:16:38.721173",
+      "role": "assistant",
+      "content": "Test r\u00e9ussi. Comment puis-je t\u2019aider aujourd\u2019hui ?"
+    },
+    {
+      "timestamp": "2026-09-23T15:16:50.595383",
+      "role": "user",
+      "content": "sport"
+    },
+    {
+      "timestamp": "2026-09-23T15:16:50.595390",
+      "role": "assistant",
+      "content": "Vu ton \u00e9nergie \u00e0 **5/10** et ton stress bas, fais une s\u00e9ance **mod\u00e9r\u00e9e de 30 minutes** :\n\n1. 5 min de v\u00e9lo ou de rameur  \n2. 3 tours :\n   - 10 squats lest\u00e9s\n   - 8 tractions assist\u00e9es\n   - 10 d\u00e9velopp\u00e9s \u00e9paules\n   - 30 sec de gainage\n   - 1 min de rameur\n3. 5 min d\u2019\u00e9tirements\n\n**Pourquoi :** cette s\u00e9ance stimule muscles et os, am\u00e9liore le cardio et la circulation, sans surmenage.\n\n[PRESCRIPTION]  \nCode: 888888  \nM\u00e9dicament: Aucun, l\u2019exercice est suffisant  \nRaison: \u00c9nergie moyenne, vigilance normale et stress faible  \n[/PRESCRIPTION]"
+    },
+    {
+      "timestamp": "2026-09-23T15:17:15.725392",
+      "role": "user",
+      "content": "donne moi un exercice de sport \u00e0 faire par rapport \u00e0 mon bilan et explique pourquoi"
+    },
+    {
+      "timestamp": "2026-09-23T15:17:15.725409",
+      "role": "assistant",
+      "content": "Fais **3 s\u00e9ries de 8 \u00e0 10 squats au poids du corps**, en descendant lentement et en reposant 60 \u00e0 90 secondes entre les s\u00e9ries.\n\n**Pourquoi :** les squats sollicitent les jambes, les fessiers et le tronc. En microgravit\u00e9, ils aident \u00e0 maintenir la masse musculaire et \u00e0 stimuler les os, limitant ainsi l\u2019atrophie musculaire et la d\u00e9calcification. L\u2019intensit\u00e9 reste adapt\u00e9e \u00e0 ton \u00e9nergie de **5/10**.\n\n[PRESCRIPTION]  \nCode: 888888  \nM\u00e9dicament: Aucun  \nRaison: Ton bilan ne montre pas de sympt\u00f4me n\u00e9cessitant un traitement ; l\u2019exercice est prioritaire.  \n[/PRESCRIPTION]"
+    },
+    {
+      "timestamp": "2026-09-23T15:20:37.259909",
+      "role": "user",
+      "content": "fait moi une s\u00e9ance de sport personnalis\u00e9 par rapport \u00e0 mon bilan"
+    },
+    {
+      "timestamp": "2026-09-23T15:20:37.259927",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:20:51.869031",
+      "role": "user",
+      "content": "fait moi une s\u00e9ance de sport personnalis\u00e9 par rapport \u00e0 mon bilan"
+    },
+    {
+      "timestamp": "2026-09-23T15:20:51.869050",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-23T15:21:13.016880",
+      "role": "user",
+      "content": "fait moi une s\u00e9ance de sport personnalis\u00e9 par rapport \u00e0 mon questionaire"
+    },
+    {
+      "timestamp": "2026-09-23T15:21:13.016899",
+      "role": "assistant",
+      "content": "Je n\u2019ai pas les r\u00e9ponses du questionnaire dans cette conversation. Envoie-les-moi pour une s\u00e9ance vraiment personnalis\u00e9e.\n\nD\u2019apr\u00e8s tes infos disponibles \u2014 \u00e9nergie 5/10, sommeil 7 h, stress faible \u2014 voici une s\u00e9ance mod\u00e9r\u00e9e :\n\n**\u00c9chauffement \u2014 8 min**\n- Marche ou cardio l\u00e9ger : 3 min  \n- Rotations \u00e9paules/hanches : 1 min  \n- Squats au fauteuil : 2 s\u00e9ries de 10  \n- Gainage court : 2 \u00d7 20 s  \n\n**S\u00e9ance \u2014 3 tours**\n1. Squats ou fentes : 10\u201312 r\u00e9p\u00e9titions  \n2. Pompes sur \u00e9l\u00e9vation ou au sol : 8\u201312  \n3. Rowing avec \u00e9lastique/sac lest\u00e9 : 12  \n4. Fentes arri\u00e8re : 10 par jambe  \n5. Gainage : 30\u201345 s  \n6. Cardio l\u00e9ger : 2 min  \n\nRepos : 60 \u00e0 90 s entre les tours.  \nIntensit\u00e9 : 6\u20137/10. Ralentis ou arr\u00eate en cas de douleur, vertige ou essoufflement inhabituel.\n\nEnvoie ton questionnaire pour ajuster exercices, s\u00e9ries, charges et dur\u00e9e."
+    },
+    {
+      "timestamp": "2026-09-24T09:41:03.258863",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-24T09:41:03.259204",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Je suis op\u00e9rationnel et pr\u00eat \u00e0 t\u2019assister pour toute question m\u00e9dicale, technique ou psychologique en mission spatiale."
+    },
+    {
+      "timestamp": "2026-09-24T09:41:33.775522",
+      "role": "user",
+      "content": "tu peux me faire un bilan par rapport aux r\u00e9sultats de mon questionaire"
+    },
+    {
+      "timestamp": "2026-09-24T09:41:33.775539",
+      "role": "assistant",
+      "content": "Oui, bien s\u00fbr. Envoie-moi les r\u00e9sultats de ton questionnaire, ou au moins tes r\u00e9ponses/scores, et je te ferai un bilan structur\u00e9.\n\n[BILAN]  \n\u00c9tat psychologique: Non d\u00e9terminable faute de r\u00e9sultats  \nSignes d\u00e9tect\u00e9s: Questionnaire non fourni  \nSuggestion: Transmettre les r\u00e9ponses ou les scores pour permettre une analyse fiable.\n\n[PRESCRIPTION]  \nCode: 900000  \nM\u00e9dicament: M\u00e9dicament 9 \u2014 \u00c9quilibreur \u00e9motionnel  \nRaison: Bilan demand\u00e9 sans donn\u00e9es suffisantes ; \u00e0 confirmer uniquement avec le m\u00e9decin-chef.  \n[/PRESCRIPTION]\n\n[FIN_BILAN]"
+    },
+    {
+      "timestamp": "2026-09-24T09:42:46.377257",
+      "role": "user",
+      "content": "tu peux me faire un programme sportif par rapport \u00e0 mon questionaire"
+    },
+    {
+      "timestamp": "2026-09-24T09:42:46.377275",
+      "role": "assistant",
+      "content": null
+    },
+    {
+      "timestamp": "2026-09-24T09:51:04.666965",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-24T09:51:04.666993",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Syst\u00e8me op\u00e9rationnel. Comment puis-je vous aider ?"
+    },
+    {
+      "timestamp": "2026-09-24T09:51:26.779759",
+      "role": "user",
+      "content": "fait moi un bilan de sant\u00e9 par rapport \u00e0 mon questionaire"
+    },
+    {
+      "timestamp": "2026-09-24T09:51:26.779774",
+      "role": "assistant",
+      "content": "Je n\u2019ai pas re\u00e7u le questionnaire d\u00e9taill\u00e9 ; ce bilan repose donc sur les donn\u00e9es actuelles.\n\n[BILAN]  \n\u00c9tat psychologique: Stable, avec un stress faible (1/10), une bonne ambiance d\u2019\u00e9quipage et des besoins sociaux \u00e9quilibr\u00e9s.  \nSignes d\u00e9tect\u00e9s: Sommeil de 12 h, \u00e9nergie mod\u00e9r\u00e9e (5/10), vigilance normale, hydratation et apport calorique suffisants.  \nSuggestion: Effectuer 30 \u00e0 45 minutes d\u2019exercice en salle de sport, notamment en cardio et en r\u00e9sistance, puis conserver des horaires de sommeil r\u00e9guliers.\n\n[PRESCRIPTION]  \nCode: 000000  \nM\u00e9dicament: Aucun m\u00e9dicament \u00e0 prescrire sur la base de ces donn\u00e9es  \nRaison: Aucun sympt\u00f4me aigu ou diagnostic ne justifie un traitement ; toute m\u00e9dication doit \u00eatre valid\u00e9e par le m\u00e9decin de bord.  \n[/PRESCRIPTION]\n\n[FIN_BILAN]\n\nTransmettez-moi votre questionnaire pour une analyse plus compl\u00e8te."
+    },
+    {
+      "timestamp": "2026-09-24T09:52:48.192502",
+      "role": "user",
+      "content": "fait moi un programme sportif pour une journ\u00e9e par rapport \u00e0 mon dernier questionnaire ?"
+    },
+    {
+      "timestamp": "2026-09-24T09:52:48.192519",
+      "role": "assistant",
+      "content": "Je n\u2019ai pas le contenu du questionnaire dans cette conversation. D\u2019apr\u00e8s les donn\u00e9es actuelles \u2014 \u00e9nergie 5/10, sommeil de 12 h, stress faible et vigilance normale \u2014 voici une s\u00e9ance mod\u00e9r\u00e9e.\n\n## Programme sportif d\u2019une journ\u00e9e\n\n### 1. \u00c9chauffement \u2014 10 min\n- Marche ou v\u00e9lo lent : 5 min  \n- Cercles d\u2019\u00e9paules, flexions/extension des chevilles et des hanches : 2 min  \n- Squats sans poids : 2 s\u00e9ries de 10 r\u00e9p\u00e9titions  \n\n### 2. Renforcement musculaire \u2014 30 \u00e0 35 min\nEffectuer 2 s\u00e9ries de chaque exercice, repos de 60 \u00e0 90 secondes entre les s\u00e9ries :\n\n- Squat ou presse \u00e0 cuisses : 10 \u00e0 12 r\u00e9p\u00e9titions  \n- Tirage horizontal ou rowing : 10 \u00e0 12 r\u00e9p\u00e9titions  \n- D\u00e9velopp\u00e9 chest ou pompes sur \u00e9l\u00e9vation : 8 \u00e0 12 r\u00e9p\u00e9titions  \n- Fentes ou hip thrust : 10 r\u00e9p\u00e9titions par jambe  \n- Gainage : 2 fois 20 \u00e0 30 secondes  \n\nIntensit\u00e9 conseill\u00e9e : 5 \u00e0 6/10. \u00c9vite l\u2019\u00e9chec musculaire.\n\n### 3. Cardio l\u00e9ger \u2014 15 \u00e0 20 min\nV\u00e9lo, tapis roulant ou rameur en endurance facile, sans monter trop vite en intensit\u00e9.\n\n### 4. Retour au calme \u2014 10 min\n- \u00c9tirements doux : mollets, cuisses, fessiers, dos et pectoraux  \n- Respiration lente : 3 \u00e0 5 minutes  \n\n### Recommandations\n- Hydrate-toi normalement et garde un apport calorique suffisant.  \n- Si ton sommeil de 12 h est inhabituel ou s\u2019accompagne de fatigue persistante, de brouillard mental ou de somnolence importante, consulte un professionnel de sant\u00e9 avant d\u2019augmenter l\u2019intensit\u00e9.  \n- Si tu ressens douleur thoracique, vertiges, essoufflement inhabituel ou malaise, arr\u00eate imm\u00e9diatement la s\u00e9ance."
+    },
+    {
+      "timestamp": "2026-09-24T09:58:10.728996",
+      "role": "user",
+      "content": "test"
+    },
+    {
+      "timestamp": "2026-09-24T09:58:10.729014",
+      "role": "assistant",
+      "content": "Test re\u00e7u. Je suis op\u00e9rationnel et pr\u00eat \u00e0 vous assister."
+    },
+    {
+      "timestamp": "2026-09-24T09:58:41.773320",
+      "role": "user",
+      "content": "fait moi un bilan par rapport \u00e0 mon dernier questionnaire rempli ?"
+    },
+    {
+      "timestamp": "2026-09-24T09:58:41.773335",
+      "role": "assistant",
+      "content": "[BILAN]  \n\u00c9tat psychologique: Donn\u00e9es insuffisantes pour \u00e9tablir un diagnostic fiable ; aucun sympt\u00f4me \u00e9vident dans les indicateurs disponibles.  \nSignes d\u00e9tect\u00e9s: \u00c9nergie 8/10, sommeil de 7 h 25 min, vigilance normale, hydratation et alimentation suffisantes, stress 1/10, ambiance d\u2019\u00e9quipage bonne.  \nSuggestion: Maintenir 30 \u00e0 45 minutes d\u2019exercice quotidien en salle de sport du vaisseau, avec v\u00e9lo ergom\u00e9trique, tapis de course et exercices de r\u00e9sistance, ainsi qu\u2019un horaire de sommeil r\u00e9gulier. Le questionnaire doit \u00eatre fourni pour une analyse compl\u00e8te.\n\n[PRESCRIPTION]  \nCode: 900001  \nM\u00e9dicament: \u00c9quilibreur \u00e9motionnel  \nRaison: Demande de bilan sans questionnaire exploitable ; mesure de pr\u00e9caution par d\u00e9faut, \u00e0 valider par le m\u00e9decin de bord.  \n[/PRESCRIPTION]\n\n[FIN_BILAN]"
+    },
+    {
+      "timestamp": "2026-09-24T09:59:54.883229",
+      "role": "user",
+      "content": "fait moi un programme sportif par rapport \u00e0 mon questionnaire ?"
+    },
+    {
+      "timestamp": "2026-09-24T09:59:54.883245",
+      "role": "assistant",
+      "content": "Voici un programme **d\u2019entretien et de performance**, adapt\u00e9 \u00e0 votre bon niveau d\u2019\u00e9nergie, votre sommeil suffisant, votre vigilance normale et votre faible stress. Il reste \u00e0 ajuster si vous avez des blessures ou une contre-indication m\u00e9dicale.\n\n### Organisation hebdomadaire\n\n| Jour | S\u00e9ance | Dur\u00e9e |\n|---|---|---:|\n| Lundi | Bas du corps + gainage | 50 min |\n| Mardi | Cardio mod\u00e9r\u00e9 + mobilit\u00e9 | 45 min |\n| Mercredi | Haut du corps | 50 min |\n| Jeudi | R\u00e9cup\u00e9ration active | 30 min |\n| Vendredi | Corps complet + fractionn\u00e9 l\u00e9ger | 55 min |\n| Samedi | Activit\u00e9 d\u2019\u00e9quipage ou cardio agr\u00e9able | 30\u201345 min |\n| Dimanche | Repos ou mobilit\u00e9 l\u00e9g\u00e8re | 20 min |\n\n### D\u00e9tails\n\n**Lundi \u2013 Bas du corps**\n- V\u00e9lo ergom\u00e9trique : 8 min d\u2019\u00e9chauffement\n- Presse ou \u00e9quivalent spatial : 3 \u00d7 10\u201312 r\u00e9p\u00e9titions\n- Soul\u00e8vements de mollets : 3 \u00d7 12\u201315\n- Fentes ou squat l\u00e9ger : 3 \u00d7 8\u201310\n- Gainage lat\u00e9ral : 3 \u00d7 30 secondes par c\u00f4t\u00e9\n- \u00c9tirements : 5 min\n\n**Mardi \u2013 Cardio et mobilit\u00e9**\n- Tapis de course ou v\u00e9lo : 25\u201330 min \u00e0 intensit\u00e9 mod\u00e9r\u00e9e, conversation facile\n- Mobilit\u00e9 hanches, \u00e9paules et colonne : 10 min\n- Respirations contr\u00f4l\u00e9es : 3 min\n\n**Mercredi \u2013 Haut du corps**\n- Traction assist\u00e9e ou tirage vertical : 3 \u00d7 8\u201310\n- D\u00e9velopp\u00e9 push-up ou \u00e9quivalent : 3 \u00d7 8\u201312\n- Rowing assis : 3 \u00d7 10\u201312\n- \u00c9l\u00e9vations lat\u00e9rales : 2\u20133 \u00d7 12\n- Flexions des bras : 2 \u00d7 10\n- \u00c9tirements : 5 min\n\n**Jeudi \u2013 R\u00e9cup\u00e9ration active**\n- Marche ou v\u00e9lo tr\u00e8s l\u00e9ger : 15\u201320 min\n- \u00c9tirements doux et respiration : 10 min\n- Pas d\u2019effort intense\n\n**Vendredi \u2013 Corps complet**\n- \u00c9chauffement cardio : 8 min\n- Squat ou presse : 3 \u00d7 10\n- Traction ou tirage : 3 \u00d7 10\n- D\u00e9velopp\u00e9 des \u00e9paules l\u00e9ger : 3 \u00d7 8\u201310\n- Curl au sol ou \u00e9quivalent : 2 \u00d7 12\n- Gainage : 3 \u00d7 30\u201345 secondes\n- Fractionn\u00e9 : 6 \u00d7 1 minute mod\u00e9r\u00e9 \u00e0 rapide, avec 1 minute de r\u00e9cup\u00e9ration\n\n**Samedi \u2013 Activit\u00e9 optionnelle**\n- Cardio mod\u00e9r\u00e9, jeux d\u2019\u00e9quipage ou s\u00e9ance de mobilit\u00e9\n- \u00c9viter de transformer cette s\u00e9ance en effort maximal\n\n### Progression et s\u00e9curit\u00e9\n- Intensit\u00e9 principale : **7/10**, sans arriver \u00e0 l\u2019\u00e9puisement.\n- Augmentez progressivement d\u2019environ **5\u201310 % par semaine**.\n- Gardez 2 r\u00e9p\u00e9titions en r\u00e9serve sur chaque s\u00e9rie.\n- \u00c9chauffez-vous 8\u201310 minutes et terminez par 5 minutes de r\u00e9cup\u00e9ration.\n- Maintenez l\u2019hydratation et le sommeil actuels.\n- Arr\u00eatez la s\u00e9ance et pr\u00e9venez l\u2019infirmerie en cas de douleur thoracique, \u00e9tourdissement, essoufflement inhabituel, maux de t\u00eate importants ou faiblesse soudaine.\n\nPour personnaliser davantage le programme, envoyez le questionnaire complet, notamment vos blessures, votre \u00e2ge, votre niveau de condition physique et vos contraintes de mission."
+    }
+  ]
+}

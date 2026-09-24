@@ -76,6 +76,98 @@
       "social_needs": "equilibre",
       "environment_anomalies": "aucun",
       "incident_report": null
+    },
+    {
+      "timestamp": "2026-09-23T14:26:48.438594",
+      "energy_level": 3,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "desorientation",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 6.166666666666667,
+      "sleep_difficulties": "reveils_frequents",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "excellente",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 7,
+      "stress": 2,
+      "fatigue": 1
+    },
+    {
+      "timestamp": "2026-09-23T14:54:36.417747",
+      "energy_level": 6,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 8.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "somnolent",
+      "hydration_goal": "non",
+      "caloric_intake": "non",
+      "digestive_issues": "perte_appetit",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 4,
+      "mood": 9,
+      "stress": 1,
+      "fatigue": 1
+    },
+    {
+      "timestamp": "2026-09-23T14:56:19.474540",
+      "energy_level": 5,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 7.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 5,
+      "stress": 5,
+      "fatigue": 5
+    },
+    {
+      "timestamp": "2026-09-23T14:56:49.294931",
+      "energy_level": 5,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 7.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 5,
+      "stress": 5,
+      "fatigue": 5
     }
   ],
   "analysis_history": [],
@@ -88,7 +180,7 @@
     {
       "timestamp": "2026-09-23T09:48:18.115938",
       "role": "assistant",
-      "content": "Test reçu. Je suis opérationnel et prêt à vous assister."
+      "content": "Test re\u00c3\u00a7u. Je suis op\u00c3\u00a9rationnel et pr\u00c3\u00aat \u00c3\u00a0 vous assister."
     },
     {
       "timestamp": "2026-09-23T09:48:33.277867",
@@ -98,7 +190,7 @@
     {
       "timestamp": "2026-09-23T09:48:33.277887",
       "role": "assistant",
-      "content": "Enchanté, Liam ! Comment puis-je t’aider aujourd’hui ?"
+      "content": "Enchant\u00c3\u00a9, Liam ! Comment puis-je t\u00e2\u20ac\u2122aider aujourd\u00e2\u20ac\u2122hui ?"
     },
     {
       "timestamp": "2026-09-23T09:48:39.272685",
@@ -108,7 +200,7 @@
     {
       "timestamp": "2026-09-23T09:48:39.272693",
       "role": "assistant",
-      "content": "Je ne connais pas votre prénom dans le contexte disponible. Vous pouvez me le confirmer, et je m’en souviendrai pour nos futurs échanges."
+      "content": "Je ne connais pas votre pr\u00c3\u00a9nom dans le contexte disponible. Vous pouvez me le confirmer, et je m\u00e2\u20ac\u2122en souviendrai pour nos futurs \u00c3\u00a9changes."
     },
     {
       "timestamp": "2026-09-23T09:49:06.174340",
@@ -118,7 +210,7 @@
     {
       "timestamp": "2026-09-23T09:49:06.174352",
       "role": "assistant",
-      "content": "Je ne sais pas encore comment tu t’appelles. Comment veux-tu que je t’appelle ?"
+      "content": "Je ne sais pas encore comment tu t\u00e2\u20ac\u2122appelles. Comment veux-tu que je t\u00e2\u20ac\u2122appelle ?"
     },
     {
       "timestamp": "2026-09-23T09:49:12.765987",
@@ -128,7 +220,7 @@
     {
       "timestamp": "2026-09-23T09:49:12.766004",
       "role": "assistant",
-      "content": "Bonjour Liam. Prêt pour la suite de ta mission ?"
+      "content": "Bonjour Liam. Pr\u00c3\u00aat pour la suite de ta mission ?"
     },
     {
       "timestamp": "2026-09-23T09:50:28.201806",
@@ -138,7 +230,7 @@
     {
       "timestamp": "2026-09-23T09:50:28.201813",
       "role": "assistant",
-      "content": "Bien sûr, Liam. Comment puis-je t’aider aujourd’hui ?"
+      "content": "Bien s\u00c3\u00bbr, Liam. Comment puis-je t\u00e2\u20ac\u2122aider aujourd\u00e2\u20ac\u2122hui ?"
     },
     {
       "timestamp": "2026-09-23T09:50:41.487167",
@@ -148,7 +240,7 @@
     {
       "timestamp": "2026-09-23T09:50:41.487180",
       "role": "assistant",
-      "content": "Je ne peux pas le savoir : ton nom n’apparaît ni dans l’historique ni dans le contexte. Dis-moi comment tu veux que je t’appelle.\n\n[PRESCRIPTION]  \nCode: 300000  \nMédicament: Somnifère doux  \nRaison: Sommeil de 5 h avec difficulté d’endormissement détectés dans ton profil de mission ; à valider par le médecin de bord.  \n[/PRESCRIPTION]"
+      "content": "Je ne peux pas le savoir : ton nom n\u00e2\u20ac\u2122appara\u00c3\u00aet ni dans l\u00e2\u20ac\u2122historique ni dans le contexte. Dis-moi comment tu veux que je t\u00e2\u20ac\u2122appelle.\n\n[PRESCRIPTION]  \nCode: 300000  \nM\u00c3\u00a9dicament: Somnif\u00c3\u00a8re doux  \nRaison: Sommeil de 5 h avec difficult\u00c3\u00a9 d\u00e2\u20ac\u2122endormissement d\u00c3\u00a9tect\u00c3\u00a9s dans ton profil de mission ; \u00c3\u00a0 valider par le m\u00c3\u00a9decin de bord.  \n[/PRESCRIPTION]"
     }
   ],
   "crew": [
@@ -158,7 +250,7 @@
       "titre": "Commandant de bord",
       "sexe": "F",
       "nom": "Moreau",
-      "prenom": "Élise",
+      "prenom": "\u00c3\u2030lise",
       "age": 42
     },
     {
@@ -173,7 +265,7 @@
     {
       "id": 3,
       "grade": "Chef de secteur",
-      "titre": "Chef ingénieur",
+      "titre": "Chef ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Boucher",
       "prenom": "Pavel",
@@ -191,9 +283,9 @@
     {
       "id": 5,
       "grade": "Chef de secteur",
-      "titre": "Médecin-chef",
+      "titre": "M\u00c3\u00a9decin-chef",
       "sexe": "M",
-      "nom": "Traoré",
+      "nom": "Traor\u00c3\u00a9",
       "prenom": "Wei",
       "age": 49
     },
@@ -217,8 +309,8 @@
     },
     {
       "id": 8,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Renaud",
       "prenom": "Erik",
@@ -226,7 +318,7 @@
     },
     {
       "id": 9,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "M",
       "nom": "Okafor",
@@ -235,7 +327,7 @@
     },
     {
       "id": 10,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "F",
       "nom": "Martins",
@@ -244,17 +336,17 @@
     },
     {
       "id": 11,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "F",
-      "nom": "García",
+      "nom": "Garc\u00c3\u00ada",
       "prenom": "Valentina",
       "age": 30
     },
     {
       "id": 12,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "F",
       "nom": "Duval",
       "prenom": "Marie",
@@ -262,7 +354,7 @@
     },
     {
       "id": 13,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "M",
       "nom": "Bakr",
@@ -271,7 +363,7 @@
     },
     {
       "id": 14,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "M",
       "nom": "Osei",
@@ -280,7 +372,7 @@
     },
     {
       "id": 15,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Kaur",
@@ -289,16 +381,16 @@
     },
     {
       "id": 16,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
-      "nom": "Traoré",
+      "nom": "Traor\u00c3\u00a9",
       "prenom": "Lucia",
       "age": 40
     },
     {
       "id": 17,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "F",
       "nom": "Lefevre",
@@ -307,8 +399,8 @@
     },
     {
       "id": 18,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Aziz",
       "prenom": "Julien",
@@ -316,8 +408,8 @@
     },
     {
       "id": 19,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "F",
       "nom": "Berg",
       "prenom": "Fatou",
@@ -325,16 +417,16 @@
     },
     {
       "id": 20,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Cuisinier",
       "sexe": "F",
       "nom": "Adeyemi",
-      "prenom": "Élise",
+      "prenom": "\u00c3\u2030lise",
       "age": 45
     },
     {
       "id": 21,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "M",
       "nom": "Rossi",
@@ -343,7 +435,7 @@
     },
     {
       "id": 22,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Agriculteur",
       "sexe": "M",
       "nom": "Renaud",
@@ -352,7 +444,7 @@
     },
     {
       "id": 23,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "M",
       "nom": "Sato",
@@ -361,7 +453,7 @@
     },
     {
       "id": 24,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Kim",
@@ -370,8 +462,8 @@
     },
     {
       "id": 25,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Larsen",
       "prenom": "Nikolai",
@@ -379,8 +471,8 @@
     },
     {
       "id": 26,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "F",
       "nom": "Nguyen",
       "prenom": "Selma",
@@ -388,7 +480,7 @@
     },
     {
       "id": 27,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Bakr",
@@ -397,7 +489,7 @@
     },
     {
       "id": 28,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Silva",
@@ -406,7 +498,7 @@
     },
     {
       "id": 29,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "M",
       "nom": "Petrov",
@@ -415,7 +507,7 @@
     },
     {
       "id": 30,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "M",
       "nom": "Tanaka",
@@ -424,7 +516,7 @@
     },
     {
       "id": 31,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Moreau",
@@ -433,7 +525,7 @@
     },
     {
       "id": 32,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "F",
       "nom": "Fernandez",
@@ -442,8 +534,8 @@
     },
     {
       "id": 33,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Alvarez",
       "prenom": "Erik",
@@ -451,7 +543,7 @@
     },
     {
       "id": 34,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Infirmier",
       "sexe": "F",
       "nom": "Renaud",
@@ -460,7 +552,7 @@
     },
     {
       "id": 35,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Cuisinier",
       "sexe": "F",
       "nom": "Larsen",
@@ -469,8 +561,8 @@
     },
     {
       "id": 36,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Girard",
       "prenom": "Rafael",
@@ -478,17 +570,17 @@
     },
     {
       "id": 37,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "M",
-      "nom": "García",
+      "nom": "Garc\u00c3\u00ada",
       "prenom": "Kenji",
       "age": 36
     },
     {
       "id": 38,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "F",
       "nom": "Rossi",
       "prenom": "Marie",
@@ -496,7 +588,7 @@
     },
     {
       "id": 39,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "M",
       "nom": "Moreau",
@@ -505,8 +597,8 @@
     },
     {
       "id": 40,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Volkov",
       "prenom": "Youssef",
@@ -514,7 +606,7 @@
     },
     {
       "id": 41,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "M",
       "nom": "Fontaine",
@@ -523,7 +615,7 @@
     },
     {
       "id": 42,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Agriculteur",
       "sexe": "M",
       "nom": "Haddad",
@@ -532,16 +624,16 @@
     },
     {
       "id": 43,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Cuisinier",
       "sexe": "F",
       "nom": "Rossi",
-      "prenom": "Zoé",
+      "prenom": "Zo\u00c3\u00a9",
       "age": 30
     },
     {
       "id": 44,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Technicien",
       "sexe": "F",
       "nom": "Bertrand",
@@ -550,7 +642,7 @@
     },
     {
       "id": 45,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Cuisinier",
       "sexe": "F",
       "nom": "Silva",
@@ -559,7 +651,7 @@
     },
     {
       "id": 46,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Pilote",
       "sexe": "F",
       "nom": "Haddad",
@@ -568,7 +660,7 @@
     },
     {
       "id": 47,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Cuisinier",
       "sexe": "M",
       "nom": "Dubois",
@@ -577,7 +669,7 @@
     },
     {
       "id": 48,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Agriculteur",
       "sexe": "F",
       "nom": "Aziz",
@@ -586,7 +678,7 @@
     },
     {
       "id": 49,
-      "grade": "Membre d'équipage",
+      "grade": "Membre d'\u00c3\u00a9quipage",
       "titre": "Agriculteur",
       "sexe": "M",
       "nom": "Nilsson",
@@ -595,8 +687,8 @@
     },
     {
       "id": 50,
-      "grade": "Membre d'équipage",
-      "titre": "Ingénieur",
+      "grade": "Membre d'\u00c3\u00a9quipage",
+      "titre": "Ing\u00c3\u00a9nieur",
       "sexe": "M",
       "nom": "Haddad",
       "prenom": "Erik",
@@ -607,30 +699,30 @@
     {
       "id": 1,
       "type": "viande",
-      "nom": "Poulet lyophilisé",
+      "nom": "Poulet lyophilis\u00c3\u00a9",
       "quantite": 400,
       "unite": "portions",
       "production": false
     },
     {
       "id": 2,
-      "type": "féculent",
-      "nom": "Riz déshydraté",
+      "type": "f\u00c3\u00a9culent",
+      "nom": "Riz d\u00c3\u00a9shydrat\u00c3\u00a9",
       "quantite": 750,
       "unite": "portions",
       "production": false
     },
     {
       "id": 3,
-      "type": "féculent",
-      "nom": "Pâtes déshydratées",
+      "type": "f\u00c3\u00a9culent",
+      "nom": "P\u00c3\u00a2tes d\u00c3\u00a9shydrat\u00c3\u00a9es",
       "quantite": 500,
       "unite": "portions",
       "production": false
     },
     {
       "id": 4,
-      "type": "légume",
+      "type": "l\u00c3\u00a9gume",
       "nom": "Laitue hydroponique",
       "quantite": 200,
       "unite": "portions",
@@ -638,7 +730,7 @@
     },
     {
       "id": 5,
-      "type": "légume",
+      "type": "l\u00c3\u00a9gume",
       "nom": "Tomates hydroponiques",
       "quantite": 125,
       "unite": "portions",
@@ -662,7 +754,7 @@
     },
     {
       "id": 8,
-      "type": "protéine",
+      "type": "prot\u00c3\u00a9ine",
       "nom": "Algues spiruline",
       "quantite": 150,
       "unite": "portions",
@@ -671,7 +763,7 @@
     {
       "id": 9,
       "type": "boisson",
-      "nom": "Eau recyclée",
+      "nom": "Eau recycl\u00c3\u00a9e",
       "quantite": 25000,
       "unite": "litres",
       "production": true
@@ -705,7 +797,7 @@
       "superficie_m2": 40,
       "capacite": 12,
       "activites": [
-        "hygiène"
+        "hygi\u00c3\u00a8ne"
       ]
     },
     {
@@ -714,7 +806,7 @@
       "superficie_m2": 25,
       "capacite": 8,
       "activites": [
-        "hygiène"
+        "hygi\u00c3\u00a8ne"
       ]
     },
     {
@@ -725,8 +817,8 @@
       "activites": [
         "repas",
         "peinture",
-        "jeux de société",
-        "détente"
+        "jeux de soci\u00c3\u00a9t\u00c3\u00a9",
+        "d\u00c3\u00a9tente"
       ]
     },
     {
@@ -745,7 +837,7 @@
       "superficie_m2": 50,
       "capacite": 10,
       "activites": [
-        "soins médicaux"
+        "soins m\u00c3\u00a9dicaux"
       ]
     },
     {
@@ -760,7 +852,7 @@
     },
     {
       "id": 9,
-      "nom_salle": "Salle de réunion des chefs de secteur",
+      "nom_salle": "Salle de r\u00c3\u00a9union des chefs de secteur",
       "superficie_m2": 35,
       "capacite": 8,
       "activites": [
@@ -781,27 +873,27 @@
   },
   "station_systems": {
     "propulsion": {
-      "description": "Système de propulsion ionique longue durée assurant la vitesse de croisière du vaisseau.",
+      "description": "Syst\u00c3\u00a8me de propulsion ionique longue dur\u00c3\u00a9e assurant la vitesse de croisi\u00c3\u00a8re du vaisseau.",
       "statut": "nominal"
     },
     "support_vie": {
-      "description": "Recyclage de l'air et de l'eau, régulation thermique et gestion de l'oxygène pour l'ensemble de l'équipage.",
+      "description": "Recyclage de l'air et de l'eau, r\u00c3\u00a9gulation thermique et gestion de l'oxyg\u00c3\u00a8ne pour l'ensemble de l'\u00c3\u00a9quipage.",
       "statut": "nominal"
     },
     "energie": {
-      "description": "Panneaux solaires, batteries et réacteur auxiliaire assurant l'alimentation électrique du vaisseau.",
+      "description": "Panneaux solaires, batteries et r\u00c3\u00a9acteur auxiliaire assurant l'alimentation \u00c3\u00a9lectrique du vaisseau.",
       "statut": "nominal"
     },
     "communication": {
-      "description": "Liaison avec la Terre soumise à une latence extrême ; bascule automatique en mode autonome en cas de coupure.",
+      "description": "Liaison avec la Terre soumise \u00c3\u00a0 une latence extr\u00c3\u00aame ; bascule automatique en mode autonome en cas de coupure.",
       "statut": "nominal"
     },
     "agriculture": {
-      "description": "Ferme hydroponique automatisée (SpaceFarm) assurant une partie de l'approvisionnement alimentaire.",
+      "description": "Ferme hydroponique automatis\u00c3\u00a9e (SpaceFarm) assurant une partie de l'approvisionnement alimentaire.",
       "statut": "nominal"
     },
     "securite": {
-      "description": "Détection d'intrusion, surveillance environnementale et protocoles de confinement en cas d'anomalie.",
+      "description": "D\u00c3\u00a9tection d'intrusion, surveillance environnementale et protocoles de confinement en cas d'anomalie.",
       "statut": "nominal"
     }
   },
@@ -810,31 +902,31 @@
       "id": 1,
       "nom": "Mal de l'espace (syndrome d'adaptation spatiale)",
       "symptomes": [
-        "nausées",
+        "naus\u00c3\u00a9es",
         "vertiges",
-        "désorientation"
+        "d\u00c3\u00a9sorientation"
       ],
-      "cause": "Adaptation du système vestibulaire à l'absence de gravité durant les premiers jours de vol.",
+      "cause": "Adaptation du syst\u00c3\u00a8me vestibulaire \u00c3\u00a0 l'absence de gravit\u00c3\u00a9 durant les premiers jours de vol.",
       "traitement": [
-        "antiémétique",
+        "anti\u00c3\u00a9m\u00c3\u00a9tique",
         "repos",
         "hydratation"
       ],
-      "gravite": "léger"
+      "gravite": "l\u00c3\u00a9ger"
     },
     {
       "id": 2,
-      "nom": "Décalcification osseuse",
+      "nom": "D\u00c3\u00a9calcification osseuse",
       "symptomes": [
         "douleurs osseuses",
-        "fragilité osseuse accrue"
+        "fragilit\u00c3\u00a9 osseuse accrue"
       ],
-      "cause": "Absence de charge gravitationnelle sur le squelette pendant une exposition prolongée.",
+      "cause": "Absence de charge gravitationnelle sur le squelette pendant une exposition prolong\u00c3\u00a9e.",
       "traitement": [
-        "complément calcium/vitamine D",
-        "exercice physique quotidien en salle de sport (charge/résistance)"
+        "compl\u00c3\u00a9ment calcium/vitamine D",
+        "exercice physique quotidien en salle de sport (charge/r\u00c3\u00a9sistance)"
       ],
-      "gravite": "modéré, s'aggrave sans exercice régulier"
+      "gravite": "mod\u00c3\u00a9r\u00c3\u00a9, s'aggrave sans exercice r\u00c3\u00a9gulier"
     },
     {
       "id": 3,
@@ -843,102 +935,102 @@
         "perte de force",
         "fonte musculaire"
       ],
-      "cause": "Absence de sollicitation musculaire habituelle en microgravité.",
+      "cause": "Absence de sollicitation musculaire habituelle en microgravit\u00c3\u00a9.",
       "traitement": [
         "exercice physique quotidien obligatoire en salle de sport",
-        "aucun traitement médicamenteux spécifique"
+        "aucun traitement m\u00c3\u00a9dicamenteux sp\u00c3\u00a9cifique"
       ],
-      "gravite": "modéré, s'aggrave sans exercice régulier"
+      "gravite": "mod\u00c3\u00a9r\u00c3\u00a9, s'aggrave sans exercice r\u00c3\u00a9gulier"
     },
     {
       "id": 4,
-      "nom": "Syndrome neuro-oculaire associé au vol spatial (SANS)",
+      "nom": "Syndrome neuro-oculaire associ\u00c3\u00a9 au vol spatial (SANS)",
       "symptomes": [
         "vision floue",
-        "maux de tête",
+        "maux de t\u00c3\u00aate",
         "gonflement du nerf optique"
       ],
-      "cause": "Redistribution des fluides corporels vers la tête en microgravité.",
+      "cause": "Redistribution des fluides corporels vers la t\u00c3\u00aate en microgravit\u00c3\u00a9.",
       "traitement": [
         "collyre lubrifiant",
         "surveillance ophtalmologique",
-        "limiter les postures prolongées tête en bas"
+        "limiter les postures prolong\u00c3\u00a9es t\u00c3\u00aate en bas"
       ],
-      "gravite": "modéré"
+      "gravite": "mod\u00c3\u00a9r\u00c3\u00a9"
     },
     {
       "id": 5,
-      "nom": "Désynchronisation circadienne / troubles du sommeil",
+      "nom": "D\u00c3\u00a9synchronisation circadienne / troubles du sommeil",
       "symptomes": [
         "insomnie",
         "fatigue diurne",
         "baisse de vigilance"
       ],
-      "cause": "Absence de cycle jour/nuit naturel à bord.",
+      "cause": "Absence de cycle jour/nuit naturel \u00c3\u00a0 bord.",
       "traitement": [
-        "mélatonine",
-        "hygiène de sommeil",
-        "éclairage artificiel programmé"
+        "m\u00c3\u00a9latonine",
+        "hygi\u00c3\u00a8ne de sommeil",
+        "\u00c3\u00a9clairage artificiel programm\u00c3\u00a9"
       ],
-      "gravite": "léger à modéré"
+      "gravite": "l\u00c3\u00a9ger \u00c3\u00a0 mod\u00c3\u00a9r\u00c3\u00a9"
     },
     {
       "id": 6,
       "nom": "Exposition aux rayonnements cosmiques",
       "symptomes": [
-        "nausées",
+        "naus\u00c3\u00a9es",
         "fatigue",
-        "brûlures cutanées en cas d'exposition aiguë"
+        "br\u00c3\u00bblures cutan\u00c3\u00a9es en cas d'exposition aigu\u00c3\u00ab"
       ],
-      "cause": "Rayonnement cosmique galactique et éruptions solaires en dehors de la magnétosphère terrestre.",
+      "cause": "Rayonnement cosmique galactique et \u00c3\u00a9ruptions solaires en dehors de la magn\u00c3\u00a9tosph\u00c3\u00a8re terrestre.",
       "traitement": [
         "iodure de potassium",
-        "confinement dans une zone blindée",
-        "surveillance dosimétrique"
+        "confinement dans une zone blind\u00c3\u00a9e",
+        "surveillance dosim\u00c3\u00a9trique"
       ],
-      "gravite": "sévère en cas d'exposition aiguë"
+      "gravite": "s\u00c3\u00a9v\u00c3\u00a8re en cas d'exposition aigu\u00c3\u00ab"
     },
     {
       "id": 7,
-      "nom": "Immunodépression spatiale",
+      "nom": "Immunod\u00c3\u00a9pression spatiale",
       "symptomes": [
-        "infections plus fréquentes",
+        "infections plus fr\u00c3\u00a9quentes",
         "cicatrisation lente"
       ],
-      "cause": "Affaiblissement du système immunitaire lié à la microgravité et au stress prolongé.",
+      "cause": "Affaiblissement du syst\u00c3\u00a8me immunitaire li\u00c3\u00a9 \u00c3\u00a0 la microgravit\u00c3\u00a9 et au stress prolong\u00c3\u00a9.",
       "traitement": [
-        "antibiotique en cas d'infection bactérienne confirmée",
-        "hygiène renforcée"
+        "antibiotique en cas d'infection bact\u00c3\u00a9rienne confirm\u00c3\u00a9e",
+        "hygi\u00c3\u00a8ne renforc\u00c3\u00a9e"
       ],
-      "gravite": "modéré"
+      "gravite": "mod\u00c3\u00a9r\u00c3\u00a9"
     },
     {
       "id": 8,
-      "nom": "Déshydratation",
+      "nom": "D\u00c3\u00a9shydratation",
       "symptomes": [
         "fatigue",
         "vertiges",
-        "bouche sèche"
+        "bouche s\u00c3\u00a8che"
       ],
       "cause": "Apport hydrique insuffisant ou pertes accrues.",
       "traitement": [
-        "solution de réhydratation orale"
+        "solution de r\u00c3\u00a9hydratation orale"
       ],
-      "gravite": "léger à modéré"
+      "gravite": "l\u00c3\u00a9ger \u00c3\u00a0 mod\u00c3\u00a9r\u00c3\u00a9"
     },
     {
       "id": 9,
-      "nom": "Stress aigu / anxiété liée à l'isolement",
+      "nom": "Stress aigu / anxi\u00c3\u00a9t\u00c3\u00a9 li\u00c3\u00a9e \u00c3\u00a0 l'isolement",
       "symptomes": [
-        "irritabilité",
-        "anxiété",
+        "irritabilit\u00c3\u00a9",
+        "anxi\u00c3\u00a9t\u00c3\u00a9",
         "troubles du sommeil"
       ],
-      "cause": "Isolement prolongé, confinement et éloignement de la Terre.",
+      "cause": "Isolement prolong\u00c3\u00a9, confinement et \u00c3\u00a9loignement de la Terre.",
       "traitement": [
         "anxiolytique",
         "soutien psychologique (spAIce)",
-        "activité physique et sociale"
+        "activit\u00c3\u00a9 physique et sociale"
       ],
       "gravite": "variable"
     }

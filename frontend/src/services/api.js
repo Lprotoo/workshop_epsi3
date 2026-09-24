@@ -8,23 +8,35 @@ import {
 } from './checkinMap'
 
 const API_BASE = '/api'
+const DEFAULT_TIMEOUT_MS = 12000
+const CHAT_TIMEOUT_MS = 90000
 
-async function request(path, options = {}) {
+async function request(path, options = {}, timeoutMs = DEFAULT_TIMEOUT_MS) {
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 12000)
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
   let response
   try {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    }
+    // Ajouter le token si l'utilisateur est connecté
+    const token = localStorage.getItem('token')
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
     response = await fetch(`${API_BASE}${path}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...(options.headers || {}),
-      },
+      headers,
       signal: controller.signal,
       ...options,
     })
   } catch (error) {
     if (error.name === 'AbortError') {
-      throw new Error('Onboard API timed out. Start FastAPI on port 8000.')
+      throw new Error(
+        timeoutMs === CHAT_TIMEOUT_MS
+          ? "L'assistant met trop de temps à répondre. Réessaie dans un instant."
+          : 'Onboard API timed out. Start FastAPI on port 8000.',
+      )
     }
     throw new Error('Onboard API is unreachable. Start FastAPI on port 8000.')
   } finally {
@@ -155,10 +167,14 @@ export async function getAnalysis() {
 }
 
 export async function sendChat(messages, language = 'fr') {
-  const payload = await request('/chat', {
-    method: 'POST',
-    body: JSON.stringify({ messages, language }),
-  })
+  const payload = await request(
+    '/chat',
+    {
+      method: 'POST',
+      body: JSON.stringify({ messages, language }),
+    },
+    CHAT_TIMEOUT_MS,
+  )
   return payload.response
 }
 

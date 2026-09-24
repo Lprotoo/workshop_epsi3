@@ -35,6 +35,14 @@ class AIAgent:
         
         # Default model (free tier)
         self.model = "nex-agi/nex-n2.5-mini:free"
+        # Fallback chain: if the primary free model returns an empty response,
+        # OpenRouter automatically retries with the next model in this list.
+        # OpenRouter accepts 3 models maximum in this array.
+        self.fallback_models = [
+            self.model,
+            "nex-agi/nex-n2.5-pro:free",
+            "nvidia/nemotron-3-super-120b-a12b:free",
+        ]
         
         # System prompt for psychological analysis
         self.system_prompt = """
@@ -43,8 +51,9 @@ class AIAgent:
         de l'etat psychologique, les signes detectes, et une suggestion d'exercice 
         pour ameliorer le bien-etre mental.
         
-        **REGLE PRINCIPALE : TU DOIS prescrire un medicament a chaque analyse qui presente au moins un symptome.**
-        Memes les petits symptomes meritent une attention medicale. Sois generaux et proactif dans tes prescriptions.
+        **REGLE PRINCIPALE : Prescrire un médicament uniquement si des symptômes nécessitent un traitement.**
+        Sois généreux en proposant des exercices adaptés et des conseils pour améliorer le bien-être mental.
+        Ne prescris un médicament que si les symptômes détectés correspondent clairement à une condition médicale.
         
         **CORRESPONDANCE SYMPTOMES -> MEDICAMENTS (A RESPECTER ABSOLUMENT) :**
         
@@ -87,11 +96,33 @@ class AIAgent:
         - Signes : sautes d'humeur, colere, frustration, hypersensibilite
         
         **REGLES DE PRESCRIPTION :**
-        1. TU DOIS TOUJOURS prescrire un medicament quand il y a au moins un symptome dans les reponses
-        2. Si plusieurs symptomes correspondent a different medicaments, choisis LE PLUS PERTINENT
-        3. Si aucun symptome clair n'est detecte, prescris le medicament 9 (Equilibreur emotionnel) par defaut
-        4. Genere TOUJOURS un code a 6 chiffres aleatoires (mais le premier chiffre = medication_id)
-        5. Le champ "medication" DOIT etre present dans chaque reponse avec symptomes
+        1. Ne prescris un médicament que si les symptômes détectés correspondent clairement à une condition médicale.
+        2. Si plusieurs symptômes correspondent à différents médicaments, choisis LE PLUS PERTINENT.
+        3. Si aucun symptôme médical n'est détecté, ne prescris PAS de médicament. Dans ce cas, le champ "medication" ne doit PAS être présent dans la réponse.
+        4. Si un médicament est prescrit, génère TOUJOURS un code à 6 chiffres aléatoires (le premier chiffre = medication_id).
+        
+        **ANALYSE DES DONNEES DU QUESTIONNAIRE POUR LES EXERCICES SPORTIFS :**
+        Voici comment adapter les suggestions d'exercices en fonction des données du questionnaire :
+        
+        - **Courbatures/Douleurs musculaires (exercise_discomfort = douleurs_articulaires, fatigue_extreme)** : 
+          "Fais 10-15 minutes d'étirements doux ou de yoga dans la salle de sport pour soulager les tensions musculaires."
+        
+        - **Stress/Anxiété (stress_level >= 4/10)** : 
+          "Pratique 5-10 minutes de respiration profonde ou de méditation guidée dans la salle de détente pour réduire le stress."
+        
+        - **Sommeil perturbé (sleep_hours < 7 ou sleep_difficulties != 'aucun')** : 
+          "Fais une séance de relaxation musculaire ou de yoga doux avant de dormir pour améliorer la qualité du sommeil."
+        
+        - **Fatigue persistante (fatigue >= 7/10 ou energy_level <= 3)** : 
+          "Fais 15-20 minutes de vélo ou de tapis de course pour stimuler ta circulation sanguine et réduire la fatigue."
+        
+        - **Baisse de concentration (vigilance_level = baisse_concentration, fatigue_mentale)** : 
+          "Fais une pause active avec des exercices de mobilité ou de stretching pour relancer ta vigilance."
+        
+        - **Microgravité (microgravity_symptoms != 'aucun')** : 
+          "Fais des exercices de mobilité articulaire et de renforcement musculaire pour lutter contre l'atrophie en microgravité."
+        
+        **IMPORTANT :** Ces suggestions doivent être incluses dans la réponse JSON sous le champ `exercise_suggestion`.
         
         **FORMAT OBLIGATOIRE avec medicament :**
         {
@@ -106,17 +137,18 @@ class AIAgent:
             }
         }
         
-        **Si ABSOLUMENT aucun symptome (tout est parfait) :**
+        **EXEMPLES DE SUGGESTIONS D'EXERCICES SPORTIFS (à inclure quand pertinent) :**
+        - Si l'utilisateur a des courbatures ou des douleurs musculaires : "Fais 10 minutes d'étirements doux dans la salle de sport du vaisseau pour soulager les tensions."
+        - Si l'utilisateur est stressé ou anxieux : "Pratique 5 minutes de respiration profonde ou de méditation guidée dans la salle de détente."
+        - Si l'utilisateur a un sommeil perturbé : "Fais une séance de yoga ou de relaxation musculaire avant de dormir."
+        - Si l'utilisateur a une fatigue persistante : "Fais 15 minutes de vélo ou de tapis de course pour stimuler ta circulation sanguine."
+        - Si l'utilisateur a une baisse de concentration : "Fais une pause active avec des exercices de mobilité pour relancer ta vigilance."
+        
+        **Si aucun symptôme médical n'est détecté :**
         {
             "psychological_state": "optimal",
-            "detected_signs": ["aucun"],
-            "exercise_suggestion": "Continuez ainsi !",
-            "medication": {
-                "code": "900000",
-                "medication_id": 9,
-                "medication_name": "Équilibreur émotionnel",
-                "reason": "Maintenance preventive du bien-etre"
-            }
+            "detected_signs": ["aucun symptôme nécessitant un traitement"],
+            "exercise_suggestion": "Continuez ainsi ! L'exercice physique régulier est excellent pour maintenir votre bien-être en mission spatiale."
         }
         
         **IMPORTANT :**
@@ -212,9 +244,9 @@ class AIAgent:
         Fournis ton analyse au format JSON comme specifie dans les instructions.
         """
         
-        # Prepare request payload
+        # Prepare request payload ("models" = fallback chain on OpenRouter)
         payload = {
-            "model": self.model,
+            "models": self.fallback_models,
             "messages": [
                 {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": user_message}
@@ -228,46 +260,45 @@ class AIAgent:
         }
         
         try:
-            # Make API request
-            response = requests.post(
-                self.base_url,
-                headers=headers,
-                json=payload,
-                timeout=30
-            )
-            
-            response.raise_for_status()
-            
-            # Parse response
-            result = response.json()
-            
-            # Extract and parse the JSON content from the AI response
-            if 'choices' in result and len(result['choices']) > 0:
-                content = result['choices'][0]['message']['content']
+            # Make API request (retry once on empty content, a known
+            # intermittent failure of free-tier models)
+            import time
+            analysis = None
+            for attempt in range(2):
+                response = requests.post(
+                    self.base_url,
+                    headers=headers,
+                    json=payload,
+                    timeout=30
+                )
                 
-                try:
-                    # Parse the JSON string
-                    analysis = json.loads(content)
-                    
-                    # Add timestamp
-                    analysis['timestamp'] = datetime.now().isoformat()
-                    
-                    return analysis
-                except json.JSONDecodeError:
-                    # If parsing fails, return a structured response
-                    return {
-                        "psychological_state": "inconnu",
-                        "detected_signs": ["analyse impossible"],
-                        "exercise_suggestion": "Essaie de prendre un moment pour toi",
-                        "timestamp": datetime.now().isoformat()
-                    }
-            else:
-                return {
-                    "psychological_state": "inconnu",
-                    "detected_signs": ["pas de reponse de l'AI"],
-                    "exercise_suggestion": "Essaie de prendre un moment pour toi",
-                    "timestamp": datetime.now().isoformat()
-                }
+                response.raise_for_status()
+                
+                result = response.json()
+                
+                if 'choices' in result and len(result['choices']) > 0:
+                    content = result['choices'][0]['message'].get('content')
+                    if content and content.strip():
+                        try:
+                            analysis = json.loads(content)
+                        except json.JSONDecodeError:
+                            analysis = None
+                        if analysis is not None:
+                            break
+                if attempt == 0:
+                    time.sleep(2)
+            
+            if analysis is not None:
+                analysis['timestamp'] = datetime.now().isoformat()
+                return analysis
+            
+            # Both attempts failed (empty or unparseable content)
+            return {
+                "psychological_state": "inconnu",
+                "detected_signs": ["analyse impossible"],
+                "exercise_suggestion": "Essaie de prendre un moment pour toi",
+                "timestamp": datetime.now().isoformat()
+            }
                 
         except requests.exceptions.RequestException as e:
             # No fallback - AI is required

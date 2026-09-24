@@ -2,9 +2,11 @@ import { Menu, SatelliteDish } from 'lucide-react'
 // import { UserRound } from 'lucide-react'
 // import { crew } from '../../data/mockData'
 import { useLanguage } from '../../i18n/LanguageContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function Header({ onMenuClick }) {
   const { locale, setLocale, t } = useLanguage()
+  const { user, logout } = useAuth()
 
   return (
     <header className="flex items-center justify-between border-b border-hud-border/80 bg-hud-panel/80 px-4 py-3 backdrop-blur-md lg:px-6">
@@ -62,6 +64,18 @@ export default function Header({ onMenuClick }) {
             {t('header.nominal')}
           </span>
         </div>
+        {user ? (
+          <button
+            type="button"
+            onClick={() => {
+              logout();
+              window.location.href = '/login';
+            }}
+            className="rounded-lg border border-hud-border px-3 py-1.5 text-sm text-hud-muted hover:border-hud-accent/50 hover:text-white"
+          >
+            {t('header.logout')}
+          </button>
+        ) : null}
         {/* <div className="flex h-9 w-9 items-center justify-center rounded-full border border-hud-accent/40 bg-hud-accent/10">
           <UserRound size={16} className="text-hud-accent" />
         </div> */}

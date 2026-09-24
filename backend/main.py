@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 import json
 import os
@@ -8,6 +9,14 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 import requests
 from dotenv import load_dotenv
+
+# Import auth module
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+from auth import (
+    get_users, save_users, hash_password, verify_password,
+    create_access_token, get_current_user, get_user_data_file
+)
+import uuid
 
 # Add agent directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'agent'))
@@ -42,6 +51,14 @@ if not os.path.exists(MEDICATION_FILE):
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "nex-agi/nex-n2.5-mini:free"
+# Fallback chain: if the primary free model returns an empty response,
+# OpenRouter automatically retries with the next model in this list.
+# OpenRouter accepts 3 models maximum in this array.
+FALLBACK_MODELS = [
+    MODEL,
+    "nex-agi/nex-n2.5-pro:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+]
 
 # Initialize data files if they don't exist
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
@@ -55,6 +72,64 @@ conversations_file = os.path.join(os.path.dirname(__file__), "..", "data", "conv
 if not os.path.exists(conversations_file):
     with open(conversations_file, 'w') as f:
         json.dump({"user_name": None, "conversation_history": []}, f)
+
+# Endpoint pour l'inscription
+@app.post("/register")
+async def register(form_data: OAuth2PasswordRequestForm = Depends()):
+    users = get_users()
+    username = form_data.username
+    password = form_data.password
+
+    # Vérifier si l'utilisateur existe déjà
+    if any(u["username"] == username for u in users["users"]):
+        raise HTTPException(status_code=400, detail="Username already registered")
+
+    # Créer un nouvel utilisateur
+    user_id = str(uuid.uuid4())
+    hashed_password = hash_password(password)
+    users["users"].append({
+        "id": user_id,
+        "username": username,
+        "hashed_password": hashed_password,
+    })
+    save_users(users)
+
+    # Créer un token JWT
+    access_token = create_access_token(data={"sub": username})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# Endpoint pour la connexion
+@app.post("/token")
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    users = get_users()
+    username = form_data.username
+    password = form_data.password
+
+    # Trouver l'utilisateur
+    user = next((u for u in users["users"] if u["username"] == username), None)
+    if not user or not verify_password(password, user["hashed_password"]):
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+    # Créer un token JWT
+    access_token = create_access_token(data={"sub": username})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# Endpoint pour récupérer les données utilisateur (ex: conversations)
+@app.get("/get-user-data/{filename}")
+async def get_user_data(filename: str, current_user: Dict[str, Any] = Depends(get_current_user)):
+    file_path = await get_user_data_file(current_user["id"], filename)
+    if not os.path.exists(file_path):
+        return {}
+    with open(file_path, 'r') as f:
+        return json.load(f)
+
+# Endpoint pour sauvegarder les données utilisateur
+@app.post("/save-user-data/{filename}")
+async def save_user_data(filename: str, data: Dict[str, Any], current_user: Dict[str, Any] = Depends(get_current_user)):
+    file_path = await get_user_data_file(current_user["id"], filename)
+    with open(file_path, 'w') as f:
+        json.dump(data, f, indent=2)
+    return {"status": "success"}
 
 class SpaceQuestionnaireResponse(BaseModel):
     # Bilan physique & paramètres vitaux
@@ -119,14 +194,18 @@ class MedicationClaimResponse(BaseModel):
     message: str
 
 @app.post("/submit-questionnaire")
-async def submit_questionnaire(response: SpaceQuestionnaireResponse):
+async def submit_questionnaire(response: SpaceQuestionnaireResponse, current_user: Dict[str, Any] = Depends(get_current_user)):
     """Receives space questionnaire data and stores it"""
     try:
-        # Load existing data
-        with open(DATA_FILE, 'r') as f:
-            data = json.load(f)
+        # Charger les données existantes de l'utilisateur
+        file_path = await get_user_data_file(current_user["id"], "data.json")
+        if not os.path.exists(file_path):
+            data = {"responses": [], "analysis_history": []}
+        else:
+            with open(file_path, 'r') as f:
+                data = json.load(f)
         
-        # Add new response with timestamp
+        # Ajouter la nouvelle réponse avec timestamp
         response_data = {
             "timestamp": datetime.now().isoformat(),
             # Bilan physique & paramètres vitaux
@@ -158,8 +237,8 @@ async def submit_questionnaire(response: SpaceQuestionnaireResponse):
         
         data["responses"].append(response_data)
         
-        # Save updated data
-        with open(DATA_FILE, 'w') as f:
+        # Sauvegarder les données mises à jour
+        with open(file_path, 'w') as f:
             json.dump(data, f, indent=2)
         
         return {"status": "success", "message": "Space questionnaire submitted successfully"}
@@ -195,10 +274,13 @@ async def store_analysis(analysis: SpaceRecommendation):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/get-latest-questionnaire")
-async def get_latest_questionnaire():
+async def get_latest_questionnaire(current_user: Dict[str, Any] = Depends(get_current_user)):
     """Returns the latest questionnaire response"""
     try:
-        with open(DATA_FILE, 'r') as f:
+        file_path = await get_user_data_file(current_user["id"], "data.json")
+        if not os.path.exists(file_path):
+            return {}
+        with open(file_path, 'r') as f:
             data = json.load(f)
         
         if not data["responses"]:
@@ -210,10 +292,13 @@ async def get_latest_questionnaire():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/get-recommendation")
-async def get_recommendation():
+async def get_recommendation(current_user: Dict[str, Any] = Depends(get_current_user)):
     """Returns the latest recommendation"""
     try:
-        with open(DATA_FILE, 'r') as f:
+        file_path = await get_user_data_file(current_user["id"], "data.json")
+        if not os.path.exists(file_path):
+            return {"recommendation": "No recommendations available yet"}
+        with open(file_path, 'r') as f:
             data = json.load(f)
         
         if not data["analysis_history"]:
@@ -226,10 +311,13 @@ async def get_recommendation():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/get-history")
-async def get_history():
+async def get_history(current_user: Dict[str, Any] = Depends(get_current_user)):
     """Returns the history of responses and recommendations"""
     try:
-        with open(DATA_FILE, 'r') as f:
+        file_path = await get_user_data_file(current_user["id"], "data.json")
+        if not os.path.exists(file_path):
+            return {"history": [], "claims": []}
+        with open(file_path, 'r') as f:
             data = json.load(f)
         
         history = []
@@ -252,11 +340,14 @@ async def get_history():
                 "analysis": analysis,
             })
 
+        # Load medications for this user
+        meds_file_path = await get_user_data_file(current_user["id"], "medications.json")
         claims = []
         try:
-            with open(MEDICATION_FILE, "r", encoding="utf-8") as meds_file:
-                meds = json.load(meds_file)
-            claims = [item for item in meds.get("prescriptions", []) if item.get("claimed")]
+            if os.path.exists(meds_file_path):
+                with open(meds_file_path, "r", encoding="utf-8") as meds_file:
+                    meds = json.load(meds_file)
+                claims = [item for item in meds.get("prescriptions", []) if item.get("claimed")]
         except Exception:
             claims = []
 
@@ -280,10 +371,13 @@ async def get_user_info():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/get-conversation")
-async def get_conversation():
+async def get_conversation(current_user: Dict[str, Any] = Depends(get_current_user)):
     """Returns only the conversation history"""
     try:
-        with open(conversations_file, 'r') as f:
+        conv_file_path = await get_user_data_file(current_user["id"], "conversations.json")
+        if not os.path.exists(conv_file_path):
+            return {"conversation": []}
+        with open(conv_file_path, 'r') as f:
             data = json.load(f)
         
         return {
@@ -360,7 +454,7 @@ async def get_space_diseases():
 
 
 @app.post("/chat")
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest, current_user: Dict[str, Any] = Depends(get_current_user)):
     """Handle chat with OpenRouter AI - requires API key"""
     if not OPENROUTER_API_KEY:
         raise HTTPException(
@@ -370,24 +464,71 @@ async def chat(request: ChatRequest):
     
     try:
         # Get the latest questionnaire data for context
-        latest_questionnaire = await get_latest_questionnaire()
+        latest_questionnaire = await get_latest_questionnaire(current_user)
         
         # Build context from questionnaire
         context_prompt = build_context_prompt(latest_questionnaire)
 
-        # Load extended ship/crew reference data (crew, food, rooms, travel, systems, diseases)
+        # Build contexts selectively based on the user's latest message keywords.
+        # Sending the full reference data (50 crew members, diseases, etc.) on every
+        # request overloads the free-tier model and produces empty or slow responses.
+        user_text = ""
+        if request.messages:
+            user_text = str(request.messages[-1].get("content", "")).lower()
+
+        def mentions(*keywords):
+            return any(k in user_text for k in keywords)
+
         with open(DATA_FILE, 'r') as f:
             _extra_data = json.load(f)
-        crew_context = build_crew_context(_extra_data.get("crew", []))
-        food_context = build_food_context(_extra_data.get("food_stock", []))
-        rooms_context = build_rooms_context(_extra_data.get("station_rooms", []))
-        travel_context = build_travel_context(_extra_data.get("travel_data", {}))
-        systems_context = build_systems_context(_extra_data.get("station_systems", {}))
-        diseases_context = build_diseases_context(_extra_data.get("space_diseases", []))
         
-        # Load conversation history from file
-        with open(conversations_file, 'r') as f:
-            conversations_data = json.load(f)
+        crew_context = (
+            build_crew_context(_extra_data.get("crew", []))
+            if mentions("equipage", "équipe", "equipe", "membre", "collègue", "collegue", "qui est", "personnel")
+            else ""
+        )
+        food_context = (
+            build_food_context(_extra_data.get("food_stock", []))
+            if mentions("manger", "nourriture", "repas", "faim", "boire", "hydrat", "aliment", "stock")
+            else ""
+        )
+        rooms_context = (
+            build_rooms_context(_extra_data.get("station_rooms", []))
+            if mentions("sport", "exercice", "salle", "entrain", "muscle", "séance", "seance", "courbature")
+            else ""
+        )
+        travel_context = (
+            build_travel_context(_extra_data.get("travel_data", {}))
+            if mentions("voyage", "mission", "destination", "arriv", "terre", "distance", "temps restant", "durée", "duree")
+            else ""
+        )
+        systems_context = (
+            build_systems_context(_extra_data.get("station_systems", {}))
+            if mentions("systeme", "système", "energie", "énergie", "oxygene", "oxygène", "propulsion", "technique", "vaisseau", "station")
+            else ""
+        )
+        diseases_context = (
+            build_diseases_context(_extra_data.get("space_diseases", []))
+            if mentions("bilan", "diagnostic", "maladie", "symptome", "symptôme", "analy", "etat", "état", "sante", "santé", "medical")
+            else ""
+        )
+        
+        # Only keep non-empty context blocks
+        context_blocks = [
+            block for block in
+            [context_prompt, crew_context, food_context, rooms_context,
+             travel_context, systems_context, diseases_context]
+            if block
+        ]
+        context_section = "\n\n".join(context_blocks)
+        
+        # Load conversation history from user's data
+        conv_file_path = await get_user_data_file(current_user["id"], "conversations.json")
+        if not os.path.exists(conv_file_path):
+            conversations_data = {"user_name": None, "conversation_history": []}
+        else:
+            with open(conv_file_path, 'r') as f:
+                conversations_data = json.load(f)
         
         # Get existing conversation history
         conversation_history = conversations_data.get("conversation_history", [])
@@ -490,29 +631,19 @@ de lutter contre l'atrophie musculaire et la décalcification osseuse en microgr
 si c'est hors sujet (urgence médicale grave, question purement technique), mais privilégie
 systématiquement cette recommandation dès que le contexte le permet.
 
-{context_prompt}
-
-{crew_context}
-
-{food_context}
-
-{rooms_context}
-
-{travel_context}
-
-{systems_context}
-
-{diseases_context}
+{context_section}
 """
             }
             messages = [system_message] + messages
         
-        # Call OpenRouter API with conversation history
+        # Call OpenRouter API with conversation history.
+        # "models" is a fallback chain: OpenRouter tries each model in order
+        # until one returns a non-empty response.
         payload = {
-            "model": MODEL,
+            "models": FALLBACK_MODELS,
             "messages": messages,
             "temperature": 0.7,
-            "max_tokens": 1500
+            "max_tokens": 2000
         }
         
         headers = {
@@ -520,21 +651,36 @@ systématiquement cette recommandation dès que le contexte le permet.
             "Content-Type": "application/json"
         }
         
-        response = requests.post(
-            OPENROUTER_API_URL,
-            headers=headers,
-            json=payload,
-            timeout=60
-        )
+        # Try up to 2 times: the free model sometimes returns an empty content
+        ai_response = None
+        result = None
+        for attempt in range(2):
+            response = requests.post(
+                OPENROUTER_API_URL,
+                headers=headers,
+                json=payload,
+                timeout=60
+            )
+            
+            response.raise_for_status()
+            
+            result = response.json()
+            
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message'].get('content')
+                if content and content.strip():
+                    ai_response = content
+                    break
+            # Empty content: brief pause, then retry once before failing
+            if attempt == 0:
+                import time
+                time.sleep(2)
         
-        response.raise_for_status()
-        
-        result = response.json()
-        
-        if 'choices' not in result or len(result['choices']) == 0:
-            raise HTTPException(status_code=500, detail="No response from AI")
-        
-        ai_response = result['choices'][0]['message']['content']
+        if not ai_response or not ai_response.strip():
+            raise HTTPException(
+                status_code=502,
+                detail="Le modèle IA n'a pas renvoyé de réponse. Réessaie dans un instant."
+            )
         
         # Extract user name from message if provided
         user_name = None
@@ -579,7 +725,7 @@ systématiquement cette recommandation dès que le contexte le permet.
                 
                 # Save updated conversations data with conversation history and user name
                 conversations_data["conversation_history"] = conversation_history
-                with open(conversations_file, 'w') as f:
+                with open(conv_file_path, 'w') as f:
                     json.dump(conversations_data, f, indent=2)
                 
                 return {"response": ai_response}
@@ -606,7 +752,7 @@ systématiquement cette recommandation dès que le contexte le permet.
         conversations_data["conversation_history"] = conversation_history
         if user_name:
             conversations_data["user_name"] = user_name
-        with open(conversations_file, 'w') as f:
+        with open(conv_file_path, 'w') as f:
             json.dump(conversations_data, f, indent=2)
         
         return {"response": ai_response}
@@ -870,13 +1016,12 @@ async def get_prescription(code: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/analyze-questionnaire")
-async def analyze_questionnaire():
+async def analyze_questionnaire(current_user: Dict[str, Any] = Depends(get_current_user)):
     """Analyze the latest questionnaire and return psychological analysis with medication prescription"""
     try:
-        # Get the latest questionnaire data
-        latest_questionnaire = await get_latest_questionnaire()
-        
-        if not latest_questionnaire:
+        # Récupérer les données de l'utilisateur
+        file_path = await get_user_data_file(current_user["id"], "data.json")
+        if not os.path.exists(file_path):
             return {
                 "error": "No questionnaire data available",
                 "psychological_state": "inconnu",
@@ -884,6 +1029,20 @@ async def analyze_questionnaire():
                 "exercise_suggestion": "Veuillez remplir le questionnaire d'abord",
                 "timestamp": datetime.now().isoformat()
             }
+        
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        
+        if not data["responses"]:
+            return {
+                "error": "No questionnaire data available",
+                "psychological_state": "inconnu",
+                "detected_signs": ["pas de données"],
+                "exercise_suggestion": "Veuillez remplir le questionnaire d'abord",
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        latest_questionnaire = data["responses"][-1]
         
         # Use AI Agent to analyze
         agent = AIAgent()
@@ -896,6 +1055,22 @@ async def analyze_questionnaire():
                       latest_questionnaire.get('social_needs', None)
         )
         
+        # Store the analysis in the user's data
+        analysis_data = {
+            "timestamp": datetime.now().isoformat(),
+            "psychological_state": analysis.get('psychological_state', 'inconnu'),
+            "risk_level": analysis.get('risk_level', 'stable'),
+            "detected_issues": analysis.get('detected_signs', []),
+            "recommendations": [analysis.get('exercise_suggestion', '')],
+            "exercise_suggestions": [analysis.get('exercise_suggestion', '')],
+            "context_summary": "Analyse automatique"
+        }
+        data["analysis_history"].append(analysis_data)
+        
+        # Save updated data
+        with open(file_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        
         # Store the prescription if medication is present
         if analysis.get('medication'):
             prescription_data = {
@@ -906,12 +1081,16 @@ async def analyze_questionnaire():
                 "timestamp": datetime.now().isoformat()
             }
             
-            with open(MEDICATION_FILE, 'r') as f:
-                med_data = json.load(f)
+            meds_file_path = await get_user_data_file(current_user["id"], "medications.json")
+            if not os.path.exists(meds_file_path):
+                med_data = {"prescriptions": []}
+            else:
+                with open(meds_file_path, 'r') as f:
+                    med_data = json.load(f)
             
             med_data["prescriptions"].append(prescription_data)
             
-            with open(MEDICATION_FILE, 'w') as f:
+            with open(meds_file_path, 'w') as f:
                 json.dump(med_data, f, indent=2)
         
         return analysis
