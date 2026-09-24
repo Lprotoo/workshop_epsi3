@@ -4,6 +4,11 @@
       "id": "fb4be7ed-3af8-4237-9e34-2358a0f97fcf",
       "username": "Liam",
       "hashed_password": "$2b$12$5AWh324M3xWdD4pCWWaYg.8DfbosCQXrfWa1slIpQ1PXcUm1RRXKy"
+    },
+    {
+      "id": "30f0e874-4528-482b-94b9-6b62ff356248",
+      "username": "Humam",
+      "hashed_password": "$2b$12$d/jiAba5l/YWx8P2PGCIUORk2ESnh02r41rpeyD7xbjd1UU6g5rSe"
     }
   ]
 }

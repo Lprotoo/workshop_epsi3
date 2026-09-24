@@ -6,7 +6,7 @@ import StatusCard from '../components/Dashboard/StatusCard'
 import TrendChart from '../components/Dashboard/TrendChart'
 import { useLanguage } from '../i18n/LanguageContext'
 import { getDashboardData } from '../services/api'
-import { formatHours, formatDate, sleepChartScore } from '../utils/format'
+import { formatHours, formatDate, formatOutOfTen, sleepChartScore, toTen } from '../utils/format'
 import { metricTone } from '../utils/status'
 
 export default function Dashboard() {
@@ -41,31 +41,31 @@ export default function Dashboard() {
       key: 'sleep',
       label: t('metric.sleep'),
       value: formatHours(data.metrics.sleep_hours),
-      percent: sleepChartScore(data.metrics.sleep_hours),
+      percent: sleepChartScore(data.metrics.sleep_hours) * 10,
       icon: Moon,
       tone: metricTone('sleep', data.metrics.sleep_hours),
     },
     {
       key: 'mood',
       label: t('metric.mood'),
-      value: `${data.metrics.mood}%`,
-      percent: data.metrics.mood,
+      value: formatOutOfTen(toTen(data.metrics.mood)),
+      percent: toTen(data.metrics.mood) * 10,
       icon: Smile,
       tone: metricTone('mood', data.metrics.mood),
     },
     {
       key: 'stress',
       label: t('metric.stress'),
-      value: `${data.metrics.stress}%`,
-      percent: data.metrics.stress,
+      value: formatOutOfTen(toTen(data.metrics.stress)),
+      percent: toTen(data.metrics.stress) * 10,
       icon: Brain,
       tone: metricTone('stress', data.metrics.stress),
     },
     {
       key: 'fatigue',
       label: t('metric.fatigue'),
-      value: `${data.metrics.fatigue}%`,
-      percent: data.metrics.fatigue,
+      value: formatOutOfTen(toTen(data.metrics.fatigue)),
+      percent: toTen(data.metrics.fatigue) * 10,
       icon: Zap,
       tone: metricTone('fatigue', data.metrics.fatigue),
     },

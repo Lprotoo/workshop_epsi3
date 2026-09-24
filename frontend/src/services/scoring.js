@@ -1,4 +1,5 @@
 import { deriveStatus } from '../utils/status'
+import { toTen } from '../utils/format'
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value))
@@ -229,9 +230,9 @@ export function observationKeys(response = {}, scores) {
   if (isPresent(response.head_symptoms)) keys.push('obs.headSymptoms')
   if (isPresent(response.microgravity_symptoms)) keys.push('obs.microgravity')
   if (isPresent(response.exercise_discomfort)) keys.push('obs.exercise')
-  if (scores.mood < 60) keys.push('obs.lowMood')
-  if (scores.stress > 50) keys.push('obs.highStress')
-  if (scores.fatigue > 50) keys.push('obs.highFatigue')
+  if (toTen(scores.mood) < 6) keys.push('obs.lowMood')
+  if (toTen(scores.stress) > 5) keys.push('obs.highStress')
+  if (toTen(scores.fatigue) > 5) keys.push('obs.highFatigue')
   if (['somnolent', 'baisse_concentration', 'fatigue_mentale'].includes(response.vigilance_level)) {
     keys.push('obs.lowVigilance')
   }
@@ -253,10 +254,10 @@ export function recommendationKey(status) {
 }
 
 export function exerciseFor(status, scores) {
-  if (status === 'alert' || scores.stress > 70) {
+  if (status === 'alert' || toTen(scores.stress) > 7) {
     return { titleKey: 'obs.exGroundingTitle', bodyKey: 'obs.exGroundingBody' }
   }
-  if (scores.sleep_hours < 6.5 || scores.fatigue > 55) {
+  if (scores.sleep_hours < 6.5 || toTen(scores.fatigue) > 5.5) {
     return { titleKey: 'obs.exRestTitle', bodyKey: 'obs.exRestBody' }
   }
   return { titleKey: 'obs.exBreathTitle', bodyKey: 'obs.exBreathBody' }

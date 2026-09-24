@@ -55,7 +55,7 @@ export const dictionaries = {
       recommendation: 'Dernière recommandation',
       trend: 'TENDANCE 7 JOURS',
       trendCaption:
-        'Échelle 0–100. Le sommeil atteint 100 à partir de 7 h de repos.',
+        'Échelle 0–10. Le sommeil atteint 10 à partir de 7 h de repos.',
     },
     history: {
       kicker: 'ARCHIVES',
@@ -381,7 +381,7 @@ export const dictionaries = {
         'Snapshot of crew indicators for the current duty cycle. Values reflect reported sleep, mood, stress and fatigue — not a clinical diagnosis.',
       recommendation: 'Latest recommendation',
       trend: '7-DAY TREND',
-      trendCaption: 'Scale is 0–100. Sleep scores 100 from 7 hours of rest onward.',
+      trendCaption: 'Scale is 0–10. Sleep scores 10 from 7 hours of rest onward.',
     },
     history: {
       kicker: 'ARCHIVES',

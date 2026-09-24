@@ -36,8 +36,8 @@ export default function TrendChart({ data, title }) {
               tick={{ fontSize: 12 }}
             />
             <YAxis
-              domain={[0, 100]}
-              ticks={[0, 20, 40, 60, 80, 100]}
+              domain={[0, 10]}
+              ticks={[0, 2, 4, 6, 8, 10]}
               allowDataOverflow
               stroke="#8aa0b8"
               tick={{ fontSize: 12 }}
@@ -45,7 +45,7 @@ export default function TrendChart({ data, title }) {
             <Tooltip
               contentStyle={tooltipStyle}
               labelFormatter={(value) => formatShortDate(value, localeTag)}
-              formatter={(value, name) => [`${Math.round(value)}`, name]}
+              formatter={(value, name) => [Number(value).toFixed(1), name]}
             />
             <Legend />
             <Line type="monotone" dataKey="sleep" name={t('history.sleep')} stroke="#3ba7ff" strokeWidth={2} dot={false} />

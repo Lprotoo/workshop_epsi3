@@ -1,4 +1,4 @@
-import { sleepChartScore } from '../utils/format'
+import { sleepChartScore, toTen } from '../utils/format'
 import {
   buildScoredCheckIn,
   exerciseFor,
@@ -113,13 +113,14 @@ export function toAnalysis(stored = {}, checkIn) {
 }
 
 export function toChartPoint(entry) {
+  const raw = entry.raw || {}
   return {
     date: entry.date,
     sleep: sleepChartScore(entry.sleep_hours),
     sleepHours: entry.sleep_hours,
-    mood: entry.mood,
-    stress: entry.stress,
-    fatigue: entry.fatigue,
+    mood: toTen(raw.mood ?? entry.mood),
+    stress: toTen(raw.stress ?? entry.stress),
+    fatigue: toTen(raw.fatigue ?? entry.fatigue),
   }
 }
 

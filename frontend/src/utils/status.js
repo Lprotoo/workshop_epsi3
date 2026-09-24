@@ -16,6 +16,12 @@ export const STATUS_DOT = {
   alert: 'bg-status-alert',
 }
 
+function asPercentLike(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return 0
+  return n <= 10 ? n * 10 : n
+}
+
 export function deriveStatus({
   mood,
   stress,
@@ -24,21 +30,25 @@ export function deriveStatus({
   alertFlags = 0,
   attentionFlags = 0,
 }) {
+  const moodScore = asPercentLike(mood)
+  const stressScore = asPercentLike(stress)
+  const fatigueScore = asPercentLike(fatigue)
+
   const alerts =
     Number(sleep_hours < 5) +
-    Number(mood < 40) +
-    Number(stress > 70) +
-    Number(fatigue > 70) +
+    Number(moodScore < 40) +
+    Number(stressScore > 70) +
+    Number(fatigueScore > 70) +
     Number(alertFlags)
 
   const attention =
     Number(sleep_hours < 6.5) +
-    Number(mood < 60) +
-    Number(stress > 50) +
-    Number(fatigue > 50) +
+    Number(moodScore < 60) +
+    Number(stressScore > 50) +
+    Number(fatigueScore > 50) +
     Number(attentionFlags >= 2)
 
-  if (alerts >= 2 || sleep_hours < 4 || mood < 30 || alertFlags >= 2) return 'alert'
+  if (alerts >= 2 || sleep_hours < 4 || moodScore < 30 || alertFlags >= 2) return 'alert'
   if (attention >= 2 || alerts >= 1 || attentionFlags >= 3) return 'attention'
   return 'stable'
 }
@@ -49,13 +59,14 @@ export function metricTone(key, value) {
     if (value >= 6) return 'attention'
     return 'alert'
   }
+  const score = asPercentLike(value)
   if (key === 'mood') {
-    if (value >= 65) return 'stable'
-    if (value >= 45) return 'attention'
+    if (score >= 65) return 'stable'
+    if (score >= 45) return 'attention'
     return 'alert'
   }
-  if (value <= 40) return 'stable'
-  if (value <= 60) return 'attention'
+  if (score <= 40) return 'stable'
+  if (score <= 60) return 'attention'
   return 'alert'
 }
 

@@ -1069,7 +1069,7 @@
             "description": "Inspirer 4s, retenir 7s, expirer 8s, r\u00e9p\u00e9ter 5 fois",
             "duration_min": 5
           },
-          "completed": true
+          "completed": false
         },
         {
           "category": "sommeil",
@@ -1078,7 +1078,7 @@
             "description": "\u00c9tirements l\u00e9gers + respiration lente",
             "duration_min": 10
           },
-          "completed": true
+          "completed": false
         },
         {
           "category": "energie",

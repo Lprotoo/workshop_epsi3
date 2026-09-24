@@ -1,0 +1,405 @@
+{
+  "responses": [
+    {
+      "timestamp": "2026-09-21T10:39:56.966607",
+      "energy_level": 7,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 7.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "presque",
+      "caloric_intake": "partiellement",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 8,
+      "stress": 3,
+      "fatigue": 3
+    },
+    {
+      "timestamp": "2026-09-22T10:41:18.064017",
+      "energy_level": 8,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 8.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "vigilant",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "excellente",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 4,
+      "mood": 7,
+      "stress": 1,
+      "fatigue": 1
+    },
+    {
+      "timestamp": "2026-09-23T10:51:43.079433",
+      "energy_level": 1,
+      "head_symptoms": "troubles_vision",
+      "microgravity_symptoms": "vertiges",
+      "exercise_discomfort": "fatigue_extreme",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 5.25,
+      "sleep_difficulties": "reveils_frequents",
+      "vigilance_level": "fatigue_mentale",
+      "hydration_goal": "presque",
+      "caloric_intake": "partiellement",
+      "digestive_issues": "perte_appetit",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "bruit",
+      "incident_report": null,
+      "sleep_quality": 2,
+      "mood": 0,
+      "stress": 7,
+      "fatigue": 8
+    },
+    {
+      "timestamp": "2026-09-24T11:04:11.299855",
+      "energy_level": 10,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 7.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 10,
+      "stress": 0,
+      "fatigue": 0
+    },
+    {
+      "timestamp": "2026-09-25T11:05:10.517671",
+      "energy_level": 1,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 2.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 0,
+      "stress": 10,
+      "fatigue": 10
+    },
+    {
+      "timestamp": "2026-09-26T11:05:32.450654",
+      "energy_level": 9,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 7.0,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 9,
+      "stress": 1,
+      "fatigue": 1
+    },
+    {
+      "timestamp": "2026-09-27T11:06:26.503449",
+      "energy_level": 5,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 0.75,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 5,
+      "stress": 5,
+      "fatigue": 5
+    },
+    {
+      "timestamp": "2026-09-28T11:08:37.615333",
+      "energy_level": 5,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 8.5,
+      "sleep_difficulties": "aucun",
+      "vigilance_level": "normal",
+      "hydration_goal": "oui",
+      "caloric_intake": "oui",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 3,
+      "mood": 8,
+      "stress": 1,
+      "fatigue": 1
+    }
+  ],
+  "analysis_history": [],
+  "exercise_plans": [
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T10:39:56.966607",
+      "timestamp": "2026-09-24T10:39:56.990218"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Scan corporel",
+            "description": "Relaxation progressive de chaque partie du corps allong\u00e9",
+            "duration_min": 8
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T10:41:18.064017",
+      "timestamp": "2026-09-24T10:41:18.064017"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T10:42:41.729075",
+      "timestamp": "2026-09-24T10:42:41.730074"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        },
+        {
+          "category": "energie",
+          "exercise": {
+            "name": "Circuit mobilit\u00e9",
+            "description": "Encha\u00eenement d'exercices articulaires l\u00e9gers",
+            "duration_min": 10
+          },
+          "completed": false
+        },
+        {
+          "category": "musculaire",
+          "exercise": {
+            "name": "Bandes \u00e9lastiques - membres inf\u00e9rieurs",
+            "description": "Renforcement doux jambes et hanches",
+            "duration_min": 15
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T10:51:43.079433",
+      "timestamp": "2026-09-24T10:51:43.079433"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T10:52:59.221386",
+      "timestamp": "2026-09-24T10:52:59.222386"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T11:04:11.299855",
+      "timestamp": "2026-09-24T11:04:11.299855"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "stress",
+          "exercise": {
+            "name": "Respiration guid\u00e9e 4-7-8",
+            "description": "Inspirer 4s, retenir 7s, expirer 8s, r\u00e9p\u00e9ter 5 fois",
+            "duration_min": 5
+          },
+          "completed": false
+        },
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        },
+        {
+          "category": "energie",
+          "exercise": {
+            "name": "Circuit mobilit\u00e9",
+            "description": "Encha\u00eenement d'exercices articulaires l\u00e9gers",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T11:05:10.517671",
+      "timestamp": "2026-09-24T11:05:10.518671"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Scan corporel",
+            "description": "Relaxation progressive de chaque partie du corps allong\u00e9",
+            "duration_min": 8
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T11:05:32.450654",
+      "timestamp": "2026-09-24T11:05:32.451740"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "R\u00e9duction lumi\u00e8re + calme",
+            "description": "Pr\u00e9paration environnement pour le sommeil",
+            "duration_min": 5
+          },
+          "completed": false
+        },
+        {
+          "category": "energie",
+          "exercise": {
+            "name": "Circuit mobilit\u00e9",
+            "description": "Encha\u00eenement d'exercices articulaires l\u00e9gers",
+            "duration_min": 10
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T11:06:26.503449",
+      "timestamp": "2026-09-24T11:06:26.505450"
+    },
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": false
+        },
+        {
+          "category": "energie",
+          "exercise": {
+            "name": "V\u00e9lo statique l\u00e9ger (ARED)",
+            "description": "Intensit\u00e9 mod\u00e9r\u00e9e pour relancer l'\u00e9nergie",
+            "duration_min": 15
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-24T11:08:37.615333",
+      "timestamp": "2026-09-24T11:08:37.616333"
+    }
+  ]
+}

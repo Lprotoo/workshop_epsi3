@@ -1,7 +1,13 @@
 export function sleepChartScore(hours) {
   const n = Number(hours)
   if (!Number.isFinite(n) || n <= 0) return 0
-  return Math.min(100, (n / 7) * 100)
+  return Math.min(10, (n / 7) * 10)
+}
+
+export function toTen(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return 0
+  return n <= 10 ? n : n / 10
 }
 
 export function formatOutOfTen(value) {
