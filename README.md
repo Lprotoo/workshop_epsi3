@@ -1,187 +1,153 @@
-# spAICE - Projet de Workshop B3
+# SpAIce
 
-## 🚀 Suivi Spatial avec Assistant IA
+**Suivi du bien-être des astronautes en mission, assisté par IA.** Projet de Workshop EPSI B3.
 
-spAIce est une application web complète pour le suivi du bien-être des astronautes en mission spatiale, avec un système de questionnaire quotidien et un assistant IA contextuel.
+SpAIce est une console web de type HUD qui permet à chaque membre d'équipage de remplir un bilan quotidien, de consulter son état (stable / attention / alerte) et son historique, de recevoir un programme sportif adapté à la microgravité, de retirer des médicaments prescrits par code, et d'échanger avec un assistant IA qui connaît son dernier bilan et les données du vaisseau.
 
-## 🏗️ Architecture du Projet
+---
+
+## Sommaire
+
+- [Fonctionnalités](#fonctionnalités)
+- [Architecture](#architecture)
+- [Structure du projet](#structure-du-projet)
+- [Installation et lancement](#installation-et-lancement)
+- [API](#api)
+- [Données](#données)
+- [Intelligence artificielle](#intelligence-artificielle)
+- [Limitations connues](#limitations-connues)
+- [Technologies](#technologies)
+
+---
+
+## Fonctionnalités
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Connexion / Inscription | `/login`, `/register` | Comptes utilisateurs, mots de passe hachés (bcrypt), session par jeton JWT |
+| Tableau de bord | `/dashboard` | Statut global, métriques (sommeil, humeur, stress, fatigue), courbe de tendance sur 7 jours, recommandation |
+| Questionnaire | `/questionnaire` | Bilan quotidien en 5 catégories (curseurs et choix) |
+| Historique | `/history` | Graphique, tableau des bilans et médicaments retirés sur la période |
+| Analyse | `/analysis` | Observations détaillées du dernier bilan et section activité sportive |
+| Médicaments | `/medication` | Catalogue des 9 médicaments et retrait par code de prescription à 6 chiffres |
+| Exercice | `/exercise` | Programme sportif généré automatiquement, avec cases fait / pas fait |
+| Assistant | `/chat` | Chat IA contextuel en français, avec mémoire de conversation |
+
+L'interface est disponible en **français et en anglais** (sélecteur de langue, choix mémorisé dans le navigateur). La barre latérale affiche en continu l'état de connexion à l'API (vérifié toutes les 15 s).
+
+### Questionnaire quotidien
+
+1. **Bilan physique et paramètres vitaux** : énergie (1-10), céphalées ou troubles visuels, symptômes liés à la microgravité, inconfort à l'effort, symptômes légers
+2. **Sommeil et rythme circadien** : heures de sommeil, difficultés d'endormissement ou réveils, vigilance
+3. **Nutrition, hydratation et digestion** : objectif hydrique, rations caloriques, troubles digestifs
+4. **Santé mentale et dynamique d'équipage** : stress (1-10), ambiance de l'équipage, besoins sociaux
+5. **Environnement et sécurité à bord** : anomalies d'ambiance, signalement d'incident
+
+Le frontend calcule à partir des réponses des scores sur 100 (humeur, stress, fatigue, qualité du sommeil) et en déduit un statut **stable**, **attention** ou **alerte** (voir [scoring.js](frontend/src/services/scoring.js) et [status.js](frontend/src/utils/status.js)).
+
+### Programme sportif adaptatif
+
+À chaque bilan, le backend transforme les réponses en signaux (sommeil court ou perturbé, stress ≥ 6, douleurs à l'effort, énergie basse ou vigilance réduite). Il tire ensuite un exercice par catégorie concernée (`stress`, `sommeil`, `energie`, `musculaire`) dans la bibliothèque [data/exercises.json](data/exercises.json). La logique se trouve dans `suggest_exercise_plan()` ([agent/ai_agent.py](agent/ai_agent.py)).
+
+### Médicaments
+
+Neuf médicaments fictifs sont définis dans `AIAgent.MEDICATIONS`. Un code de prescription compte 6 chiffres et **son premier chiffre donne l'identifiant du médicament** (1 à 9). Un code ne peut être retiré qu'une fois.
+
+---
+
+## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│           spAIce — ARCHITECTURE SPATIALE (v2)               │
-└─────────────────────────────────────────────────────────────────┘
-
-                    ┌─────────────────────────────┐
-                    │   PAGE PRINCIPALE             │
-                    │   (index.html)                │
-                    │                             │
-                    │  ┌─────────────────────────┐│
-                    │  │  💬 CHAT IA                ││
-                    │  │  - Messages en temps réel ││
-                    │  │  - Réponses contextuelles  ││
-                    │  │  - Historique conversation  ││
-                    │  └──────────┬───────────────┘│
-                    │             │                 │
-                    │  ┌──────────┴─────────────┐ │
-                    │  │  📋 BOUTON QUESTIONNAIRE   │ │
-                    │  │  (Redirige vers            │ │
-                    │  │   questionnaire.html)       │ │
-                    │  └─────────────────────────┘ │
-                    │                             │
-                    │  ┌─────────────────────────┐│
-                    │  │  📊 SIDEBAR                ││
-                    │  │  - Bilan rapide           ││
-                    │  │  - Historique récent       ││
-                    │  └─────────────────────────┘│
-                    └──────────────┬───────────────┘
-                                   │ HTTP/REST (JSON)
-                                   ▼
-┌─────────────────────────────────────────────────────────────────┐
-│   BACKEND (FastAPI)                                              │
-│                                                                   │
-│  - /submit-questionnaire    (POST) - Soumet questionnaire spatial │
-│  - /store-analysis           (POST) - Stocke analyse IA          │
-│  - /get-latest-questionnaire (GET)  - Récupère dernier questionnaire│
-│  - /get-recommendation        (GET)  - Récupère dernière analyse   │
-│  - /get-history              (GET)  - Récupère historique         │
-│  - /chat                     (POST) - Chat avec IA contextuel     │
-└─────────────────────────────┬───────────────────────────────────┘
-                                  │
-          ┌───────────────────────┼───────────────────────┐
-          ▼                       ▼                       ▼
-┌─────────────────┐   ┌─────────────────────┐   ┌─────────────────┐
-│  data.json       │   │   AGENT IA           │   │  Chat Context   │
-│  (Stockage)      │   │   (Backend intégré)   │   │  (Adapté aux     │
-│                 │   │                     │   │   réponses)      │
-│  - Réponses     │   │  - Analyse spatiale  │   │                 │
-│  - Analyses IA  │   │  - Génération de      │   │  - Réponses     │
-│  - Historique   │   │    recommandations   │   │    personnalisées│
-└─────────────────┘   └─────────────────────┘   └─────────────────┘
-
-┌─────────────────────────────────────────────────────────────────┐
-│   PAGE QUESTIONNAIRE                                          │
-│   (questionnaire.html)                                         │
-│                                                                   │
-│  📋 Questionnaire Spatial avec 5 catégories :                  │
-│  1. Bilan physique & paramètres vitaux                         │
-│  2. Sommeil & rythme circadien                                 │
-│  3. Nutrition, hydratation & digestion                         │
-│  4. Santé mentale & dynamique d'équipage                         │
-│  5. Environnement & sécurité à bord                           │
-│                                                                   │
-│  [Soumettre] → Redirige vers index.html avec analyse         │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────┐   /api/*    ┌──────────────────────────────┐
+│  Frontend React (Vite)       │ ──────────► │  Backend FastAPI             │
+│  localhost:5173              │  proxy Vite │  localhost:8000              │
+│  - JWT stocké en localStorage│  (réécrit   │  - auth.py : bcrypt + JWT    │
+│  - scoring et statut côté    │   /api → /) │  - main.py : routes          │
+│    client                    │             │                              │
+└──────────────────────────────┘             └───────┬──────────────┬───────┘
+                                                     │              │
+                                   ┌─────────────────▼───┐   ┌──────▼─────────────┐
+                                   │  data/ (JSON)       │   │  agent/ai_agent.py │
+                                   │  - users.json       │   │  AIAgent           │
+                                   │  - users/<id>/...   │   │  - analyse du bilan│
+                                   │  - data.json        │   │  - prog. sportif   │
+                                   │  - exercises.json   │   │  - médicaments     │
+                                   │  - medications.json │   └──────┬─────────────┘
+                                   └─────────────────────┘          │
+                                                             ┌──────▼─────────────┐
+                                                             │  OpenRouter API    │
+                                                             │  (modèles gratuits)│
+                                                             └────────────────────┘
 ```
 
-## 📁 Structure du Projet
+---
+
+## Structure du projet
 
 ```
 workshop_epsi3/
-├── frontend/                    # App React (Vite)
+├── frontend/                  # Application React (Vite + Tailwind CSS 4)
 │   ├── src/
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── frontend-legacy/             # Ancien frontend HTML
-│   ├── index.html
-│   ├── questionnaire.html
-│   └── medication.html
+│   │   ├── pages/             # Dashboard, Questionnaire, History, Analysis, Medication, Exercise, Chat, Login, Register
+│   │   ├── components/        # Layout (Sidebar, Header), Dashboard, History, Analysis, Questionnaire, ui
+│   │   ├── contexts/          # AuthContext (jeton JWT)
+│   │   ├── i18n/              # Traductions FR / EN
+│   │   ├── services/          # api.js (client HTTP), scoring.js, checkinMap.js
+│   │   └── utils/             # status.js, format.js
+│   └── vite.config.js         # Proxy /api → http://127.0.0.1:8000
+├── frontend-legacy/           # Ancienne interface HTML/JS, conservée pour référence
 ├── backend/
-│   ├── main.py                 # API FastAPI avec 6 endpoints
-│   └── requirements.txt        # Dépendances Python
+│   ├── main.py                # API FastAPI
+│   ├── auth.py                # Utilisateurs, hachage bcrypt, JWT
+│   └── requirements.txt
 ├── agent/
-│   ├── ai_agent.py             # Agent IA avec OpenRouter
-│   └── requirements.txt        # Dépendances agent
-├── data/
-│   └── data.json               # Stockage des données
-└── README.md                   # Documentation
+│   ├── ai_agent.py            # AIAgent : appels OpenRouter, programme sportif, médicaments
+│   └── requirements.txt
+└── data/
+    ├── users.json             # Comptes utilisateurs
+    ├── users/<user_id>/       # Données par utilisateur : data.json, conversations.json, medications.json
+    ├── data.json              # Données de référence du vaisseau et programmes sportifs
+    ├── exercises.json         # Bibliothèque d'exercices
+    └── medications.json       # Registre global des prescriptions
 ```
 
-## 🎯 Fonctionnalités
+---
 
-### 📋 Questionnaire Spatial
-Le questionnaire comprend **5 catégories** avec des questions spécifiques à l'environnement spatial :
-
-#### 1. Bilan physique & paramètres vitaux
-- Niveau d'énergie (1-10)
-- Céphalées, troubles de la vision, pression intracrânienne
-- Nausées, désorientation, vertiges liés à la microgravité
-- Inconforts physiques lors des exercices
-- Symptômes légers (éruptions, irritations, saignements)
-
-#### 2. Sommeil & rythme circadien
-- Heures de sommeil effectif
-- Difficultés à s'endormir / réveils fréquents
-- Niveau de vigilance actuel
-
-#### 3. Nutrition, hydratation & digestion
-- Objectif d'apport hydrique atteint
-- Rations caloriques consommées
-- Troubles digestifs ou perte d'appétit
-
-#### 4. Santé mentale & dynamique d'équipage
-- Niveau de stress/anxiété (1-10)
-- Ambiance et communication dans l'équipage
-- Besoin d'isolement ou manque de soutien social
-
-#### 5. Environnement & sécurité à bord
-- Anomalies d'ambiance (bruit, température, odeurs)
-- Signalement d'incidents techniques
-
-### 💬 Chat IA Contextuel
-- **Réponses adaptées** en fonction des dernières réponses au questionnaire
-- **Mémoire de conversation** pour maintenir le contexte
-- **Réponses par mots-clés** pour les questions courantes
-
-
-### 📊 Tableau de bord
-- **Bilan rapide** (énergie, stress, sommeil, dernière réponse)
-- **Historique récent** (3 dernières entrées)
-- **Statistiques en temps réel**
-### 🏋️ Programme sportif adaptatif
-- **Détection automatique** des signes nécessitant un accompagnement sportif (stress, sommeil, énergie, tensions musculaires)
-- **Bibliothèque d'exercices** adaptés à la microgravité (`data/exercises.json`)
-- **Suivi de progression** avec statut fait/non fait par exercice
-- Généré automatiquement à chaque analyse IA, via `suggest_exercise_plan()` dans `agent/ai_agent.py`
-
-## 🚀 Installation et Exécution
+## Installation et lancement
 
 ### Prérequis
-- Python 3.7+
-- pip
-- Node.js (npm)
-- Un navigateur web moderne
 
-### 1. Installation des dépendances
+- Python 3.10+
+- Node.js 18+ et npm
+- Une clé API [OpenRouter](https://openrouter.ai/) (les modèles gratuits suffisent)
+
+### 1. Backend
 
 ```bash
-# Backend
 cd backend
 pip install -r requirements.txt
+pip install bcrypt "python-jose[cryptography]"   # requis par auth.py, absents du requirements.txt
 ```
 
-### 2. Configuration (optionnelle)
-
-Pour utiliser l'API OpenRouter, créez un fichier `.env` dans le dossier `agent/` et dans le dossier `backend/` :
+Créez un fichier `backend/.env` (et `agent/.env` si vous lancez l'agent seul) :
 
 ```env
-OPENROUTER_API_KEY="votre_clé_api_ici"
+OPENROUTER_API_KEY="votre_clé_openrouter"
+SECRET_KEY="une_chaîne_aléatoire_longue"
 ```
 
-> **Note** : L'application **nécessite** une clé API OpenRouter pour fonctionner. Aucune solution de secours (fallback) n'est disponible.
+`SECRET_KEY` signe les jetons JWT. Sans cette variable, une valeur par défaut non sécurisée est utilisée. Les fichiers `.env` sont ignorés par git.
 
-### 3. Lancement du backend
+Lancez l'API :
 
 ```bash
 cd backend
 python -m uvicorn main:app --reload
 ```
 
-Le backend sera accessible sur `http://localhost:8000`
+L'API écoute sur `http://localhost:8000`. La documentation interactive est disponible sur `http://localhost:8000/docs`.
 
-### 4. Accès au frontend (React)
-
-Le frontend spAIce (dashboard, questionnaire, historique, analyse, médicaments, assistant) est dans `frontend/`. L’ancien HTML est conservé dans `frontend-legacy/`.
+### 2. Frontend
 
 ```bash
 cd frontend
@@ -189,130 +155,201 @@ npm install
 npm run dev
 ```
 
-Puis ouvrez `http://localhost:5173` (le proxy Vite envoie `/api` vers FastAPI sur le port 8000).
+Ouvrez `http://localhost:5173`, créez un compte, puis remplissez un premier questionnaire.
 
-## 🔌 Endpoints API
+Autres scripts : `npm run build` (build de production), `npm run preview`, `npm run lint` (oxlint).
 
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/submit-questionnaire` | Soumet un questionnaire spatial |
-| POST | `/store-analysis` | Stocke une analyse IA |
-| GET | `/get-latest-questionnaire` | Récupère le dernier questionnaire |
-| GET | `/get-recommendation` | Récupère la dernière recommandation |
-| GET | `/get-history` | Récupère l'historique complet |
-| POST | `/chat` | Chat avec l'IA (réponses contextuelles) |
-| POST | `/analyze-questionnaire` | Lance l'analyse IA + génère le programme sportif si pertinent |
-| GET | `/get-exercise-plan` | Récupère le dernier programme sportif généré |
-| POST | `/update-exercise-status` | Marque un exercice comme fait/non fait |
+### 3. Tester l'agent seul (optionnel)
 
-## 📊 Format des données
+```bash
+cd agent
+python ai_agent.py
+```
 
-### Questionnaire Spatial
+---
+
+## API
+
+Les routes marquées 🔒 exigent l'en-tête `Authorization: Bearer <jeton>`.
+
+### Authentification
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| POST | `/register` | Crée un compte (formulaire `username` / `password`) et renvoie un jeton |
+| POST | `/token` | Connexion et renvoi d'un jeton JWT (valide 15 min) |
+
+### Bilans et analyse
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| POST | `/submit-questionnaire` 🔒 | Enregistre un bilan et génère le programme sportif associé |
+| GET | `/get-latest-questionnaire` 🔒 | Dernier bilan de l'utilisateur |
+| GET | `/get-recommendation` 🔒 | Dernière analyse |
+| GET | `/get-history` 🔒 | Historique des bilans et analyses, et médicaments retirés |
+| POST | `/analyze-questionnaire` 🔒 | Analyse IA du dernier bilan, avec programme sportif et prescription éventuelle |
+| POST | `/store-analysis` | Enregistre une analyse (format `SpaceRecommendation`) |
+
+### Assistant
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| POST | `/chat` 🔒 | Envoie `{ messages: [...] }` et renvoie `{ response }` |
+| GET | `/get-conversation` 🔒 | Historique de conversation de l'utilisateur |
+| GET | `/get-user-info` | Nom mémorisé par l'assistant |
+
+### Exercices
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| GET | `/get-exercise-plan` | Programme sportif le plus récent |
+| POST | `/update-exercise-status` | `{ category, completed }` : marque un exercice fait ou pas fait |
+
+### Médicaments
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| GET | `/get-all-medications` | Catalogue des 9 médicaments |
+| GET | `/get-medication-info/{code}` | Médicament correspondant à un code, sans le retirer |
+| POST | `/prescribe-medication` | Enregistre une prescription |
+| POST | `/claim-medication` | `{ code }` : retire le médicament (usage unique) |
+| GET | `/get-prescription/{code}` | Détail d'une prescription |
+
+### Données de référence (lecture seule, issues de `data/data.json`)
+
+`/get-crew` (50 membres d'équipage), `/get-food-stock`, `/get-station-rooms`, `/get-travel-data`, `/get-station-systems`, `/get-space-diseases`.
+
+### Données utilisateur génériques
+
+`GET /get-user-data/{filename}` 🔒 et `POST /save-user-data/{filename}` 🔒 lisent et écrivent un fichier JSON dans `data/users/<id>/`.
+
+---
+
+## Données
+
+Le stockage repose uniquement sur des fichiers JSON, sans base de données.
+
+### Bilan (`POST /submit-questionnaire`)
+
 ```json
 {
-    "energy_level": 7,
-    "head_symptoms": "aucun",
-    "microgravity_symptoms": "nausees",
-    "exercise_discomfort": "douleurs_articulaires",
-    "mild_symptoms": "secheresse",
-    "sleep_hours": 6.5,
-    "sleep_difficulties": "reveils_frequents",
-    "vigilance_level": "normal",
-    "hydration_goal": "presque",
-    "caloric_intake": "oui",
-    "digestive_issues": "aucun",
-    "stress_level": 4,
-    "crew_mood": "bonne",
-    "social_needs": "equilibre",
-    "environment_anomalies": "aucun",
-    "incident_report": null
+  "energy_level": 7,
+  "head_symptoms": "aucun",
+  "microgravity_symptoms": "nausees",
+  "exercise_discomfort": "douleurs_articulaires",
+  "mild_symptoms": "secheresse",
+  "sleep_hours": 6.5,
+  "sleep_difficulties": "reveils_frequents",
+  "vigilance_level": "normal",
+  "hydration_goal": "presque",
+  "caloric_intake": "oui",
+  "digestive_issues": "aucun",
+  "stress_level": 4,
+  "crew_mood": "bonne",
+  "social_needs": "equilibre",
+  "environment_anomalies": "aucun",
+  "incident_report": null,
+  "sleep_quality": 6,
+  "mood": 7,
+  "stress": 4,
+  "fatigue": 5
 }
 ```
 
-### Analyse IA
+Les quatre derniers champs sont optionnels.
+
+### Analyse IA (`POST /analyze-questionnaire`)
+
 ```json
 {
-    "psychological_state": "normal",
-    "risk_level": "faible",
-    "detected_issues": ["niveau d'énergie bas", "réveils fréquents"],
-    "recommendations": [
-        "Vérifier le sommeil et l'alimentation",
-        "Techniques de relaxation avant le coucher"
-    ],
-    "exercise_suggestions": [
-        "10 minutes de méditation guidée",
-        "Routine de relaxation avant le coucher"
-    ],
-    "timestamp": "2024-01-15T10:30:00",
-    "context_summary": "Énergie: 7/10, Stress: 4/10, Sommeil: 6.5h"
+  "psychological_state": "stressé",
+  "detected_signs": ["stress élevé", "réveils fréquents"],
+  "exercise_suggestion": "5 minutes de cohérence cardiaque dans la salle de détente",
+  "medication": {
+    "code": "234567",
+    "medication_id": 2,
+    "medication_name": "Anxiolytique naturel",
+    "reason": "Stress élevé détecté"
+  },
+  "exercise_plan": { "triggered": true, "plan": [ "..." ] },
+  "timestamp": "2026-09-24T10:30:00"
 }
-### Programme sportif
+```
+
+Le champ `medication` n'est présent que si l'IA juge une prescription nécessaire.
+
+### Programme sportif (`GET /get-exercise-plan`)
+
 ```json
 {
-    "triggered": true,
-    "plan": [
-        {
-            "category": "stress",
-            "exercise": {
-                "name": "Respiration guidée 4-7-8",
-                "description": "Inspirer 4s, retenir 7s, expirer 8s, répéter 5 fois",
-                "duration_min": 5
-            },
-            "completed": false
-        }
-    ]
+  "triggered": true,
+  "plan": [
+    {
+      "category": "stress",
+      "exercise": {
+        "name": "Respiration guidée 4-7-8",
+        "description": "Inspirer 4s, retenir 7s, expirer 8s, répéter 5 fois",
+        "duration_min": 5
+      },
+      "completed": false
+    }
+  ]
 }
 ```
-```
 
-## 🎨 Design
+---
 
-- **Couleurs principales** : Violet spatial (#6c5ce7) avec dégradés
-- **Design responsive** : Adapté mobile, tablette et desktop
-- **Animations** : Effets de fade-in, typing indicator, float
-- **Layout** : Sidebar + Chat principal pour la page d'accueil
+## Intelligence artificielle
 
-## 🤖 Intelligence Artificielle
+L'IA passe par **OpenRouter** avec une chaîne de repli entre modèles gratuits : `nex-agi/nex-n2.5-mini:free`, puis `nex-agi/nex-n2.5-pro:free`, puis `nvidia/nemotron-3-super-120b-a12b:free`. Si un modèle renvoie une réponse vide, la requête est retentée une fois.
 
-### Fonctionnement
-1. L'utilisateur remplit le questionnaire quotidien
-2. Les données sont stockées dans `data.json`
-3. Le chat IA utilise ces données pour adapter ses réponses
-4. Les réponses sont générées en fonction du contexte spatial
+**Analyse du bilan** (`AIAgent.analyze_response`) : l'agent reçoit le sommeil, l'humeur, le stress et un texte libre. Il répond en JSON avec l'état psychologique, les signes détectés, une suggestion d'exercice et, si besoin, une prescription.
 
-### Capacités
-- ✅ Réponses personnalisées basées sur l'état actuel
-- ✅ Conseils spécifiques à l'environnement spatial
-- ✅ Gestion du stress, sommeil, nutrition, etc.
-- ✅ Détection de problèmes et recommandations
-- ✅ Mémoire de conversation
+**Assistant conversationnel** (`/chat`) :
+- le prompt système contient le dernier bilan de l'utilisateur ;
+- les données de référence du vaisseau ne sont ajoutées **que si le message les évoque** (mots-clés : équipage, nourriture, salle de sport, voyage, systèmes, maladies). Cela évite de surcharger les modèles gratuits ;
+- l'historique de conversation et le prénom de l'utilisateur sont conservés dans `data/users/<id>/conversations.json` ;
+- sur une demande de bilan, l'assistant répond dans un format structuré `[BILAN] … [PRESCRIPTION] … [FIN_BILAN]` ;
+- l'activité physique en salle de sport est recommandée en priorité, car c'est le principal moyen de lutter contre l'atrophie musculaire en microgravité.
 
-## 📝 Exemples de questions pour le chat
+Exemples de questions :
+- « Comment mieux dormir en microgravité ? »
+- « Fais-moi un bilan. »
+- « Qui est dans l'équipage ? »
+- « Combien de temps reste-t-il avant l'arrivée ? »
+- « Quels exercices pour garder ma masse musculaire ? »
 
-- "Comment puis-je améliorer mon sommeil en microgravité ?"
-- "Je ressens des vertiges, que faire ?"
-- "Mon niveau de stress est élevé, des conseils ?"
-- "Quels exercices pour maintenir ma masse musculaire ?"
-- "Comment gérer les tensions dans l'équipage ?"
-- "Quels sont les signes d'une mauvaise hydratation ?"
+Sans clé OpenRouter, `/chat` renvoie une erreur 400 et `/analyze-questionnaire` renvoie une analyse par défaut.
 
-## 🛠️ Technologies Utilisées
+> ⚠️ Les médicaments, prescriptions et conseils médicaux sont **fictifs** et servent uniquement à la démonstration pédagogique.
 
-- **Frontend**: React, Vite, Tailwind CSS, React Router, Recharts
-- **Backend**: FastAPI, Python 3.7+
-- **IA**: OpenRouter API (obligatoire)
-- **Stockage**: JSON
-- **Design**: CSS moderne avec variables, animations, responsive
+---
 
-## 🎓 Contexte Pédagogique
+## Limitations connues
 
-Projet réalisé dans le cadre d'un cours EPSI. L'architecture illustre :
-- La séparation frontend/backend
-- L'utilisation d'une API REST
-- Le stockage de données simple
-- L'intégration d'une IA avec OpenRouter API
-- Le développement d'une interface utilisateur complète
+- **Stockage partiellement partagé** : les bilans, analyses et conversations sont isolés par utilisateur, mais les programmes sportifs (`data/data.json`) et le registre utilisé par `/claim-medication` (`data/medications.json`) sont globaux. Les prescriptions générées par `/analyze-questionnaire` sont écrites dans le fichier de l'utilisateur, alors que `/claim-medication` lit le registre global.
+- **Routes non protégées** : les routes d'exercices, de médicaments et de données de référence ne vérifient pas le jeton.
+- **Jeton court** : un JWT expire après 15 minutes, sans mécanisme de rafraîchissement.
+- **CORS ouvert** (`allow_origins=["*"]`) : acceptable en développement uniquement.
+- **Données de démonstration versionnées** : `data/users.json` et `data/users/` sont suivis par git.
 
-## 📜 Licence
+---
 
-MIT
+## Technologies
+
+- **Frontend** : React 19, Vite 6, Tailwind CSS 4, React Router 7, Recharts, lucide-react, oxlint
+- **Backend** : Python, FastAPI, Uvicorn, Pydantic, python-jose (JWT), bcrypt
+- **IA** : API OpenRouter (modèles gratuits avec repli automatique)
+- **Stockage** : fichiers JSON
+
+---
+
+## Contexte pédagogique
+
+Projet réalisé dans le cadre du Workshop B3 à l'EPSI. Il met en pratique :
+- la séparation frontend / backend et la conception d'une API REST ;
+- l'authentification par JWT ;
+- l'intégration d'un LLM via OpenRouter, avec construction d'un contexte ciblé ;
+- la réalisation d'une interface React complète, bilingue et responsive.
+
+
