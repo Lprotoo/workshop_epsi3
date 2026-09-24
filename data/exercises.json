@@ -1,0 +1,23 @@
+{
+  "stress": [
+    {"name": "Respiration guidée 4-7-8", "description": "Inspirer 4s, retenir 7s, expirer 8s, répéter 5 fois", "duration_min": 5},
+    {"name": "Étirements relaxants", "description": "Étirements doux du cou, épaules et dos", "duration_min": 10},
+    {"name": "Méditation guidée", "description": "Session audio de pleine conscience", "duration_min": 10},
+    {"name": "Cohérence cardiaque", "description": "Respiration rythmée 5s inspiration / 5s expiration pendant 5 min", "duration_min": 5}
+  ],
+  "sommeil": [
+    {"name": "Routine de relaxation avant coucher", "description": "Étirements légers + respiration lente", "duration_min": 10},
+    {"name": "Réduction lumière + calme", "description": "Préparation environnement pour le sommeil", "duration_min": 5},
+    {"name": "Scan corporel", "description": "Relaxation progressive de chaque partie du corps allongé", "duration_min": 8}
+  ],
+  "energie": [
+    {"name": "Vélo statique léger (ARED)", "description": "Intensité modérée pour relancer l'énergie", "duration_min": 15},
+    {"name": "Circuit mobilité", "description": "Enchaînement d'exercices articulaires légers", "duration_min": 10},
+    {"name": "Étirements dynamiques", "description": "Mouvements amples pour réveiller le corps", "duration_min": 8}
+  ],
+  "musculaire": [
+    {"name": "Bandes élastiques - membres inférieurs", "description": "Renforcement doux jambes et hanches", "duration_min": 15},
+    {"name": "Mobilité articulaire complète", "description": "Rotation des articulations, tête aux pieds", "duration_min": 10},
+    {"name": "Auto-massage léger", "description": "Relâchement des tensions musculaires localisées", "duration_min": 5}
+  ]
+}

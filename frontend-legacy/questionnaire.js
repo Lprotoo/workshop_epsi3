@@ -65,12 +65,14 @@ form.addEventListener('submit', async function(e) {
             body: JSON.stringify(formData)
         });
         
-        if (!response.ok) {
+                if (!response.ok) {
             throw new Error('Erreur lors de la soumission du questionnaire');
         }
         
-        // Redirect to main page - AI analysis will be performed by backend when needed
-        // The analysis is now done via the AI agent which requires OpenRouter API
+        // Trigger AI analysis (includes exercise_plan generation)
+        await fetch(`${API_BASE_URL}/analyze-questionnaire`, {
+            method: 'POST'
+        });
         
         // Show success message
         showMessage('Questionnaire soumis avec succès ! Redirection vers le chat...', 'success');

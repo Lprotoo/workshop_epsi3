@@ -138,6 +138,11 @@ Le questionnaire comprend **5 catégories** avec des questions spécifiques à l
 - **Bilan rapide** (énergie, stress, sommeil, dernière réponse)
 - **Historique récent** (3 dernières entrées)
 - **Statistiques en temps réel**
+### 🏋️ Programme sportif adaptatif
+- **Détection automatique** des signes nécessitant un accompagnement sportif (stress, sommeil, énergie, tensions musculaires)
+- **Bibliothèque d'exercices** adaptés à la microgravité (`data/exercises.json`)
+- **Suivi de progression** avec statut fait/non fait par exercice
+- Généré automatiquement à chaque analyse IA, via `suggest_exercise_plan()` dans `agent/ai_agent.py`
 
 ## 🚀 Installation et Exécution
 
@@ -196,6 +201,9 @@ Puis ouvrez `http://localhost:5173` (le proxy Vite envoie `/api` vers FastAPI su
 | GET | `/get-recommendation` | Récupère la dernière recommandation |
 | GET | `/get-history` | Récupère l'historique complet |
 | POST | `/chat` | Chat avec l'IA (réponses contextuelles) |
+| POST | `/analyze-questionnaire` | Lance l'analyse IA + génère le programme sportif si pertinent |
+| GET | `/get-exercise-plan` | Récupère le dernier programme sportif généré |
+| POST | `/update-exercise-status` | Marque un exercice comme fait/non fait |
 
 ## 📊 Format des données
 
@@ -238,6 +246,23 @@ Puis ouvrez `http://localhost:5173` (le proxy Vite envoie `/api` vers FastAPI su
     "timestamp": "2024-01-15T10:30:00",
     "context_summary": "Énergie: 7/10, Stress: 4/10, Sommeil: 6.5h"
 }
+### Programme sportif
+```json
+{
+    "triggered": true,
+    "plan": [
+        {
+            "category": "stress",
+            "exercise": {
+                "name": "Respiration guidée 4-7-8",
+                "description": "Inspirer 4s, retenir 7s, expirer 8s, répéter 5 fois",
+                "duration_min": 5
+            },
+            "completed": false
+        }
+    ]
+}
+```
 ```
 
 ## 🎨 Design
