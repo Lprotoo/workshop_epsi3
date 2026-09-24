@@ -16,6 +16,7 @@ export const dictionaries = {
       history: 'Historique',
       analysis: 'Analyse',
       medication: 'Médicaments',
+      exercise: 'Exercices',
       assistant: 'Assistant',
     },
     sidebar: {
@@ -102,6 +103,10 @@ export const dictionaries = {
       high: 'Élevée',
       observations: 'OBSERVATIONS',
       recommendation: 'Recommandation',
+      sportIntro:
+        'Programme adapté au dernier relevé (sommeil, énergie, stress, gêne musculaire).',
+      sportEmpty: 'Aucune activité sportive recommandée pour ce relevé.',
+      sportOpen: 'Ouvrir le programme exercice',
       exercise: 'EXERCICE SUGGÉRÉ',
       start: 'Démarrer l’exercice',
       inProgress: 'Exercice en cours',
@@ -286,6 +291,22 @@ export const dictionaries = {
       listError: 'Impossible de charger la liste des médicaments.',
       select: 'Sélectionner',
     },
+    exercise: {
+      kicker: 'PROGRAMME BORD',
+      title: 'Programme sportif',
+      intro:
+        'Plan adapté aux signes détectés après l’analyse. Coche un exercice quand il est terminé.',
+      loading: 'CHARGEMENT DU PLAN…',
+      error: 'Impossible de charger le programme sportif.',
+      empty: 'Aucun exercice recommandé pour le moment. Soumets un relevé puis lance l’analyse.',
+      duration: '{min} min',
+      categories: {
+        stress: 'Stress',
+        sommeil: 'Sommeil',
+        energie: 'Énergie',
+        musculaire: 'Musculaire',
+      },
+    },
     chat: {
       kicker: 'LIAISON BORD',
       title: 'Assistant d’équipage',
@@ -322,6 +343,7 @@ export const dictionaries = {
       history: 'History',
       analysis: 'Analysis',
       medication: 'Medication',
+      exercise: 'Exercises',
       assistant: 'Assistant',
     },
     sidebar: {
@@ -407,6 +429,10 @@ export const dictionaries = {
       high: 'High',
       observations: 'OBSERVATIONS',
       recommendation: 'Recommendation',
+      sportIntro:
+        'Programme adapted to the latest check-in (sleep, energy, stress, muscle discomfort).',
+      sportEmpty: 'No sport activity recommended for this check-in.',
+      sportOpen: 'Open the exercise programme',
       exercise: 'SUGGESTED EXERCISE',
       start: 'Start exercise',
       inProgress: 'Exercise in progress',
@@ -573,6 +599,21 @@ export const dictionaries = {
       listHint: 'Select a medication to fill an example code.',
       listError: 'Unable to load the medication list.',
       select: 'Select',
+    },
+    exercise: {
+      kicker: 'ONBOARD PROGRAMME',
+      title: 'Exercise plan',
+      intro: 'Plan adapted to signs detected after analysis. Check an exercise when it is done.',
+      loading: 'LOADING PLAN…',
+      error: 'Unable to load the exercise programme.',
+      empty: 'No exercise recommended yet. Submit a check-in then run the analysis.',
+      duration: '{min} min',
+      categories: {
+        stress: 'Stress',
+        sommeil: 'Sleep',
+        energie: 'Energy',
+        musculaire: 'Muscular',
+      },
     },
     chat: {
       kicker: 'ONBOARD LINK',

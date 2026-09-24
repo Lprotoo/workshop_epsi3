@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AnalysisStatus from '../components/Analysis/AnalysisStatus'
-import ExerciseCard from '../components/Analysis/ExerciseCard'
 import ObservationList from '../components/Analysis/ObservationList'
+import SportActivitySection from '../components/Analysis/SportActivitySection'
 import RecommendationCard from '../components/Dashboard/RecommendationCard'
 import { useLanguage } from '../i18n/LanguageContext'
-import { getAnalysis } from '../services/api'
+import { getAnalysis, getExercisePlan } from '../services/api'
 
 export default function Analysis() {
   const { t } = useLanguage()
   const [analysis, setAnalysis] = useState(null)
   const [error, setError] = useState('')
+  const [sportPlan, setSportPlan] = useState([])
+  const [sportLoading, setSportLoading] = useState(true)
+  const [sportError, setSportError] = useState('')
 
   useEffect(() => {
     let active = true
@@ -20,6 +23,18 @@ export default function Analysis() {
       })
       .catch(() => {
         if (active) setError(t('analysis.error'))
+      })
+    getExercisePlan()
+      .then((data) => {
+        if (!active) return
+        const items = Boolean(data.triggered) && Array.isArray(data.plan) ? data.plan : []
+        setSportPlan(items)
+      })
+      .catch(() => {
+        if (active) setSportError(t('exercise.error'))
+      })
+      .finally(() => {
+        if (active) setSportLoading(false)
       })
     return () => {
       active = false
@@ -42,7 +57,7 @@ export default function Analysis() {
       <AnalysisStatus status={analysis.status} priority={analysis.priority} />
       <ObservationList observations={analysis.observations} />
       <RecommendationCard title={t('analysis.recommendation')} body={analysis.recommendation} />
-      <ExerciseCard exercise={analysis.exercise} />
+      <SportActivitySection items={sportPlan} loading={sportLoading} error={sportError} />
 
       <Link
         to="/history"

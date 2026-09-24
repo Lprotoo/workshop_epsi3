@@ -1,3 +1,6 @@
+/* Legacy vanilla helper — not used by the React console.
+ * The HUD page is frontend/src/pages/Exercise.jsx (route /exercise).
+ */
 async function loadExercisePlan() {
   try {
     const response = await fetch("http://localhost:8000/get-exercise-plan");

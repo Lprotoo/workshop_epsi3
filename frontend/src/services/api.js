@@ -194,3 +194,14 @@ export async function claimMedication(code) {
     body: JSON.stringify({ code }),
   })
 }
+
+export async function getExercisePlan() {
+  return request('/get-exercise-plan')
+}
+
+export async function updateExerciseStatus(category, completed) {
+  return request('/update-exercise-status', {
+    method: 'POST',
+    body: JSON.stringify({ category, completed }),
+  })
+}

@@ -2,7 +2,7 @@
   "user_name": null,
   "responses": [
     {
-      "timestamp": "2026-09-22T10:11:54.834480",
+      "timestamp": "2026-09-21T10:11:54.834480",
       "energy_level": 7,
       "head_symptoms": "aucun",
       "microgravity_symptoms": "aucun",
@@ -40,7 +40,7 @@
       "incident_report": null
     },
     {
-      "timestamp": "2026-09-22T15:15:08.569298",
+      "timestamp": "2026-09-23T15:15:08.569298",
       "energy_level": 6,
       "head_symptoms": "aucun",
       "microgravity_symptoms": "aucun",
@@ -59,7 +59,7 @@
       "incident_report": null
     },
     {
-      "timestamp": "2026-09-22T15:15:09.416976",
+      "timestamp": "2026-09-24T15:15:09.416976",
       "energy_level": 6,
       "head_symptoms": "aucun",
       "microgravity_symptoms": "aucun",
@@ -168,6 +168,29 @@
       "mood": 5,
       "stress": 5,
       "fatigue": 5
+    },
+    {
+      "timestamp": "2026-09-26T14:45:03.006178",
+      "energy_level": 4,
+      "head_symptoms": "aucun",
+      "microgravity_symptoms": "aucun",
+      "exercise_discomfort": "aucun",
+      "mild_symptoms": "aucun",
+      "sleep_hours": 5.666666666666667,
+      "sleep_difficulties": "reveils_frequents",
+      "vigilance_level": "fatigue_mentale",
+      "hydration_goal": "oui",
+      "caloric_intake": "presque",
+      "digestive_issues": "aucun",
+      "stress_level": 1,
+      "crew_mood": "bonne",
+      "social_needs": "equilibre",
+      "environment_anomalies": "aucun",
+      "incident_report": null,
+      "sleep_quality": 2,
+      "mood": 3,
+      "stress": 6,
+      "fatigue": 4
     }
   ],
   "analysis_history": [],
@@ -1033,6 +1056,42 @@
         "activit\u00c3\u00a9 physique et sociale"
       ],
       "gravite": "variable"
+    }
+  ],
+  "exercise_plans": [
+    {
+      "triggered": true,
+      "plan": [
+        {
+          "category": "stress",
+          "exercise": {
+            "name": "Respiration guid\u00e9e 4-7-8",
+            "description": "Inspirer 4s, retenir 7s, expirer 8s, r\u00e9p\u00e9ter 5 fois",
+            "duration_min": 5
+          },
+          "completed": true
+        },
+        {
+          "category": "sommeil",
+          "exercise": {
+            "name": "Routine de relaxation avant coucher",
+            "description": "\u00c9tirements l\u00e9gers + respiration lente",
+            "duration_min": 10
+          },
+          "completed": true
+        },
+        {
+          "category": "energie",
+          "exercise": {
+            "name": "V\u00e9lo statique l\u00e9ger (ARED)",
+            "description": "Intensit\u00e9 mod\u00e9r\u00e9e pour relancer l'\u00e9nergie",
+            "duration_min": 15
+          },
+          "completed": false
+        }
+      ],
+      "from_questionnaire": "2026-09-26T14:45:03.006178",
+      "timestamp": "2026-09-23T14:51:01.337891"
     }
   ]
 }

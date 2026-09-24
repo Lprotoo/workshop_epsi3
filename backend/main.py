@@ -240,6 +240,7 @@ async def submit_questionnaire(response: SpaceQuestionnaireResponse, current_use
         }
         
         data["responses"].append(response_data)
+        data = store_exercise_plan(data, build_questionnaire_exercise_plan(response_data))
         
         # Sauvegarder les données mises à jour
         with open(file_path, 'w') as f:
@@ -775,6 +776,78 @@ def ensure_exercise_plans_key(data: dict) -> dict:
         data["exercise_plans"] = []
     return data
 
+
+def questionnaire_stress_score(questionnaire: dict) -> int:
+    """Prefer the higher of stress_level and the HUD `stress` field."""
+    values = []
+    for key in ("stress_level", "stress"):
+        raw = questionnaire.get(key)
+        if raw is None or raw == "":
+            continue
+        try:
+            values.append(int(raw))
+        except (TypeError, ValueError):
+            continue
+    return max(values) if values else 0
+
+
+def questionnaire_sign_hints(questionnaire: dict) -> list:
+    """Turn questionnaire fields into keyword hints the sport matcher understands."""
+    if not questionnaire:
+        return []
+    hints = []
+    sleep_hours = float(questionnaire.get("sleep_hours") or 0)
+    sleep_issues = questionnaire.get("sleep_difficulties") or "aucun"
+    sleep_quality = questionnaire.get("sleep_quality")
+    try:
+        sleep_quality = int(sleep_quality) if sleep_quality is not None else 10
+    except (TypeError, ValueError):
+        sleep_quality = 10
+    if sleep_hours < 7 or sleep_quality <= 4 or sleep_issues not in ("aucun", "", None):
+        hints.append("insomnie sommeil reveils fatigue")
+
+    if questionnaire_stress_score(questionnaire) >= 6:
+        hints.append("stress anxiete angoisse")
+
+    discomfort = questionnaire.get("exercise_discomfort") or "aucun"
+    if discomfort not in ("aucun", "", None):
+        hints.append("courbature douleur tension musculaire")
+
+    energy = int(questionnaire.get("energy_level") or 10)
+    fatigue = questionnaire.get("fatigue")
+    try:
+        fatigue = int(fatigue) if fatigue is not None else 0
+    except (TypeError, ValueError):
+        fatigue = 0
+    vigilance = questionnaire.get("vigilance_level") or ""
+    if energy <= 5 or fatigue >= 6 or vigilance in (
+        "somnolent",
+        "fatigue_mentale",
+        "baisse_concentration",
+    ):
+        hints.append("fatigue concentration vigilance epuise")
+
+    return hints
+
+
+def build_questionnaire_exercise_plan(questionnaire: dict) -> dict:
+    plan = ai_agent.suggest_exercise_plan(
+        questionnaire_sign_hints(questionnaire),
+        questionnaire_stress_score(questionnaire),
+    )
+    if questionnaire.get("timestamp"):
+        plan["from_questionnaire"] = questionnaire["timestamp"]
+    return plan
+
+
+def store_exercise_plan(data: dict, plan: dict) -> dict:
+    data = ensure_exercise_plans_key(data)
+    if plan and plan.get("triggered") and plan.get("plan"):
+        stored = dict(plan)
+        stored.setdefault("timestamp", datetime.now().isoformat())
+        data["exercise_plans"].append(stored)
+    return data
+
 def build_context_prompt(questionnaire_data: dict) -> str:
     """Build context prompt from questionnaire data"""
     if not questionnaire_data:
@@ -1064,7 +1137,13 @@ async def analyze_questionnaire(current_user: Dict[str, Any] = Depends(get_curre
             free_text=latest_questionnaire.get('incident_report', None) or 
                       latest_questionnaire.get('social_needs', None)
         )
-                # Store the exercise plan if present
+        detected = list(analysis.get("detected_signs") or [])
+        detected.extend(questionnaire_sign_hints(latest_questionnaire))
+        analysis["exercise_plan"] = agent.suggest_exercise_plan(
+            detected,
+            latest_questionnaire.get("stress_level", 0),
+        )
+        # Store the exercise plan if present
         if analysis.get('exercise_plan') and analysis['exercise_plan'].get('triggered'):
             with open(DATA_FILE, 'r') as f:
                 exercise_data = json.load(f)
@@ -1145,10 +1224,25 @@ async def get_exercise_plan():
             data = json.load(f)
         
         data = ensure_exercise_plans_key(data)
-        
+        latest_response = data["responses"][-1] if data.get("responses") else None
+
+        if latest_response:
+            latest_plan = data["exercise_plans"][-1] if data["exercise_plans"] else {}
+            already_for_latest = latest_plan.get("from_questionnaire") == latest_response.get(
+                "timestamp"
+            )
+            if not already_for_latest:
+                generated = build_questionnaire_exercise_plan(latest_response)
+                data = store_exercise_plan(data, generated)
+                if generated.get("triggered"):
+                    with open(DATA_FILE, "w") as f:
+                        json.dump(data, f, indent=2)
+                    return data["exercise_plans"][-1]
+                return generated
+
         if not data["exercise_plans"]:
             return {"triggered": False, "plan": []}
-        
+
         return data["exercise_plans"][-1]
     
     except Exception as e:

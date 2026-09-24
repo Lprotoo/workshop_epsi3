@@ -9,7 +9,7 @@ export default function Header({ onMenuClick }) {
   const { user, logout } = useAuth()
 
   return (
-    <header className="flex items-center justify-between border-b border-hud-border/80 bg-hud-panel/80 px-4 py-3 backdrop-blur-md lg:px-6">
+    <header className="z-20 flex shrink-0 items-center justify-between border-b border-hud-border/80 bg-hud-panel/90 px-4 py-3 backdrop-blur-md lg:px-6">
       <div className="flex items-center gap-3">
         <button
           type="button"

@@ -180,6 +180,16 @@
       "timestamp": "2026-09-23T14:29:18.584155",
       "role": "assistant",
       "content": "Oui, Liam. Avec ton niveau d\u2019\u00e9nergie \u00e0 3/10 et une d\u00e9sorientation actuelle, commence doucement.\n\n**S\u00e9ance recommand\u00e9e \u2014 25 \u00e0 35 minutes**\n- **5 min d\u2019\u00e9chauffement** : v\u00e9lo tranquille ou marche sous harnais.\n- **15\u201320 min de cardio mod\u00e9r\u00e9** : v\u00e9lo ergom\u00e8tre ou tapis sous harnais, intensit\u00e9 4\u20135/10.\n- **10 min de r\u00e9sistance** : exercices avec bandes \u00e9lastiques, squats assist\u00e9s ou tirages au visage, 2 s\u00e9ries de 8\u201312 r\u00e9p\u00e9titions.\n- **5 min de retour au calme**.\n\n\u00c9vite pour l\u2019instant les mouvements brusques de t\u00eate, les sauts, les charges lourdes et les postures t\u00eate en bas. Si la d\u00e9sorientation s\u2019aggrave, si tu as des vertiges, des naus\u00e9es, des troubles visuels ou des maux de t\u00eate, arr\u00eate la s\u00e9ance et informe le **MedBox**.\n\n[PRESCRIPTION]  \nCode: 900001  \nM\u00e9dicament: Aucun autom\u00e9dicament  \nRaison: La d\u00e9sorientation et la fatigue rendent l\u2019\u00e9valuation m\u00e9dicale pr\u00e9alable pr\u00e9f\u00e9rable avant tout exercice intense.  \n[/PRESCRIPTION]"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:55.978836",
+      "role": "user",
+      "content": "test test"
+    },
+    {
+      "timestamp": "2026-09-23T15:07:55.978836",
+      "role": "assistant",
+      "content": "Test effectu\u00e9, Liam. Je t\u2019entends. En quoi puis-je t\u2019aider ?"
     }
   ]
 }

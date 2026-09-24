@@ -3,6 +3,7 @@ import AppLayout from './components/Layout/AppLayout'
 import Analysis from './pages/Analysis'
 import Chat from './pages/Chat'
 import Dashboard from './pages/Dashboard'
+import Exercise from './pages/Exercise'
 import History from './pages/History'
 import Login from './pages/Login'
 import Medication from './pages/Medication'
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/history" element={<History />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/medication" element={<Medication />} />
+          <Route path="/exercise" element={<Exercise />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>

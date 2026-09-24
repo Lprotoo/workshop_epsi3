@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Activity, ClipboardList, LayoutDashboard, LineChart, MessageSquare, Pill } from 'lucide-react'
+import { Activity, ClipboardList, Dumbbell, LayoutDashboard, LineChart, MessageSquare, Pill } from 'lucide-react'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { getApiStatus } from '../../services/api'
 
@@ -10,6 +10,7 @@ const linkDefs = [
   { to: '/history', key: 'nav.history', icon: LineChart },
   { to: '/analysis', key: 'nav.analysis', icon: Activity },
   { to: '/medication', key: 'nav.medication', icon: Pill },
+  { to: '/exercise', key: 'nav.exercise', icon: Dumbbell },
   { to: '/chat', key: 'nav.assistant', icon: MessageSquare },
 ]
 
@@ -44,7 +45,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 shrink-0 flex-col border-r border-hud-border/80 bg-hud-panel/95 backdrop-blur-md transition-transform duration-200 md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex h-dvh w-72 shrink-0 flex-col overflow-hidden border-r border-hud-border/80 bg-hud-panel/95 backdrop-blur-md transition-transform duration-200 md:static md:h-full md:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -60,7 +61,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
           </div>
         </div>
 
-        <nav className="flex-1 space-y-1 px-3 py-5">
+        <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-5">
           {linkDefs.map(({ to, key, icon: Icon }) => (
             <NavLink
               key={to}
